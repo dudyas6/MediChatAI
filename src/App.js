@@ -10,25 +10,31 @@ import LoginPage from './pages/LoginPage';
 import Navbar from './components/Navbar';
 
 function App() {
-  return (
+  return (  
     <Router>
-      <Navbar />
-      <Routes>
-        {/* <Route element={<AuthenticatedLayout />}>
-          <Route
-            path="/"
-            element={
-              currentUser ? (
-                <Navigate to="/dashboard" replace />
-              ) : (
-                <LoginPage />
-              )
-            }
-          /> */}
-          <Route path="/" exact element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path='/login' element={<LoginPage />} />
-      </Routes>
+      <div className="flex flex-col min-h-screen bg-blue-100">
+        <div className='flex-none h-1/5'>
+          <Navbar />
+        </div>
+        <div className='flex-auto'>
+          <Routes>
+            {/* <Route element={<AuthenticatedLayout </Route>/>}>
+              <Route
+                path="/"
+                element={
+                  currentUser ? (
+                    <Navigate to="/dashboard" replace />
+                  ) : (
+                    <LoginPage />
+                  )
+                }
+              /> */}
+              <Route path="/" exact element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path='/login' element={<LoginPage />} />
+          </Routes>
+        </div>
+      </div>
     </Router>
 );
 } 
