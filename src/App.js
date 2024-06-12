@@ -17,11 +17,11 @@ import Navbar from './components/Navbar/Navbar';
 function App() {
   return (  
     <Router>
-      <div className="flex flex-col min-h-screen bg-blue-100">
-        <div className='flex-none h-1/5'>
+      <div className="relative z-0 h-full w-full overflow-hidden flex flex-col min-h-screen bg-blue-100">
+        <div className='flex-shrink-0 overflow-x-hidden bg-token-sidebar-surface-primary'>
           <Navbar />
         </div>
-        <div className='overflow-auto'>
+        <div className='relative flex h-full max-w-full flex-1 flex-col overflow-hidden'>
           <Routes>
             {/* <Route element={<AuthenticatedLayout </Route>/>}>
               <Route
