@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* High value to ensure it's above other content */
+  background-color: white; /* Or any color you prefer */
+  border-bottom: 1px solid #ccc; /* Optional, for a slight separation from content below */
+}

@@ -12,8 +12,6 @@ import ChatPage from './pages/ChatPage';
 import RegisterPage from './pages/RegisterPage';
 import Navbar from './components/Navbar/Navbar';
 
-
-
 function App() {
   return (  
     <Router>
@@ -21,7 +19,7 @@ function App() {
         <div className='flex-shrink-0 overflow-x-hidden bg-token-sidebar-surface-primary'>
           <Navbar />
         </div>
-        <div className='relative flex h-full max-w-full flex-1 flex-col overflow-hidden'>
+        <div className='relative flex h-full max-w-full flex-1 flex-col overflow-hidden pt-16'>
           <Routes>
             {/* <Route element={<AuthenticatedLayout </Route>/>}>
               <Route
