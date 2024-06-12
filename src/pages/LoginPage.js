@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const LoginPage = () => {
+function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 

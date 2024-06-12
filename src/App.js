@@ -21,7 +21,7 @@ function App() {
         <div className='flex-none h-1/5'>
           <Navbar />
         </div>
-        <div className='flex-auto'>
+        <div className='overflow-auto'>
           <Routes>
             {/* <Route element={<AuthenticatedLayout </Route>/>}>
               <Route

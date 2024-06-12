@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 
-const LinkButton = ({ to, textContent }) => {
+const ListItem = ({ to, textContent }) => {
     return (
         <li>
             <NavLink
@@ -19,4 +19,4 @@ const LinkButton = ({ to, textContent }) => {
     );
 };
 
-export default LinkButton;
+export default ListItem;
