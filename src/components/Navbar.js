@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ListItem from './ListItem';
-import medichatLogo from '../../assets/logo/medichat.png';
+import medichatLogo from '../assets/logo/medichat.png';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
