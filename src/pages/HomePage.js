@@ -30,16 +30,6 @@ function HomePage() {
     };
   }, []);
 
-  useEffect(() => {
-    // Disable scrolling on mount
-    document.body.style.overflow = 'hidden';
-
-    // Re-enable scrolling when component unmounts
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, []);
-
   return (
     <div
       className="flex-1 flex flex-col justify-center items-center text-center text-white relative"

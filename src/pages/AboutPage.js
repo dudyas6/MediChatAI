@@ -2,7 +2,7 @@ import React from 'react';
 import AboutPageImage from '../assets/images/AboutPageImage.png';
 function AboutPage() {
     return (
-        <div className="bg-blue-50 min-h-screen flex flex-col items-center">
+        <div className="bg-blue-50 min-h-screen flex flex-col items-center pt-10">
             <main className="w-full max-w-6xl p-6 mt-6 bg-white shadow-md rounded-lg">
                 <div className="flex flex-col md:flex-row items-center">
                     <div className="md:w-1/2 p-6">
