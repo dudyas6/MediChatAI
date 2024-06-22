@@ -15,6 +15,10 @@ function RegisterPage() {
       alert("Passwords do not match!");
       return;
     }
+    if (!termsValue) {
+      alert("Please accept the terms and conditions!");
+      return;
+    }
 
     axios
       .post("http://localhost:3001/users/add", {
