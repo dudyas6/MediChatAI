@@ -21,7 +21,7 @@ function RegisterPage() {
     }
 
     axios
-      .post("http://localhost:3001/users/add", {
+      .post("http://localhost:3001/users/", {
         username,
         password,
       })
