@@ -5,6 +5,7 @@ import LoginPage from '../pages/LoginPage';
 import ContactPage from '../pages/ContactPage';
 import ChatPage from '../pages/ChatPage';
 import RegisterPage from '../pages/RegisterPage';
+import SecondaryRegisterPage from '../pages/SecondaryRegisterPage';
 import { Routes, Route } from 'react-router-dom';
 function Main() {
     return (
@@ -15,6 +16,7 @@ function Main() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/register/details" element={<SecondaryRegisterPage />} />
           <Route path="/chat" element={<ChatPage />} />
         </Routes>
         </div>
