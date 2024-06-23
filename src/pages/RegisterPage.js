@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import medichatLogo from "../assets/logo/medichat.png";
 import InputField from "../components/InputField";
 import Checkbox from "../components/CheckBox";
-import { useAuth } from '../services/AuthContext';
+import { useAuth } from "../services/AuthContext";
 
 function RegisterPage() {
   const { register } = useAuth();
@@ -11,6 +11,9 @@ function RegisterPage() {
   const [confirmPassword, setconfirmPassword] = useState("");
   const [termsValue, setTermsValue] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [IsconfirmPasswordVisible, setIsconfirmPasswordVisible] =
+    useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -23,24 +26,35 @@ function RegisterPage() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setIsconfirmPasswordVisible(!IsconfirmPasswordVisible);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    var msg = "";
 
     if (password !== confirmPassword) {
-      setMessage({ text: "Passwords doesn't match!", type: "error" });
-      return;
+      msg += "Passwords doesn't match!\n";
     }
     if (!termsValue) {
-      setMessage({ text: "Please confirm Terms and Conditions!", type: "error" });
+      msg += "Please accept terms and conditions!\n";
+    }
+
+    if (msg !== "") {
+      setMessage({ text: msg, type: "error" });
       return;
     }
 
-    const { success, message: msg } = await register(username, password);
+    const { success, message: error_msg } = await register(username, password);
 
     if (success) {
-      setMessage({ text: msg, type: "success" });
+      setMessage({ text: error_msg, type: "success" });
     } else {
-      setMessage({ text: msg, type: "error" });
+      setMessage({ text: error_msg, type: "error" });
     }
   };
 
@@ -61,6 +75,7 @@ function RegisterPage() {
               value={username}
               onChange={handleChange}
               placeholder="Enter username"
+              iconName="user"
             />
             <InputField
               label="Password"
@@ -69,6 +84,9 @@ function RegisterPage() {
               value={password}
               onChange={handleChange}
               placeholder="Enter password"
+              iconName="eye"
+              onIconClick={togglePasswordVisibility}
+              isPasswordVisible={isPasswordVisible}
             />
             <InputField
               label="Confirm Password"
@@ -77,12 +95,18 @@ function RegisterPage() {
               value={confirmPassword}
               onChange={handleChange}
               placeholder="Enter confirm password"
+              iconName="eye"
+              onIconClick={toggleConfirmPasswordVisibility}
+              isPasswordVisible={IsconfirmPasswordVisible}
             />
             <Checkbox
               label={
                 <>
                   I accept the{" "}
-                  <a href="/" className="text-blue-600 font-semibold hover:underline ml-1">
+                  <a
+                    href="/"
+                    className="text-blue-600 font-semibold hover:underline ml-1"
+                  >
                     Terms and Conditions
                   </a>
                 </>
@@ -102,18 +126,23 @@ function RegisterPage() {
         </form>
         <p className="text-sm mt-6 text-center">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-600 font-semibold hover:underline ml-1">
+          <a
+            href="/login"
+            className="text-blue-600 font-semibold hover:underline ml-1"
+          >
             Login here
           </a>
         </p>
         {message.text && (
-          <p
+          <div
             className={`font-bold text-md mt-6 text-center ${
               message.type === "error" ? "text-red-600" : "text-green-600"
             }`}
           >
-            {message.text}
-          </p>
+            {message.text.split("\n").map((str, index) => (
+              <p key={index}>{str}</p>
+            ))}
+          </div>
         )}
       </div>
     </div>

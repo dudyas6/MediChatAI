@@ -16,17 +16,20 @@ const userSchema = new Schema({
   details: {
     name: {
       type: String,
+      default: "",
       required: false
     },
     email: {
       type: String,
       required: false,
-      unique: true,
+      default: "",
+      unique: false,
       match: [/\S+@\S+\.\S+/, 'is invalid']
     },
     phone: {
       type: String,
       required: false,
+      default: "",
       match: [/^\d{10}$/, 'is invalid']
     }
   }

@@ -22,10 +22,7 @@ const MONGODB_URI =
   "mongodb+srv://root:root@medichatdb.ut4vxly.mongodb.net/MediChatDB";
 
 mongoose
-  .connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(MONGODB_URI)
   .then(() => {
     console.log("Connected to MongoDB");
   })

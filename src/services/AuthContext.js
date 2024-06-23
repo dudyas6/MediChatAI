@@ -9,6 +9,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -22,7 +23,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = async (username, password) => {
+  const login = async (username, password, navigateHome = true) => {
     const response = await axios.post('http://localhost:3001/api/auth/login', { username, password });
     console.log(response);
     console.log("Setting Token!");
@@ -34,7 +35,9 @@ export const AuthProvider = ({ children }) => {
     console.log(user);
     console.log("Setting and Navigating");
     setCurrentUser(user.data);
-    navigate('/')
+    if (navigateHome)
+      navigate('/')
+
   };
 
   const register = async (username, password) => {
@@ -43,7 +46,7 @@ export const AuthProvider = ({ children }) => {
         username,
         password,
       });
-      login(username, password);
+      login(username, password, false);
       return { success: true, message: "Account created successfully!" };
     } catch (error) {
       return { success: false, message: error.response.data || "An error occurred!" };
