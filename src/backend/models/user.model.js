@@ -22,8 +22,8 @@ const userSchema = new Schema({
     email: {
       type: String,
       required: false,
-      default: "",
       unique: false,
+      default: "",
       match: [/\S+@\S+\.\S+/, 'is invalid']
     },
     phone: {

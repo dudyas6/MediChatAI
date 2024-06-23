@@ -3,6 +3,7 @@ import medichatLogo from "../assets/logo/medichat.png";
 import InputField from "../components/InputField";
 import Checkbox from "../components/CheckBox";
 import { useAuth } from "../services/AuthContext";
+import { isStrongPassword } from "../services/Utils";
 
 function RegisterPage() {
   const { register } = useAuth();
@@ -40,6 +41,11 @@ function RegisterPage() {
     if (password !== confirmPassword) {
       msg += "Passwords doesn't match!\n";
     }
+
+    // if (!isStrongPassword(password)) {
+    //   msg += "Password must be strong!\n";
+    // }
+
     if (!termsValue) {
       msg += "Please accept terms and conditions!\n";
     }
