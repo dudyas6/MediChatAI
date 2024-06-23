@@ -32,8 +32,7 @@ function Navbar() {
               <ListItem to="/" textContent="Home" />
               <ListItem to="/about" textContent="About" />
               <ListItem to="/contact" textContent="Contact" />
-              { currentUser ? <ListItem to="/profile" textContent="Profile" /> : null }
-              { currentUser ? <ListItem to="/logout" textContent="IMPLEMENT Logout" /> : null }        
+              { currentUser ? <ListItem to="/profile" textContent="Profile" /> : null }    
             </ul>
           </div>
           <div
@@ -45,7 +44,6 @@ function Navbar() {
               <ListItem to="/about" textContent="About" />
               <ListItem to="/contact" textContent="Contact" />
               { currentUser ? <ListItem to="/profile" textContent="Profile" /> : null }
-              { currentUser ? <ListItem to="/logout" textContent="IMPLEMENT Logout" /> : null }   
             </ul>
           </div>
         </div>

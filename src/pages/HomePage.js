@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import backgroundImage from '../assets/images/Background.webp';
 import mobileBackgroundImage from '../assets/images/MobileBackground.png';
 import Button from '../components/Button';
+import { useAuth } from '../services/AuthContext';
 
 function HomePage() {
   const [background, setBackground] = useState(window.innerWidth <= 640 ? mobileBackgroundImage : backgroundImage);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+  const { currentUser, logout } = useAuth();
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,14 +45,25 @@ function HomePage() {
     >
       {isMobile ? (
         <>
-        <Button InnerText="Log In" to="/login" bottom="22%" left="35%" py = "40px" px = "145px"/>
-        <Button InnerText="Sign Up" to="/register" bottom="22%" left="71%" py = "40px" px = "145px"/>
-        <Button InnerText="Chat Now" to="/chat" bottom="12%" left="53%" py = "50px" px = "145px" /> </>
+         { currentUser ? 
+          <Button InnerText="Logout" to="/" onClick={logout} bottom="30%" left="12%" py = "60px" px = "170px"/> 
+          :
+          <>
+            <Button InnerText="Log In" to="/login" bottom="22%" left="35%" py = "40px" px = "145px"/>
+            <Button InnerText="Sign Up" to="/register" bottom="22%" left="71%" py = "40px" px = "145px"/>
+          </>
+          }
+        <Button InnerText="Chat Now" to="/chat" bottom="12%" left="53%" py = "50px" px = "145px" />
+        </>
       ) : (
         <>
-        {/* // py-6 px-14 */}
-        <Button InnerText="Log In" to="/login" bottom="30%" left="12%" py = "60px" px = "150px" />
-        <Button InnerText="Sign Up" to="/register" bottom="30%" left="25%" py = "60px" px = "150px" />
+        { currentUser ? 
+          <Button InnerText="Logout" to="/" onClick={logout} bottom="30%" left="12%" py = "60px" px = "170px"/> :
+          <>
+            <Button InnerText="Log In" to="/login" bottom="30%" left="12%" py = "60px" px = "150px" />
+            <Button InnerText="Sign Up" to="/register" bottom="30%" left="25%" py = "60px" px = "150px" />
+          </>
+          }
         <Button InnerText="Chat Now" to="/chat" bottom="12%" left="66.7%" py = "60px" px = "170px"/></>
       )}
     </div>
