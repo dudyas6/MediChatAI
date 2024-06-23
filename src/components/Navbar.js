@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import ListItem from './ListItem';
 import medichatLogo from '../assets/logo/medichat.png';
+import { useAuth } from '../services/AuthContext';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-
+  const { currentUser, logout } = useAuth();
   const handleToggle = () => {
     setMenuOpen(!menuOpen);
   };
@@ -31,6 +32,8 @@ function Navbar() {
               <ListItem to="/" textContent="Home" />
               <ListItem to="/about" textContent="About" />
               <ListItem to="/contact" textContent="Contact" />
+              { currentUser ? <ListItem to="/profile" textContent="Profile" /> : null }
+              { currentUser ? <ListItem to="/logout" textContent="IMPLEMENT Logout" /> : null }        
             </ul>
           </div>
           <div
@@ -41,6 +44,8 @@ function Navbar() {
               <ListItem to="/" textContent="Home" />
               <ListItem to="/about" textContent="About" />
               <ListItem to="/contact" textContent="Contact" />
+              { currentUser ? <ListItem to="/profile" textContent="Profile" /> : null }
+              { currentUser ? <ListItem to="/logout" textContent="IMPLEMENT Logout" /> : null }   
             </ul>
           </div>
         </div>

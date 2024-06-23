@@ -1,34 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import medichatLogo from "../assets/logo/medichat.png";
-import axios from "axios";
+import InputField from "../components/InputField";
+import Checkbox from "../components/CheckBox";
+import { useAuth } from '../services/AuthContext';
 
 function RegisterPage() {
+  const { register } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [termsValue, setTermsValue] = useState(false);
+  const [message, setMessage] = useState({ text: "", type: "" });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    if (type === "checkbox") {
+      setTermsValue(checked);
+    } else {
+      if (name === "username") setUsername(value);
+      if (name === "password") setPassword(value);
+      if (name === "confirmPassword") setconfirmPassword(value);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      setMessage({ text: "Passwords doesn't match!", type: "error" });
       return;
     }
     if (!termsValue) {
-      alert("Please accept the terms and conditions!");
+      setMessage({ text: "Please confirm Terms and Conditions!", type: "error" });
       return;
     }
 
-    axios
-      .post("http://localhost:3001/users/", {
-        username,
-        password,
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => console.error(error));
+    const { success, message: msg } = await register(username, password);
+
+    if (success) {
+      setMessage({ text: msg, type: "success" });
+    } else {
+      setMessage({ text: msg, type: "error" });
+    }
   };
 
   return (
@@ -39,76 +52,69 @@ function RegisterPage() {
             <img src={medichatLogo} alt="logo" className="w-20 inline-block" />
           </span>
         </div>
+        <form onSubmit={handleSubmit}>
           <div className="space-y-6">
-            <div>
-              <label className="text-sm mb-2 block">Username</label>
-              <input
-                name="username"
-                type="text"
-                className="bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                placeholder="Enter username"
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div>
-              <label className="text-sm mb-2 block">Password</label>
-              <input
-                name="password"
-                type="password"
-                className="bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                placeholder="Enter password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div>
-              <label className="text-sm mb-2 block">Confirm Password</label>
-              <input
-                name="cpassword"
-                type="password"
-                className="bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
-                placeholder="Enter confirm password"
-                onChange={(e) => setconfirmPassword(e.target.value)}
-              />
-            </div>
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                onClick={(e) => setTermsValue(e.target.checked)}
-              />
-              <label htmlFor="remember-me" className="ml-3 block text-sm">
-                I accept the{" "}
-                <a
-                  href="/"
-                  className="text-blue-600 font-semibold hover:underline ml-1"
-                  
-                >
-                  Terms and Conditions
-                </a>
-              </label>
-            </div>
+            <InputField
+              label="Username"
+              type="text"
+              name="username"
+              value={username}
+              onChange={handleChange}
+              placeholder="Enter username"
+            />
+            <InputField
+              label="Password"
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+              placeholder="Enter password"
+            />
+            <InputField
+              label="Confirm Password"
+              type="password"
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={handleChange}
+              placeholder="Enter confirm password"
+            />
+            <Checkbox
+              label={
+                <>
+                  I accept the{" "}
+                  <a href="/" className="text-blue-600 font-semibold hover:underline ml-1">
+                    Terms and Conditions
+                  </a>
+                </>
+              }
+              checked={termsValue}
+              onChange={handleChange}
+            />
           </div>
           <div className="!mt-10">
             <button
-              type="button"
+              type="submit"
               className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none"
-              onClick={handleSubmit}
             >
               Create an account
             </button>
           </div>
-          <p className="text-sm mt-6 text-center">
-            Already have an account?{" "}
-            <a
-              href="/login"
-              className="text-blue-600 font-semibold hover:underline ml-1"
-            >
-              Login here
-            </a>
+        </form>
+        <p className="text-sm mt-6 text-center">
+          Already have an account?{" "}
+          <a href="/login" className="text-blue-600 font-semibold hover:underline ml-1">
+            Login here
+          </a>
+        </p>
+        {message.text && (
+          <p
+            className={`font-bold text-md mt-6 text-center ${
+              message.type === "error" ? "text-red-600" : "text-green-600"
+            }`}
+          >
+            {message.text}
           </p>
-          <p className="text-sm mt-6 text-center">
-            ErrorDiv
-          </p>
+        )}
       </div>
     </div>
   );

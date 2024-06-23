@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
 import medichatLogo from "../assets/logo/medichat.png";
-import axios from "axios";
 
 function RegisterPage() {
 

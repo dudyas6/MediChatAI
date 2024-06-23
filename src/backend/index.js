@@ -13,10 +13,10 @@ app.use(
 );
 
 // Routes
-const usersRoute = require("./routes/users");
+const authsRoute = require("./routes/auth");
 
 // // App Uses
-app.use("/users", usersRoute);
+app.use("/api/auth", authsRoute);
 
 const MONGODB_URI =
   "mongodb+srv://root:root@medichatdb.ut4vxly.mongodb.net/MediChatDB";

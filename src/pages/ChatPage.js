@@ -1,12 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 function ChatPage() {
-    const [messages, setMessages] = useState([]);
-
-    const handleSendMessage = (message) => {
-        setMessages([...messages, message]);
-    };
-
     return (
         <div className="flex justify-center items-center h-screen bg-blue-100">
             <div className="bg-white shadow-lg rounded-lg w-3/4 md:w-1/2 lg:w-2/3 h-5/6 flex flex-col">
