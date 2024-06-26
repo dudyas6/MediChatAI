@@ -1,3 +1,6 @@
+html, body {
+  @apply overflow-hidden h-full;
+}
 .App {
   text-align: center;
 }

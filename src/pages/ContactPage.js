@@ -1,22 +1,58 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../assets/style/toastify-custom.css"; // Import custom CSS
 
 function ContactPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [msg, setMsg] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission logic here
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Message:", message);
+    let errorMsg = " ";
+
+    if (/[^a-zA-Z]/.test(name)) {
+      errorMsg += "Name contains invalid characters!\n";
+    }
+
+    if (message.length < 5) {
+      errorMsg += "Message is too short!\n";
+    }
+
+    setMsg(errorMsg);
+
+    if (errorMsg) return;
+
+    const { success, message: responseMsg } = await postContactRequest(name, email, message);
+
+    if (success) {
+      toast.success(responseMsg);
+    } else {
+      setMsg(responseMsg);
+    }
+  };
+
+  const postContactRequest = async (name, email, message) => {
+    try {
+      const res = await axios.post("http://localhost:3001/api/contact/x", {
+        name,
+        email,
+        message,
+      });
+      console.log(res);
+      return { success: true, message: "Report created successfully!" };
+    } catch (error) {
+      return { success: false, message: error.response.data || "An error occurred!" };
+    }
   };
 
   return (
     <section className="">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-        <div className="w-full rounded-lg bg-white shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 mt-[-2rem] md:mt-[-4rem]"> {/* Adjust the margin-top here */}
+        <div className="w-full rounded-lg bg-white shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 mt-[-2rem] md:mt-[-4rem]">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Contact Us
@@ -86,9 +122,15 @@ function ContactPage() {
                 We value your feedback and will get back to you as soon as possible.
               </p>
             </form>
+            {msg && (
+              <div className={`mt-4 text-sm ${msg.includes("successfully") ? "text-green-500" : "text-red-500"}`}>
+                {msg}
+              </div>
+            )}
           </div>
         </div>
       </div>
+      <ToastContainer />
     </section>
   );
 }

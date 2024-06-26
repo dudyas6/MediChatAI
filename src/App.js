@@ -10,11 +10,13 @@ import { AuthProvider } from './services/AuthContext';
 function App() {
   return (
     <Router>
-          <AuthProvider>
+      <AuthProvider>
+        <div className="app-container">
           <Navbar />
           <Main />
           <Footer />
-          </AuthProvider>
+        </div>
+      </AuthProvider>
     </Router>
   );
 }
