@@ -12,7 +12,7 @@ router.post('/login', async (req, res) => {
       const token = jwt.sign({ id: user._id }, jwtSecret, { expiresIn: '1h' });
       res.json({ token });
     } else {
-      res.status(401).json({ error: 'Invalid credentials' });
+      res.status(401).json({ error: 'Invalid username or password, please try again.' });
     }
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -64,8 +64,6 @@ const protect = (req, res, next) => {
 router.get('/profile', protect, async (req, res) => {
   try {
     const user = await User.findById(req.user).select('-password');
-    console.log("BACKEND USER");
-    console.log(user);
     res.json(user);
   } catch (err) {
     res.status(400).json({ error: err.message });

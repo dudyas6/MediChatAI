@@ -3,7 +3,8 @@ import medichatLogo from "../assets/logo/medichat.png";
 import InputField from "../components/InputField";
 import Checkbox from "../components/CheckBox";
 import { useAuth } from "../services/AuthContext";
-import { isStrongPassword } from "../services/Utils";
+// import { validateRegisterForm } from "../services/Utils";
+import ErrorMessage  from "../components/ErrorMessage";
 
 function RegisterPage() {
   const { register } = useAuth();
@@ -13,8 +14,7 @@ function RegisterPage() {
   const [termsValue, setTermsValue] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [IsconfirmPasswordVisible, setIsconfirmPasswordVisible] =
-    useState(false);
+  const [IsconfirmPasswordVisible, setIsconfirmPasswordVisible] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -36,22 +36,20 @@ function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    var msg = "";
+    var errorMsg = "";
+
+    //errorMsg = validateRegisterForm(username, password, confirmPassword);
 
     if (password !== confirmPassword) {
-      msg += "Passwords doesn't match!\n";
+      errorMsg += "Passwords doesn't match!\n";
     }
-
-    // if (!isStrongPassword(password)) {
-    //   msg += "Password must be strong!\n";
-    // }
 
     if (!termsValue) {
-      msg += "Please accept terms and conditions!\n";
+      errorMsg += "Please accept terms and conditions!\n";
     }
 
-    if (msg !== "") {
-      setMessage({ text: msg, type: "error" });
+    if (errorMsg !== "") {
+      setMessage({ text: errorMsg, type: "error" });
       return;
     }
 
@@ -139,17 +137,7 @@ function RegisterPage() {
             Login here
           </a>
         </p>
-        {message.text && (
-          <div
-            className={`font-bold text-md mt-6 text-center ${
-              message.type === "error" ? "text-red-600" : "text-green-600"
-            }`}
-          >
-            {message.text.split("\n").map((str, index) => (
-              <p key={index}>{str}</p>
-            ))}
-          </div>
-        )}
+        <ErrorMessage message={message} />
       </div>
     </div>
   );
