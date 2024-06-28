@@ -3,15 +3,17 @@ import InputField from "../components/InputField";
 import { useAuth } from "../services/AuthContext";
 import ErrorMessage from "../components/ErrorMessage";
 import { useNavigate } from 'react-router-dom';
-
+import { useTheme } from '../services/ThemeContext';
 
 function LoginPage() {
   const { login } = useAuth();
+  const { isDarkMode } = useTheme(); // Access dark mode state
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState({ text: "", type: "" });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === "username") setUsername(value);
@@ -19,25 +21,24 @@ function LoginPage() {
   };
 
   const togglePasswordVisibility = () => {
-
     setIsPasswordVisible(!isPasswordVisible);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { success , message: error_msg } = await login(username, password);
+    const { success, message: error_msg } = await login(username, password);
     if (success) {
-      setMessage({ text: error_msg , type: "success" });
+      setMessage({ text: error_msg, type: "success" });
       setTimeout(() => {
         navigate('/');
       }, 2000);
     } else {
-      setMessage({ text: error_msg.error , type: "error" });
+      setMessage({ text: error_msg.error, type: "error" });
     }
   };
 
   return (
-    <div className="font-[sans-serif]">
+    <div className={`font-sans ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
       <div className="min-h-screen flex flex-col items-center justify-center">
         <div className="grid md:grid-cols-2 bg-white items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md">
           <div className="md:max-w-md w-full px-4 py-4">
@@ -67,17 +68,14 @@ function LoginPage() {
               <div className="!mt-10">
                 <button
                   type="submit"
-                  className="w-full py-3 px-4 text-sm font-semibold rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none"
+                  className={`w-full py-3 px-4 text-sm font-semibold rounded focus:outline-none ${isDarkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'} text-white`}
                 >
                   Login
                 </button>
               </div>
               <ErrorMessage message={message} />
-
             </form>
-
           </div>
-
           <div className="md:h-full bg-[#000842] rounded-xl lg:p-12 p-8">
             <img
               src="https://readymadeui.com/signin-image.webp"

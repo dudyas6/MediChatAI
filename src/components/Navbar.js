@@ -6,6 +6,7 @@ import { useAuth } from '../services/AuthContext';
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { currentUser, logout } = useAuth();
+
   const handleToggle = () => {
     setMenuOpen(!menuOpen);
   };
@@ -17,15 +18,15 @@ function Navbar() {
           <img src={medichatLogo} className="h-8" alt="MediChat Logo" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">MediChat</span>
         </div>
-        <div className="relative">
+        <div className="relative flex items-center">
           <button
             id="dropdownNavbarLink"
             onClick={handleToggle}
             className="flex md:hidden items-center justify-between w-full py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700"
           >
-        <svg className="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
-        </svg>
+            <svg className="w-5 h-5" aria-hidden="true" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15"/>
+            </svg>
           </button>
           <div id="navbar" className="hidden md:flex w-full md:w-auto">
             <ul className="font-medium flex flex-col md:flex-row md:space-x-8 rtl:space-x-reverse p-4 md:p-0 mt-4 md:mt-0 border border-gray-100 rounded-lg bg-gray-50 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">

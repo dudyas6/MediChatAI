@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTheme } from '../services/ThemeContext';
 
 function ChatPage() {
+    const { isDarkMode } = useTheme();
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const messagesEndRef = useRef(null);
@@ -30,8 +32,8 @@ function ChatPage() {
     }, [messages]);
 
     return (
-        <div className="flex justify-center items-center h-screen bg-blue-100">
-            <div className="bg-white shadow-lg rounded-lg w-3/4 md:w-1/2 lg:w-2/3 h-5/6 flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto">
+        <div className={`flex justify-center items-center h-screen ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-blue-100'}`}>
+            <div className={`bg-white dark:bg-gray-700 shadow-lg rounded-lg w-3/4 md:w-1/2 lg:w-2/3 h-5/6 flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto ${isDarkMode ? 'dark:text-white' : ''}`}>
                 <div className="flex-1 overflow-y-auto p-4">
                     {messages.map((message, index) => (
                         <div key={index} className={`mb-4 ${message.sender === 'user' ? 'flex justify-start' : 'flex justify-end'}`}>
@@ -46,7 +48,7 @@ function ChatPage() {
                                     <div className="font-medium">
                                         {message.sender === 'user' ? 'User' : 'Bot'}
                                     </div>
-                                    <div className={`rounded-lg p-2 shadow max-w-sm ${message.sender === 'user' ? 'bg-blue-100' : 'bg-gray-300'}`}>
+                                    <div className={`rounded-lg p-2 shadow max-w-sm ${message.sender === 'user' ? 'bg-blue-100' : 'bg-gray-300'} ${isDarkMode ? 'dark:text-white dark:bg-gray-600' : ''}`}>
                                         {message.text}
                                     </div>
                                 </div>
@@ -55,10 +57,10 @@ function ChatPage() {
                     ))}
                     <div ref={messagesEndRef} />
                 </div>
-                <div className="p-4 bg-gray-100 rounded">
+                <div className={`p-4 ${isDarkMode ? 'bg-gray-800' : 'bg-gray-100'} rounded`}>
                     <div className="flex items-center">
                         <input
-                            className="flex-1 border rounded-full py-2 px-4 mr-2"
+                            className={`flex-1 border rounded-full py-2 px-4 mr-2 ${isDarkMode ? 'dark:bg-gray-600 dark:border-gray-600 dark:text-white' : ''}`}
                             type="text"
                             placeholder="Type your message..."
                             value={input}
@@ -66,7 +68,7 @@ function ChatPage() {
                             onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                         />
                         <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full"
+                            className={`bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-full ${isDarkMode ? 'dark:bg-gray-600' : ''}`}
                             onClick={handleSend}
                         >
                             Send
