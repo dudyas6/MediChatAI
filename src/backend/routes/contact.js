@@ -1,6 +1,6 @@
 
 const router = require("express").Router();
-const ContactReport = require("../models/contact.report.js");
+const ContactReport = require("../Models/contact.report.js");
 
 
   router.post('/x', async (req, res) => {

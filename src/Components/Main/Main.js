@@ -9,7 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 
 function Main() {
     return (
-        <div className='bg-blue-50'>
+      <div className='text-[#1d4d85] app min-w-[280px] min-h-screen bg-background'>
         <Routes>
           <Route path="/" exact element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -17,7 +17,7 @@ function Main() {
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
-        </div>
+      </div>
     );
 }
 

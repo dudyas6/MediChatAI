@@ -14,8 +14,8 @@ app.use(
 );
 
 // Routes
-const authsRoute = require("./routes/auth");
-const contactRoute = require("./routes/contact");
+const authsRoute = require("./Routes/auth");
+const contactRoute = require("./Routes/contact");
 
 // // App Uses
 app.use("/api/auth", authsRoute);

@@ -22,7 +22,7 @@
 
 // import logo from '@/assets/Images/logo.png';
 
-// export const links = ['Home', 'Doctors', 'Services', 'Reviews'];
+export const links = ['Home', 'Services', 'About', 'Contact'];
 
 export const cardNums = [
   {
