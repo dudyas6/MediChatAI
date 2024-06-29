@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../../../Assets/Style/toastify-custom.css"; // Import custom CSS
-import { useTheme } from '../../Services/ThemeContext';
+import "Assets/Style/toastify-custom.css"; // Import custom CSS
+import { useTheme } from 'Components/Services/ThemeContext';
 
 function ContactPage() {
   const { isDarkMode } = useTheme();

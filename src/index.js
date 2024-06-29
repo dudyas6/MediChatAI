@@ -1,8 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './Assets/Style/index.css';
-// import './assets/style/theme.css';
-// import './assets/style/loopple/loopple.css';
 import App from './App';
 import reportWebVitals from './Components/Shared/reportWebVitals';
 

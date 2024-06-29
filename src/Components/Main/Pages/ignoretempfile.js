@@ -1,4 +1,3 @@
-import medichatLogo from "../assets/logo/medichat.png";
 
 function RegisterPage() {
 

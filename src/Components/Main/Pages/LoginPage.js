@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import InputField from "../../UI/InputField";
-import { useAuth } from "../../Services/AuthContext";
-import ErrorMessage from "../../UI/ErrorMessage";
+import InputField from "Components/UI/InputField";
+import { useAuth } from "Components/Services/AuthContext";
+import ErrorMessage from "Components/UI/ErrorMessage";
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '../../Services/ThemeContext';
+import { useTheme } from 'Components/Services/ThemeContext';
 
 function LoginPage() {
   const { login } = useAuth();

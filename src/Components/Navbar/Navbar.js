@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ListItem from './ListItem';
-import medichatLogo from '../../Assets/Logos/medichat.png';
-import { useAuth } from '../Services/AuthContext';
+import medichatLogo from 'Assets/Logos/medichat.png';
+import { useAuth } from 'Components/Services/AuthContext';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);

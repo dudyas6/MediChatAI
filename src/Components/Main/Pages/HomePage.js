@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import backgroundImage from '../../../Assets/Images/Background.webp';
-import mobileBackgroundImage from '../../../Assets/Images/MobileBackground.png';
-import Button from '../../UI/Button';
-import { useAuth } from '../../Services/AuthContext';
+import backgroundImage from 'Assets/Images/Background.webp';
+import mobileBackgroundImage from 'Assets/Images/MobileBackground.png';
+import Button from 'Components/UI/Button';
+import { useAuth } from 'Components/Services/AuthContext';
 
 function HomePage() {
     const [background, setBackground] = useState(window.innerWidth <= 640 ? mobileBackgroundImage : backgroundImage);

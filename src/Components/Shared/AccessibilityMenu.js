@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useTheme } from '../Services/ThemeContext';
+import { useTheme } from 'Components/Services/ThemeContext';
 
 const AccessibilityMenu = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();

@@ -5,7 +5,6 @@ import LoginPage from './Pages/LoginPage';
 import ContactPage from './Pages/ContactPage';
 import ChatPage from './Pages/ChatPage';
 import RegisterPage from './Pages/RegisterPage';
-// import SecondaryRegisterPage from '../pages/SecondaryRegisterPage';
 import ProfilePage from './Pages/ProfilePage';
 
 import { Routes, Route } from 'react-router-dom';

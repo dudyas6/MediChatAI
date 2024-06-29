@@ -1,6 +1,6 @@
 import React from 'react';
-import { useTheme } from '../../Services/ThemeContext';
-import AboutPageImage from '../../../Assets/Images/AboutPageImage.png';
+import { useTheme } from 'Components/Services/ThemeContext';
+import AboutPageImage from 'Assets/Images/AboutPageImage.png';
 
 function AboutPage() {
     const { isDarkMode } = useTheme();
