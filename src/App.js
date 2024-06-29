@@ -12,12 +12,12 @@ function App() {
     <Router>
       <AuthProvider>
         <ThemeProvider>
-          <div className='text-[#1d4d85] app min-w-[280px] min-h-screen bg-background'>
+          <div className='text-[#1d4d85] app min-w-[280px] min-h-screen bg-background dark:bg-dark'>
             <Header />
             <Main />
-            {/* <Footer /> */}
+            <Footer />
           </div>
-          {/* <AccessibilityMenu /> */}
+          <AccessibilityMenu />
         </ThemeProvider>
       </AuthProvider>
     </Router>

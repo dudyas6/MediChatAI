@@ -1,8 +1,8 @@
 export const SelectedPage = {
     Home: 'home',
-    Doctors: 'doctors',
     Services: 'services',
-    Reviews: 'reviews',
+    About: 'about',
+    Contact: 'contact',
   };
   
   export const SelectedService = {

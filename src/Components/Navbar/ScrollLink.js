@@ -1,6 +1,6 @@
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 
-const Link = ({ page, selectedPage, setSelectedPage }) => {
+const ScrollLink = ({ page, selectedPage, setSelectedPage }) => {
   const lowerCasePage = page.toLowerCase().replace(/\s+/g, '');
 
   const handleLinkClick = () => {
@@ -22,4 +22,4 @@ const Link = ({ page, selectedPage, setSelectedPage }) => {
   );
 };
 
-export default Link;
+export default ScrollLink;

@@ -1,14 +1,14 @@
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/20/solid';
-import { useState } from 'react';
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
 
-import useMediaQuery from 'Components/Hooks/useMediaQuery';
+import useMediaQuery from "Components/Hooks/useMediaQuery";
 
-import Links from './Links';
-import Button from '../UI/Button';
+import Links from "./Links";
+import Button from "../UI/Button";
 
 const NavBar = ({ flexBetween, selectedPage, setSelectedPage }) => {
   const [isMenuToggled, setIsMenuToggled] = useState(false);
-  const isAboveMediumScreens = useMediaQuery('(min-width: 900px)');
+  const isAboveMediumScreens = useMediaQuery("(min-width: 900px)");
 
   return (
     <nav>

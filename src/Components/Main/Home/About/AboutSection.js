@@ -6,7 +6,7 @@ function AboutSection() {
     <SectionWrapper id="about">
       <h2 className="text-4xl font-bold text-center mb-10">Who are we?</h2>
       <div className="flex flex-col justify-center items-center lg:flex-col gap-10 lg:gap-5">
-        <div className="flex flex-row gap-20">
+        <div className="flex flex-col gap-20 sm:flex-row">
           <div className="w-40 h-auto relative block bg-gray-100 p-3 rounded-xl text-center font-[sans-serif] mx-auto mt-4">
             <img src="#" alt="Team Member" className="w-full rounded-xl" />
             <h4 className="text-sm text-gray-800 mt-4 font-bold">David Asulin</h4>
