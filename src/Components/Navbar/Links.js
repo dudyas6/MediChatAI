@@ -23,7 +23,6 @@ const Links = ({ selectedPage, setSelectedPage }) => {
             key={link} 
             to={"/"} 
             page={link}
-            selectedPage={selectedPage}
             setSelectedPage={setSelectedPage} />
           ))}
     </>
