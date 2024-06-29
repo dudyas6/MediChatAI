@@ -1,3 +1,5 @@
+// Navbar.js
+
 import React, { useState } from 'react';
 import ListItem from './ListItem';
 import medichatLogo from 'Assets/Logos/medichat.png';
@@ -30,10 +32,10 @@ function Navbar() {
           </button>
           <div id="navbar" className="hidden md:flex w-full md:w-auto">
             <ul className="font-medium flex flex-col md:flex-row md:space-x-8 rtl:space-x-reverse p-4 md:p-0 mt-4 md:mt-0 border border-gray-100 rounded-lg bg-gray-50 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <ListItem to="/" textContent="Home" />
-              <ListItem to="/about" textContent="About" />
-              <ListItem to="/contact" textContent="Contact" />
-              { currentUser ? <ListItem to="/profile" textContent="Profile" /> : null }    
+              <ListItem to="welcome-section" textContent="Home" />
+              <ListItem to="about-section" textContent="About" />
+              <ListItem to="contact-section" textContent="Contact" />
+              { currentUser ? <ListItem to="profile-section" textContent="Profile" /> : null }
             </ul>
           </div>
           <div
@@ -41,10 +43,10 @@ function Navbar() {
             className={`absolute right-0 mt-2 z-10 ${menuOpen ? 'flex' : 'hidden'} md:hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600`}
           >
             <ul className="min-w-full py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
-              <ListItem to="/" textContent="Home" />
-              <ListItem to="/about" textContent="About" />
-              <ListItem to="/contact" textContent="Contact" />
-              { currentUser ? <ListItem to="/profile" textContent="Profile" /> : null }
+              <ListItem to="welcome-section" textContent="Home" />
+              <ListItem to="about-section" textContent="About" />
+              <ListItem to="contact-section" textContent="Contact" />
+              { currentUser ? <ListItem to="profile-section" textContent="Profile" /> : null }
             </ul>
           </div>
         </div>

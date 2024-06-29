@@ -1,22 +1,23 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+// ListItem.js
 
+import React from 'react';
+import { Link } from 'react-scroll';
 
 const ListItem = ({ to, textContent }) => {
-    return (
-        <li>
-            <NavLink
-                to={to}
-                className={({ isActive }) =>
-                    isActive
-                        ? "block py-2 px-3 text-blue-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:p-0 dark:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                        : "block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                }
-            >
-                {textContent}
-            </NavLink>
-        </li>
-    );
+  return (
+    <li>
+      <Link
+        to={to}
+        spy={true}
+        smooth={true}
+        offset={-70} // Adjust this value based on your navbar height
+        duration={500}
+        className="cursor-pointer block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+      >
+        {textContent}
+      </Link>
+    </li>
+  );
 };
 
 export default ListItem;
