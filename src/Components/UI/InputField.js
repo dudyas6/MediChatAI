@@ -1,5 +1,5 @@
 import React from "react";
-import icons from "./Icons"; // Adjust the path as necessary
+import icons from "../Shared/Icons"; // Adjust the path as necessary
 
 const InputField = ({
   label,

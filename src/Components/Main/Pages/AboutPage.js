@@ -1,13 +1,13 @@
 import React from 'react';
-import { useTheme } from '../services/ThemeContext';
-import AboutPageImage from '../assets/images/AboutPageImage.png';
+import { useTheme } from '../../Services/ThemeContext';
+import AboutPageImage from '../../Assets/Images/AboutPageImage.png';
 
 function AboutPage() {
     const { isDarkMode } = useTheme();
 
     return (
         <div className={`min-h-screen flex flex-col items-center pt-10 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-blue-50'}`}>
-            <main className="w-full max-w-6xl p-6 mt-30 bg-white dark:bg-gray-700 shadow-md rounded-lg">
+            <main className="w-full max-w-6xl p-6 mb-12 bg-white dark:bg-gray-700 shadow-md rounded-lg">
                 <div className="flex flex-col md:flex-row items-center">
                     <div className="md:w-1/2 p-6">
                         <h1 className={`text-4xl font-bold mb-8 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>About Us</h1>

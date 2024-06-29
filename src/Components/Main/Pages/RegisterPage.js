@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import InputField from "../components/InputField";
-import Checkbox from "../components/CheckBox";
-import { useAuth } from "../services/AuthContext";
-import ErrorMessage from "../components/ErrorMessage";
-import medichatLogo from "../assets/logo/medichat.png";
-import { useTheme } from '../services/ThemeContext';
+import InputField from "../../UI/InputField";
+import Checkbox from "../../UI/CheckBox";
+import { useAuth } from "../../Services/AuthContext";
+import ErrorMessage from "../../UI/ErrorMessage";
+import medichatLogo from "../../Assets/Logos/medichat.png";
+import { useTheme } from '../../Services/ThemeContext';
 
 function RegisterPage() {
   const { register } = useAuth();

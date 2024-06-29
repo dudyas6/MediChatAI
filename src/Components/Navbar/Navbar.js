@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import ListItem from './ListItem';
-import medichatLogo from '../assets/logo/medichat.png';
-import { useAuth } from '../services/AuthContext';
+import medichatLogo from '../Assets/Logos/medichat.png';
+import { useAuth } from '../Services/AuthContext';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { currentUser, logout } = useAuth();
+  const { currentUser } = useAuth();
 
   const handleToggle = () => {
     setMenuOpen(!menuOpen);

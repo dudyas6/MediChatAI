@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useTheme } from '../services/ThemeContext';
+import { useTheme } from '../../Services/ThemeContext';
 
 function ChatPage() {
     const { isDarkMode } = useTheme();

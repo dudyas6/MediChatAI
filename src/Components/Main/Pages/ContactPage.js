@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "../assets/style/toastify-custom.css"; // Import custom CSS
-import { useTheme } from '../services/ThemeContext';
+import "../../Assets/Style/toastify-custom.css"; // Import custom CSS
+import { useTheme } from '../../Services/ThemeContext';
 
 function ContactPage() {
   const { isDarkMode } = useTheme();
@@ -52,7 +52,7 @@ function ContactPage() {
   };
 
   return (
-    <section className={`min-h-screen flex items-center justify-center px-6 py-8 dark:bg-gray-900 dark:text-white ${isDarkMode ? 'bg-blue-900' : 'bg-blue-50'}`}>
+    <section className={`min-h-screen mt-12 flex items-center justify-center px-6 py-8 dark:bg-gray-900 dark:text-white ${isDarkMode ? 'bg-blue-900' : 'bg-blue-50'}`}>
       <div className="w-full rounded-lg bg-white shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 mt-[-2rem] md:mt-[-4rem]">
         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
