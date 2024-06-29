@@ -1,8 +1,6 @@
-// App.js
-
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Navbar from './Components/Navbar/Navbar';
+import Header from './Components/Navbar/Header';
 import Main from './Components/Main/Main';
 import Footer from './Components/Footer/Footer';
 import AccessibilityMenu from './Components/Shared/AccessibilityMenu';
@@ -14,8 +12,8 @@ function App() {
     <Router>
       <AuthProvider>
         <ThemeProvider>
-          <div className="App dark:bg-gray-800 dark:text-white flex flex-col justify-between">
-            <Navbar />
+          <div className='text-[#1d4d85] app min-w-[280px] min-h-screen bg-background dark:bg-dark'>
+            <Header />
             <Main />
             <Footer />
           </div>
