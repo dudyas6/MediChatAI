@@ -1,5 +1,5 @@
 import React from "react";
-import medichatLogo from "../Assets/Logos/medichat.png";
+import medichatLogo from "../../Assets/Logos/medichat.png";
 
 const Footer = () => {
   return (

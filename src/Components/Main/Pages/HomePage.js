@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import backgroundImage from '../../Assets/Images/Background.webp';
-import mobileBackgroundImage from '../../Assets/Images/MobileBackground.png';
+import backgroundImage from '../../../Assets/Images/Background.webp';
+import mobileBackgroundImage from '../../../Assets/Images/MobileBackground.png';
 import Button from '../../UI/Button';
 import { useAuth } from '../../Services/AuthContext';
 

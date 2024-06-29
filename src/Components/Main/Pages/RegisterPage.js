@@ -3,7 +3,7 @@ import InputField from "../../UI/InputField";
 import Checkbox from "../../UI/CheckBox";
 import { useAuth } from "../../Services/AuthContext";
 import ErrorMessage from "../../UI/ErrorMessage";
-import medichatLogo from "../../Assets/Logos/medichat.png";
+import medichatLogo from "../../../Assets/Logos/medichat.png";
 import { useTheme } from '../../Services/ThemeContext';
 
 function RegisterPage() {

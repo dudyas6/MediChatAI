@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ListItem from './ListItem';
-import medichatLogo from '../Assets/Logos/medichat.png';
+import medichatLogo from '../../Assets/Logos/medichat.png';
 import { useAuth } from '../Services/AuthContext';
 
 function Navbar() {
