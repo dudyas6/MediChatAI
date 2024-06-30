@@ -1,11 +1,12 @@
-// import Logo from 'Assets/Images/Logo.png';
+import { useState, useEffect, useRef } from "react";
 import Navbar from "./Navbar";
-import { useState, useEffect } from "react";
-import NavigationLink from "./NavigationLink";
+import { useLocation } from "react-router-dom";
 
 const Header = () => {
   const [selectedPage, setSelectedPage] = useState("home");
   const [isTopOfPage, setIsTopOfPage] = useState(true);
+  const sectionRefs = useRef({});
+  const location = useLocation();
   const flexBetween = "flex items-center justify-between";
 
   useEffect(() => {
@@ -13,17 +14,47 @@ const Header = () => {
       if (window.scrollY === 0) {
         setIsTopOfPage(true);
         setSelectedPage("home");
+      } else {
+        setIsTopOfPage(false);
       }
-      if (window.scrollY !== 0) setIsTopOfPage(false);
     };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.6, // Adjust this threshold as needed
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          setSelectedPage(id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe each section
+    const sections = document.querySelectorAll("section");
+    sections.forEach((section) => {
+      sectionRefs.current[section.id] = section;
+      observer.observe(section);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      sections.forEach((section) => observer.unobserve(section));
+    };
+  }, [location.pathname]);
 
   return (
     <div
       className={`${flexBetween} ${
-        isTopOfPage ? "" : "bg-[#84ceff]"
+        isTopOfPage ? "bg-background" : "bg-[#84ceff]"
       } transition fixed top-0 z-30 w-full p-5 md:px-16`}
     >
       <img className="w-10 sm:w-20" src={null} alt="Logo" />

@@ -14,7 +14,7 @@ const NavigationLink = ({ to, page, setSelectedPage }) => {
         document
           .getElementById(lowerCasePage)
           .scrollIntoView({ behavior: "smooth" });
-      }, 100); // Timeout to ensure the navigation has taken place
+      }, 100);
     }
     navigate(to, { replace: true });
   };

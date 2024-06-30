@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="bg-[#aed4ff]  p-6 md:px-16">
+    <div className="bg-[#aed4ff] mt-12 sm:mt-20 p-6 md:px-16">
       <div className="max-w-[1250px] m-auto flex justify-center gap-14 flex-wrap md:flex-nowrap">
       <img width={50} src={null} alt="Logo"/>
         <div className="justify-center font-bold">

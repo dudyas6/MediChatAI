@@ -32,8 +32,8 @@ function ChatPage() {
     }, [messages]);
 
     return (
-        <div className={`flex justify-center items-center h-screen ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-background'}`}>
-            <div className={`mt-8 bg-white dark:bg-gray-700 shadow-lg rounded-lg w-3/4 md:w-1/2 lg:w-2/3 h-5/6 flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto ${isDarkMode ? 'dark:text-white' : ''}`}>
+        <div className={`flex justify-center items-center h-screen ${isDarkMode ? 'bg-gray-800 text-white' : ''}`}>
+            <div className={`mt-8 sm:mt-14 bg-white dark:bg-gray-700 shadow-lg rounded-lg w-3/4 md:w-1/2 lg:w-2/3 h-5/6 flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto ${isDarkMode ? 'dark:text-white' : ''}`}>
                 <div className="flex-1 overflow-y-auto p-4">
                     {messages.map((message, index) => (
                         <div key={index} className={`mb-4 ${message.sender === 'user' ? 'flex justify-start' : 'flex justify-end'}`}>
