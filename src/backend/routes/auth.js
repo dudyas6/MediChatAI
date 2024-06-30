@@ -51,9 +51,7 @@ const protect = (req, res, next) => {
     return res.status(401).json({ error: 'Not authorized' });
   }
   try {
-    const decoded = jwt.verify(token, jwtSecret);
-    console.log("DECODED");
-    console.log(decoded);
+    const decoded = jwt.verify(token, jwtSecret);;
     req.user = decoded.id;
     next();
   } catch (err) {
@@ -61,7 +59,7 @@ const protect = (req, res, next) => {
   }
 };
 
-router.get('/profile', protect, async (req, res) => {
+router.get('/verify', protect, async (req, res) => {
   try {
     const user = await User.findById(req.user).select('-password');
     res.json(user);

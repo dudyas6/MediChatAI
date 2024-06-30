@@ -1,6 +1,7 @@
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import NavigationLink from "./NavigationLink";
+import UserButton from "./UserButton";
 
 import useMediaQuery from "Components/Hooks/useMediaQuery";
 
@@ -20,12 +21,12 @@ const NavBar = ({ flexBetween, selectedPage, setSelectedPage }) => {
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
             />
-                      <NavigationLink  
-            to={"/chat"} 
-            page="Chat Now"/>
-          <Button>PUT USER ICON</Button>
+            <NavigationLink 
+              to={"/chat"} 
+              page="Chat Now" 
+            />
+            <UserButton />
           </div>
-
         </div>
       )}
       {!isAboveMediumScreens && (

@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      axios.get('/auth/profile', {
+      axios.get('http://localhost:3001/api/auth/verify', {
         headers: { Authorization: `Bearer ${token}` }
       }).then(response => {
         setCurrentUser(response.data);
@@ -21,40 +21,37 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = async (username, password, navigateHome = true) => {
+  const login = async (username, password) => {
     try {
       const response = await axios.post('http://localhost:3001/api/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
-      const user = await axios.get('http://localhost:3001/api/auth/profile', {
+      const user = await axios.get('http://localhost:3001/api/auth/verify', {
         headers: { Authorization: `Bearer ${response.data.token}` }
       });
       setCurrentUser(user.data);
-      return { success: true, message: "Login successfuly, moving to homepage." };
+      return { success: true, message: "Login successful, moving to homepage." };
     } catch (error) {
       if (error.response) {
         return { success: false, message: error.response.data || "Login failed. Please try again." };
       } else if (error.request) {
-        return { success: false, message: "Server is currently unavailable, Please try again later." };
+        return { success: false, message: "Server is currently unavailable. Please try again later." };
       } else {
-        return { success: false, message: "An unexpected error occurred, Please try again later." };
+        return { success: false, message: "An unexpected error occurred. Please try again later." };
       }
     }
   };
 
   const register = async (username, password) => {
     try {
-      await axios.post("http://localhost:3001/api/auth/register", {
-        username,
-        password,
-      });
+      await axios.post("http://localhost:3001/api/auth/register", { username, password });
       return { success: true, message: "Account created successfully!" };
     } catch (error) {
       if (error.response) {
         return { success: false, message: error.response.data || "Registration failed. Please try again." };
       } else if (error.request) {
-        return { success: false, message: "Server is currently unavailable, Please try again later." };
+        return { success: false, message: "Server is currently unavailable. Please try again later." };
       } else {
-        return { success: false, message: "An unexpected error occurred, Please try again later." };
+        return { success: false, message: "An unexpected error occurred. Please try again later." };
       }
     }
   };
