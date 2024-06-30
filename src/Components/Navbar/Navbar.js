@@ -2,11 +2,8 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import NavigationLink from "./NavigationLink";
 import UserButton from "./UserButton";
-
 import useMediaQuery from "Components/Hooks/useMediaQuery";
-
 import Links from "./Links";
-import Button from "../UI/Button";
 
 const NavBar = ({ flexBetween, selectedPage, setSelectedPage }) => {
   const [isMenuToggled, setIsMenuToggled] = useState(false);
@@ -21,10 +18,7 @@ const NavBar = ({ flexBetween, selectedPage, setSelectedPage }) => {
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
             />
-            <NavigationLink 
-              to={"/chat"} 
-              page="Chat Now" 
-            />
+            <NavigationLink to={"/chat"} page="Chat Now" />
             <UserButton />
           </div>
         </div>
