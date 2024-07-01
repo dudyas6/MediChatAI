@@ -26,24 +26,20 @@ export const links = ['Home', 'Services', 'About', 'Contact'];
 
 export const cardNums = [
   {
-    num: '1',
-    text: 'Some Info',
+    num: '24/7',
+    text: 'Expert advice anytime',
   },
   {
-    num: '1',
-    text: 'Some Info',
+    num: '0 sec',
+    text: 'No waiting',
   },
   {
-    num: '1',
-    text: 'Some Info',
+    num: '0$',
+    text: 'Free',
   },
   {
-    num: '1',
-    text: 'Some Info',
-  },
-  {
-    num: '1',
-    text: 'Some Info',
+    num: '90%',
+    text: 'Accuracy',
   },
 ];
 

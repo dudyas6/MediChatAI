@@ -1,5 +1,5 @@
 import React from 'react';
-import User from 'Assets/Logos/User.jpg'
+import User from 'Assets/Logos/user.jpg'
 import { useAuth } from 'Components/Services/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
