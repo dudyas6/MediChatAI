@@ -1,10 +1,10 @@
 import React from "react";
-
+import logo from "Assets/Logos/logo-no-background.png"
 const Footer = () => {
   return (
     <div className="bg-[#aed4ff] mt-12 sm:mt-20 p-6 md:px-16">
       <div className="max-w-[1250px] m-auto flex justify-center gap-14 flex-wrap md:flex-nowrap">
-      <img width={50} src={null} alt="Logo"/>
+      <img width={350} src={logo} alt="Logo"/>
         <div className="justify-center font-bold">
 
           <span className="self-center text-sm sm:text-xl font-semibold whitespace-nowrap dark:text-white">

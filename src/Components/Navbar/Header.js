@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Navbar from "./Navbar";
 import { useLocation } from "react-router-dom";
-
+import logo from "Assets/Logos/logo-no-background.png"
 const Header = () => {
   const [selectedPage, setSelectedPage] = useState("home");
   const [isTopOfPage, setIsTopOfPage] = useState(true);
@@ -57,7 +57,7 @@ const Header = () => {
         isTopOfPage ? "bg-background" : "bg-[#84ceff]"
       } transition fixed top-0 z-30 w-full p-5 md:px-16`}
     >
-      <img className="w-10 sm:w-20" src={null} alt="Logo" />
+      <img src={logo} width="200 px" alt="Logo" />
       <Navbar
         flexBetween={flexBetween}
         selectedPage={selectedPage}

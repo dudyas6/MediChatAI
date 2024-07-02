@@ -15,7 +15,7 @@ const InformationBanner = () => {
             ))}
           </ul>
         </div>
-        <div className="bg-[#9ae7ff] shadow-xl rounded-2xl p-5 pb-0 max-w-xs md:max-w-md">
+        <div className="dark:bg-white rounded-2xl p-5 pb-0 max-w-xs md:max-w-md">
           <img src={InformationBannerData.img} alt="Banner1" />
         </div>
       </div>

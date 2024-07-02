@@ -21,7 +21,7 @@
 // import user3 from '@/assets/Images/users/user3.jpg';
 
 // import logo from '@/assets/Images/logo.png';
-
+import serviceImage from "Assets/Images/servicesImage.png"
 export const links = ['Home', 'Services', 'About', 'Contact'];
 
 export const cardNums = [
@@ -46,73 +46,37 @@ export const cardNums = [
 export const ServicesData = [
   {
     img: null,
-    title: 'Neurology',
-    id: 'neurology',
-    heading: 'Some Service',
+    title: 'General Consultation',
+    id: 'generalconsultation',
+    heading: 'General Consultation',
     texts: [
-      'Some Info',
-      'Some Info',
-      'Some Info',
+      'Access medical advice any time of the day.',
+      'Enter symptoms and get an initial assessment.',
+      'Ask general health-related questions and receive answers.',
 
     ],
   },
   {
     img: null,
-    title: 'Cardiology',
-    id: 'cardiology',
-    heading: 'Some Service',
+    title: 'Mental Health Support',
+    id: 'mentalhealthsupport',
+    heading: 'Mental Health Support',
     texts: [
-      'Some Info',
-      'Some Info',
-      'Some Info',
+      'Conduct self-assessments for mental well-being.',
+      'Access resources and support for mental health.',
+      'Get immediate assistance during mental health crises.',
 
     ],
   },
   {
     img: null,
-    title: 'Orthopedics',
-    id: 'orthopedics',
-    heading: 'Some Service',
+    title: 'Specialized Services',
+    id: 'specializedservices',
+    heading: 'Specialized Services',
     texts: [
-      'Some Info',
-      'Some Info',
-      'Some Info',
-
-    ],
-  },
-  {
-    img: null,
-    title: 'Surgery',
-    id: 'surgery',
-    heading: 'Some Service',
-    texts: [
-      'Some Info',
-      'Some Info',
-      'Some Info',
-
-    ],
-  },
-  {
-    img: null,
-    title: 'Dentistry',
-    id: 'dentistry',
-    heading: 'Some Service',
-    texts: [
-      'Some Info',
-      'Some Info',
-      'Some Info',
-
-    ],
-  },
-  {
-    img: null,
-    title: 'Radiology',
-    id: 'radiology',
-    heading: 'Some Service',
-    texts: [
-      'Some Info',
-      'Some Info',
-      'Some Info',
+      'Get second opinions on diagnoses and treatment plans.',
+      'Receive referrals to specialists based on health conditions.',
+      'Explore alternative and complementary medicine options.',
 
     ],
   },
@@ -121,10 +85,10 @@ export const ServicesData = [
 export const InformationBannerData = {
   heading: 'We Are Always Here To Ensure Best Medical Consulting',
   texts: [
-    'Text-1',
-    'Text-2',
-    'Text-3',
-    'Text-4',
+    'Easy and simple chatting',
+    '24/7 Service',
+    'Suitable for everyone',
+    'Accurate Analysis',
   ],
-  img: null,
+  img: serviceImage,
 };

@@ -8,7 +8,7 @@ import { SelectedService } from 'Components/Shared/Types';
 
 const ServicesSection = () => {
   const [SelectService, setSelectService] = useState(SelectedService.Cardiology);
-
+  
   const selectedServiceData = ServicesData.find(
     (service) => service.id === SelectService
   );

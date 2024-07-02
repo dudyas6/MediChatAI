@@ -1,6 +1,7 @@
 import React from "react";
 import SectionWrapper from "../SectionWrapper";
 import Cards from "./Cards";
+import image from "Assets/Images/transparent_background.png"
 function HomePage() {
   return (
     <SectionWrapper id="home">
@@ -10,12 +11,13 @@ function HomePage() {
             Your Health Is Our Top Priority
           </h1>
           <p className="text-lg md:text-base lg:text-xl my-10">
-            Securely share your comprehensive medical history with doctors and
-            loved ones, for better communication and care.
+            Securely share your comprehensive medical history and symptoms with an AI doctor,
+            for easier communication and care.
           </p>
         </div>
         <div className="max-w-xs md:max-w-none">
-          <img src={""} alt="hero" />
+          <img src= {image} width='500px' alt="hero" />
+
         </div>
       </div>
       <Cards />

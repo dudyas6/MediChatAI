@@ -6,14 +6,8 @@ export const SelectedPage = {
   };
   
   export const SelectedService = {
-    Neurology: 'neurology',
-    Cardiology: 'cardiology',
-    Orthopedics: 'orthopedics',
-    Surgery: 'surgery',
-    Dentistry: 'dentistry',
-    Radiology: 'radiology',
-    Urology: 'urology',
-    Medicine: 'medicine',
-    SeeMore: 'seemore',
+    GeneralConsultation:'generalconsultation',
+    MentalHealthSupport: 'mentalhealthsupport',
+    SpecializedServices:'pecializedservices',
   };
   
