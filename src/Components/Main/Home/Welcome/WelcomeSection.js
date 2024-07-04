@@ -1,15 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import SectionWrapper from "../SectionWrapper";
 import Cards from "./Cards";
 import image from "Assets/Images/transparent_background.png";
 import Button from "Components/UI/Button"; // Adjust the import path as per your actual file location
 
-
-const HandleClick = (e) => {
-  
-};
-
 function HomePage() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    console.log("move to chat");
+    navigate("/chat");
+  };
+
   return (
     <SectionWrapper id="home">
       <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 text-center md:text-left">
@@ -27,11 +30,11 @@ function HomePage() {
         </div>
       </div>
       <div className="flex mt-10 px-5 py-3 text-lg">
-        <Button  onClick={(HandleClick)} >Chat Now</Button>
+        <Button onClick={handleClick}>Chat Now</Button>
       </div>
       <Cards />
     </SectionWrapper>
   );
 }
-  
+
 export default HomePage;

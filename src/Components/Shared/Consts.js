@@ -45,7 +45,7 @@ export const cardNums = [
 
 export const ServicesData = [
   {
-    img: null,
+    img: "https://cdn3.iconfinder.com/data/icons/business-round-set-1/128/CONSULTING-512.png",
     title: 'General Consultation',
     id: 'generalconsultation',
     heading: 'General Consultation',
@@ -57,7 +57,7 @@ export const ServicesData = [
     ],
   },
   {
-    img: null,
+    img: "https://cdn.icon-icons.com/icons2/1749/PNG/512/44_113675.png",
     title: 'Mental Health Support',
     id: 'mentalhealthsupport',
     heading: 'Mental Health Support',
@@ -69,7 +69,7 @@ export const ServicesData = [
     ],
   },
   {
-    img: null,
+    img: "https://www.clinicbyclevelandclinic.com/wp-content/uploads/2022/05/For-Patients.png",
     title: 'Specialized Services',
     id: 'specializedservices',
     heading: 'Specialized Services',
