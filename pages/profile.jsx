@@ -5,7 +5,7 @@ const ProfilePage = () => {
   return (
     <>
       <Head>
-        <title>Profile</title>
+        <title>MediChat| Profile</title>
       </Head>
       <Profile />
     </>

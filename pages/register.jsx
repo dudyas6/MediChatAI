@@ -5,7 +5,7 @@ const RegisterPage = () => {
   return (
     <>
       <Head>
-        <title>Register</title>
+        <title>MediChat| Register</title>
       </Head>
       <Register />
     </>

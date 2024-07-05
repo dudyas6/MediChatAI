@@ -5,7 +5,7 @@ const LoginPage = () => {
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>MediChat| Login</title>
       </Head>
       <Login />
     </>
