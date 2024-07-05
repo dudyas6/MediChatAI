@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import InputField from "@/components/UI/InputField";
-import { useAuth } from "@/components/Services/AuthContext";
+import { useAuth } from "@/api-lib/AuthContext";
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import { useRouter } from 'next/router';
 // import { useTheme } from '@/my-components/Services/ThemeContext';

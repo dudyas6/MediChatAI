@@ -1,7 +1,7 @@
 import '@/assets/index.css';
 import { Layout } from 'src/components/Layout';
-import { ThemeProvider } from '@/components/Services/ThemeContext';
-import { AuthProvider } from '@/components/Services/AuthContext';
+import { ThemeProvider } from '@/components/Shared/ThemeContext';
+import { AuthProvider } from '@/api-lib/AuthContext';
 
 export default function MyApp({ Component, pageProps }) {
   return (

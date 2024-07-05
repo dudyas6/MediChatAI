@@ -1,19 +1,26 @@
-import React, { useEffect } from 'react';
-import { useAuth } from '@/components/Services/AuthContext';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '@/api-lib/AuthContext';
 import SectionWrapper from 'src/page-components/Home/SectionWrapper';
 import { useRouter } from 'next/router';
 
 const ProfilePage = () => {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, loading: authLoading } = useAuth();
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(currentUser);
-    if (!currentUser) {
-      router.push('/');
+    if (!authLoading) {
+      if (!currentUser) {
+        router.push('/');
+      } else {
+        setLoading(false);
+      }
     }
-  }, [currentUser, router]);
+  }, [currentUser, authLoading, router]);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <SectionWrapper id="profile">

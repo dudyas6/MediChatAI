@@ -5,7 +5,7 @@ import WelcomeSection from "./Welcome/WelcomeSection";
 import AboutSection from "./About/AboutSection";
 import ContactSection from "./Contact/ContactSection";
 import ServicesSection from "./Services/ServicesSection";
-import { ThemeProvider } from "@/components/Services/ThemeContext"; // import ThemeProvider
+import { ThemeProvider } from "@/components/Shared/ThemeContext"; // import ThemeProvider
 import AccessibilityMenu from "@/components/Shared/AccessibilityMenu"; // import AccessibilityMenu
 
 function HomePage() {
