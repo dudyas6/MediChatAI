@@ -1,8 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "baseUrl": "src"
-  },
-  "exclude": ["node_modules", "build", "dist"]
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["src/components/*"],
+      "@/page-components/*": ["src/page-components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/api-lib/*": ["backend/api-lib/*"],
+      "@/assets/*": ["assets/*"],
+      "@/models/*": ["backend/models/*"],
+    }
+  }
 }

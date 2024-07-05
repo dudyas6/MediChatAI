@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useTheme } from 'Components/Services/ThemeContext';
+import { useTheme } from 'src/components/Services/ThemeContext';
 
 const AccessibilityMenu = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const [highContrast, setHighContrast] = useState(document.body.classList.contains('high-contrast'));
+  const [highContrast, setHighContrast] = useState(true);
 
   const handleIncreaseTextSize = () => {
     const root = document.documentElement;
@@ -29,7 +29,7 @@ const AccessibilityMenu = () => {
   return (
     <>
       <div className="fixed bottom-3 right-4 z-50">
-        <button 
+        <button
           className={`bg-white text-black dark:bg-gray-800 dark:text-white rounded-full p-2 shadow-md`}
           onClick={() => setIsOpen(!isOpen)}
         >

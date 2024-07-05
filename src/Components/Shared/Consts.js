@@ -21,7 +21,7 @@
 // import user3 from '@/assets/Images/users/user3.jpg';
 
 // import logo from '@/assets/Images/logo.png';
-import serviceImage from "Assets/Images/servicesImage.png"
+import serviceImage from "@/assets//Images/servicesImage.png"
 export const links = ['Home', 'Services', 'About', 'Contact'];
 
 export const cardNums = [

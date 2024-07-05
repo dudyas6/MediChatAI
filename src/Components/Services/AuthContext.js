@@ -1,8 +1,14 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 
 const AuthContext = createContext();
-export const useAuth = () => useContext(AuthContext);
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
@@ -10,49 +16,68 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      axios.get('http://localhost:3001/api/auth/verify', {
-        headers: { Authorization: `Bearer ${token}` }
-      }).then(response => {
-        setCurrentUser(response.data);
-      }).catch(error => {
-        console.error('Error fetching profile:', error);
-        localStorage.removeItem('token');
-      });
+      fetch('/api/auth/verify', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+        .then(response => response.json())
+        .then(data => setCurrentUser(data))
+        .catch(error => {
+          console.error('Error fetching profile:', error);
+          localStorage.removeItem('token');
+        });
     }
   }, []);
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/auth/login', { username, password });
-      localStorage.setItem('token', response.data.token);
-      const user = await axios.get('http://localhost:3001/api/auth/verify', {
-        headers: { Authorization: `Bearer ${response.data.token}` }
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
       });
-      setCurrentUser(user.data);
-      return { success: true, message: "Login successful, moving to homepage." };
-    } catch (error) {
-      if (error.response) {
-        return { success: false, message: error.response.data || "Login failed. Please try again." };
-      } else if (error.request) {
-        return { success: false, message: "Server is currently unavailable. Please try again later." };
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        const userResponse = await fetch('/api/auth/verify', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${data.token}`,
+          },
+        });
+        if (userResponse.ok) {
+          const userData = await userResponse.json();
+          setCurrentUser(userData);
+        }
+        return { success: true, message: 'Login successful' };
       } else {
-        return { success: false, message: "An unexpected error occurred. Please try again later." };
+        const errorData = await response.json();
+        return { success: false, message: errorData.message || 'Login failed' };
       }
+    } catch (error) {
+      console.error('Login error:', error);
+      return { success: false, message: 'An unexpected error occurred. Please try again later.' };
     }
   };
 
   const register = async (username, password) => {
     try {
-      await axios.post("http://localhost:3001/api/auth/register", { username, password });
-      return { success: true, message: "Account created successfully!" };
-    } catch (error) {
-      if (error.response) {
-        return { success: false, message: error.response.data || "Registration failed. Please try again." };
-      } else if (error.request) {
-        return { success: false, message: "Server is currently unavailable. Please try again later." };
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      if (response.ok) {
+        return { success: true, message: 'Account created successfully!' };
       } else {
-        return { success: false, message: "An unexpected error occurred. Please try again later." };
+        const errorData = await response.json();
+        return { success: false, message: errorData.message || 'Registration failed' };
       }
+    } catch (error) {
+      console.error('Registration error:', error);
+      return { success: false, message: 'An unexpected error occurred. Please try again later.' };
     }
   };
 
