@@ -1,14 +1,10 @@
 // Components/UI/Button.js
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
-const Button = ({ onClick, children }) => {
-  const nav = useNavigate();
+const Button = ({ children, onClick }) => {
   return (
-    <button
-      onClick={onClick}
-      className="bg-primary transition hover:bg-[#158ace] px-10 py-5 shadow-lg rounded-3xl text-white"
-    >
+    <button className="bg-primary transition hover:bg-[#158ace] px-10 py-5 shadow-lg rounded-3xl text-white"
+            onClick={onClick}>
       {children}
     </button>
   );

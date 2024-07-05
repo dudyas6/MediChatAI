@@ -27,21 +27,22 @@ export const links = ['Home', 'Services', 'About', 'Contact'];
 export const cardNums = [
   {
     num: '24/7',
-    text: 'Expert advice anytime',
+    text: 'Availability',
   },
   {
-    num: '0 sec',
-    text: 'No waiting',
+    num: '0 seconds',
+    text: 'Waiting time',
   },
   {
     num: '0$',
-    text: 'Free',
+    text: 'Free of charge',
   },
   {
-    num: '90%',
-    text: 'Accuracy',
+    num: 'Reliability',
+    text: 'Advanced AI Accurate Analysis',
   },
 ];
+
 
 export const ServicesData = [
   {
@@ -65,6 +66,18 @@ export const ServicesData = [
       'Conduct self-assessments for mental well-being.',
       'Access resources and support for mental health.',
       'Get immediate assistance during mental health crises.',
+
+    ],
+  },
+  {
+    img: "https://www.clinicbyclevelandclinic.com/wp-content/uploads/2022/05/For-Patients.png",
+    title: 'Specialized Services',
+    id: 'specializedservices',
+    heading: 'Specialized Services',
+    texts: [
+      'Get second opinions on diagnoses and treatment plans.',
+      'Receive referrals to specialists based on health conditions.',
+      'Explore alternative and complementary medicine options.',
 
     ],
   },

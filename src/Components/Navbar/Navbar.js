@@ -18,7 +18,6 @@ const NavBar = ({ flexBetween, selectedPage, setSelectedPage }) => {
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
             />
-            <NavigationLink to={"/chat"} page="Chat Now" />
             <UserButton />
           </div>
         </div>
@@ -48,8 +47,7 @@ const NavBar = ({ flexBetween, selectedPage, setSelectedPage }) => {
             <Links
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
-            />
-            <NavigationLink to={"/chat"} page="Chat Now" />       
+            />      
           </div>
           
         </div>

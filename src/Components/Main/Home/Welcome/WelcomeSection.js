@@ -24,13 +24,11 @@ function HomePage() {
             Securely share your comprehensive medical history and symptoms with an AI doctor,
             for easier communication and care.
           </p>
+          <Button  onClick={(handleClick)} >Chat Now</Button>
         </div>
         <div className="max-w-xs md:max-w-none">
           <img src={image} width="500px" alt="hero" />
         </div>
-      </div>
-      <div className="flex mt-10 px-5 py-3 text-lg">
-        <Button onClick={handleClick}>Chat Now</Button>
       </div>
       <Cards />
     </SectionWrapper>
