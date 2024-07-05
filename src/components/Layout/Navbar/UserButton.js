@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { useAuth } from 'src/components/Services/AuthContext';
+import { useAuth } from '@/components/Services/AuthContext';
 import { useRouter } from 'next/router';
 import User from '@/assets//Logos/User.jpg';
 

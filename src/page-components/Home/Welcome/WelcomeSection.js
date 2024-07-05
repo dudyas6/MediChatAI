@@ -4,7 +4,7 @@ import SectionWrapper from '../SectionWrapper';
 import Cards from './Cards';
 import Image from 'next/image';
 import image from '@/assets/Images/transparent_background.png'; // Adjust the import path as per your actual file location
-import Button from 'src/components/UI/Button'; // Adjust the import path as per your actual file location
+import Button from '@/components/UI/Button'; // Adjust the import path as per your actual file location
 
 function HomePage() {
   const router = useRouter();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { InformationBannerData } from 'src/components/Shared/Consts';
+import { InformationBannerData } from '@/components/Shared/Consts';
 import ListItem from './ListItem';
 
 const InformationBanner = () => {

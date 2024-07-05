@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import ScrollLink from './ScrollLink';
 import NavigationLink from './NavigationLink';
-import { links } from 'src/components/Shared/Consts';
+import { links } from '@/components/Shared/Consts';
 
 const Links = ({ selectedPage, setSelectedPage }) => {
   const router = useRouter();

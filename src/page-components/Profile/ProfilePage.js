@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useAuth } from 'src/components/Services/AuthContext';
+import { useAuth } from '@/components/Services/AuthContext';
 import SectionWrapper from 'src/page-components/Home/SectionWrapper';
 import { useRouter } from 'next/router';
 

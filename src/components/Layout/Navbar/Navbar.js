@@ -2,7 +2,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import NavigationLink from "./NavigationLink";
 import UserButton from "./UserButton";
-import useMediaQuery from "src/components/Hooks/useMediaQuery";
+import useMediaQuery from "@/components/Hooks/useMediaQuery";
 import Links from "./Links";
 
 const NavBar = ({ flexBetween, selectedPage, setSelectedPage }) => {

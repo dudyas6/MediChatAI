@@ -1,4 +1,4 @@
-import { cardNums } from 'src/components/Shared/Consts';
+import { cardNums } from '@/components/Shared/Consts';
 
 const DescNums = () => {
   return (

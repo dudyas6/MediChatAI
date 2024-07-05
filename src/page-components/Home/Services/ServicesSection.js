@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { ServicesData } from 'src/components/Shared/Consts';
+import { ServicesData } from '@/components/Shared/Consts';
 import Service from './Service';
 import ListItem from './ListItem';
 import InformationBanner from './InformationBanner';
 import SectionWrapper from '../SectionWrapper';
-import { SelectedService } from 'src/components/Shared/Types';
+import { SelectedService } from '@/components/Shared/Types';
 
 const ServicesSection = () => {
   const [SelectService, setSelectService] = useState(SelectedService.Cardiology);

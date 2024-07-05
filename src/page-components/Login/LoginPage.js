@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import InputField from "src/components/UI/InputField";
-import { useAuth } from "src/components/Services/AuthContext";
-import ErrorMessage from "src/components/UI/ErrorMessage";
+import InputField from "@/components/UI/InputField";
+import { useAuth } from "@/components/Services/AuthContext";
+import ErrorMessage from "@/components/UI/ErrorMessage";
 import { useRouter } from 'next/router';
 // import { useTheme } from '@/my-components/Services/ThemeContext';
 
