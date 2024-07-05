@@ -11,7 +11,7 @@ import AccessibilityMenu from "@/components/Shared/AccessibilityMenu"; // import
 function HomePage() {
   return (
     <ThemeProvider>
-      <div className="dark:text-white dark:bg-gray-800 p-2 shadow-md">
+      <div className="dark:text-white dark:bg-gray-800 p-2">
         <div className="m-auto max-w-[1250px] px-5 md:px-16">
           <AccessibilityMenu />
           <WelcomeSection />

@@ -1,0 +1,22 @@
+/* toastify-custom.css */
+.Toastify__progress-bar--success {
+    background: #007bff; /* Bootstrap Blue */
+  }
+.Toastify__toast-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .Toastify__toast-icon svg {
+    fill: #007bff; /* Ensure the checkmark icon stands out */
+  }
+
+  .Toastify__toast {
+    max-width: 500px; /* Adjust the width as needed */
+    max-height:500px;
+  }

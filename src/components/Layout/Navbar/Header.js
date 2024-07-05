@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Navbar from './Navbar';
 import Image from 'next/image';
-import logo from '@/assets/Logos/logo-no-background.png'; // Adjust the import path as per your actual file location
+import mediChatLogo from '@/assets/Logos/medichat.png'; // Adjust the import path as per your actual file location
 
 const Header = () => {
   const [selectedPage, setSelectedPage] = useState('home');
@@ -59,7 +59,7 @@ const Header = () => {
         isTopOfPage ? 'bg-background' : 'bg-[#84ceff]'
       } transition fixed top-0 z-30 w-full p-5 md:px-16`}
     >
-      <Image src={logo} width={200} height={50} alt="Logo" />
+      <Image src={mediChatLogo} width={200} height={50} alt="Logo" />
       <Navbar
         flexBetween={flexBetween}
         selectedPage={selectedPage}

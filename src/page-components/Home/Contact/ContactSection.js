@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import SectionWrapper from "../SectionWrapper";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
-// import "@/assets//Style/toastify-custom.css"; // Import custom CSS
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./Toastify.module.css";
 
 function ContactSection() {
   const [name, setName] = useState("");
@@ -58,20 +58,40 @@ function ContactSection() {
 
   const postContactRequest = async (name, email, message) => {
     try {
-      const res = await axios.post("http://localhost:3001/api/contact/x", {
-        name,
-        email,
-        message,
+      const response = await fetch('/api/contact/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          message,
+        }),
       });
-      console.log(res);
-      return { success: true, message: "Message sent, we'll be soon in touch!" };
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        return {
+          success: false,
+          message: errorData.message || 'An error occurred!',
+        };
+      }
+
+      const data = await response.json();
+      return {
+        success: true,
+        message: "Message sent, we'll be soon in touch!",
+      };
     } catch (error) {
+      console.error('Error sending contact request:', error);
       return {
         success: false,
-        message: error.response.data || "An error occurred!",
+        message: 'An unexpected error occurred!',
       };
     }
   };
+
 
   return (
     <SectionWrapper id="contact">
@@ -114,11 +134,6 @@ function ContactSection() {
                     className="w-full dark:bg-gray-500 rounded-md py-3 px-4 text-sm outline-blue-600 focus-within:bg-transparent"
                     onChange={handleChange}
                   />
-                  {/* <input
-                    type="email"
-                    placeholder="Phone No."
-                    className="w-full bg-gray-100 rounded-md py-3 px-4 text-sm outline-blue-600 focus-within:bg-transparent"
-                  /> */}
                   <textarea
                     placeholder="Message"
                     name="message"
@@ -160,7 +175,7 @@ function ContactSection() {
           </div>
         </div>
       </div>
-      {/* <ToastContainer /> */}
+      <ToastContainer />
     </SectionWrapper>
   );
 }
