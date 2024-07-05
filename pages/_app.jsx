@@ -1,6 +1,6 @@
 import '@/assets/index.css';
-import { Layout } from '@/components/Layout';
-import { ThemeProvider } from 'next-themes';
+import { Layout } from 'src/components/Layout';
+import { ThemeProvider } from '@/components/Services/ThemeContext';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from '@/components/Services/AuthContext';
 
