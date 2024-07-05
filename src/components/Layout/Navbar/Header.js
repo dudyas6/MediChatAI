@@ -59,7 +59,7 @@ const Header = () => {
         isTopOfPage ? 'bg-background' : 'bg-[#84ceff]'
       } transition fixed top-0 z-30 w-full p-5 md:px-16`}
     >
-      <Image src={mediChatLogo} width={200} height={50} alt="Logo" />
+      <Image src={mediChatLogo} width={300} height={50} alt="Logo" />
       <Navbar
         flexBetween={flexBetween}
         selectedPage={selectedPage}

@@ -8,14 +8,12 @@ const ProfilePage = () => {
   const router = useRouter();
 
   useEffect(() => {
+    console.log(currentUser);
     if (!currentUser) {
       router.push('/');
     }
   }, [currentUser, router]);
 
-  if (!currentUser) {
-    return null; // Or render a loading spinner
-  }
 
   return (
     <SectionWrapper id="profile">
@@ -23,7 +21,7 @@ const ProfilePage = () => {
         <div className="tracking-wider md:tracking-normal max-w-xs lg:max-w-xl">
           <h1 className="lg:text-7xl text-4xl font-bold">Your Profile</h1>
           <p className="text-lg md:text-base lg:text-xl my-10">
-            {currentUser.email}
+            {/* {currentUser.email} */}
           </p>
           <button onClick={logout}>Log Out</button>
         </div>

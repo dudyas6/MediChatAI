@@ -1,5 +1,6 @@
 import React from 'react';
 import { InformationBannerData } from '@/components/Shared/Consts';
+import Image from 'next/image';
 import ListItem from './ListItem';
 
 const InformationBanner = () => {
@@ -16,7 +17,7 @@ const InformationBanner = () => {
           </ul>
         </div>
         <div className="dark:bg-white rounded-2xl p-5 pb-0 max-w-xs md:max-w-md">
-          <img src={InformationBannerData.img} alt="Banner1" />
+          <Image src={InformationBannerData.img} alt="Banner" />
         </div>
       </div>
     );
