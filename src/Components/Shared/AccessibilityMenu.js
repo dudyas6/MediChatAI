@@ -33,7 +33,7 @@ const AccessibilityMenu = () => {
         <div className={`fixed bottom-24 right-4 z-50 dark:bg-gray-800 dark:text-white bg-white text-black shadow-md p-4 rounded-md`}>
           <ul>
             <li className="flex items-center mb-2">
-              <span className="mr-2">Large Text</span>
+              <span className="mr-2">Zoom In</span>
               <label className="switch">
                 <input
                   type="checkbox"
@@ -41,7 +41,7 @@ const AccessibilityMenu = () => {
                   onChange={handleToggleTextSize}
                   className="hidden"
                 />
-                <div className="toggle-switch-toggle relative ml-6 w-8 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner">
+                <div className="toggle-switch-toggle relative ml-10 w-8 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner">
                   <div className={`toggle-path absolute w-4 h-4 bg-white dark:bg-gray-300 rounded-full shadow-md transform transition ${isTextLarge ? 'translate-x-4' : 'translate-x-0'}`}></div>
                 </div>
               </label>

@@ -100,7 +100,7 @@ function ContactSection() {
       <h2 className="text-4xl font-bold text-center mb-10">Contact Us!</h2>
       <div className="flex flex-col justify-between lg:flex-row gap-10 lg:gap-5">
         <div className="lg:min-w-[345px]">
-          <div className='dark:bg-gray-800 bg-white font-[sans-serif] max-w-6xl mx-auto relative shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-3xl overflow-hidden mt-4'>
+          <div className='dark:bg-gray-600 bg-white font-[sans-serif] max-w-6xl mx-auto relative shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-3xl overflow-hidden mt-4'>
             <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-blue-400"></div>
             <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-blue-400"></div>
 
