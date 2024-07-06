@@ -8,7 +8,7 @@ import { useTheme } from '@/components/Shared/ThemeContext';
 
 function RegisterPage() {
   const { register } = useAuth();
-  // const { isDarkMode } = useTheme(); // Access dark mode state
+  const { isDarkMode } = useTheme(); // Access dark mode state
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -74,9 +74,9 @@ function RegisterPage() {
   // ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-blue-50'}
   // ${isDarkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'}
   return (
-    <section className="">
+    <section className={`${isDarkMode? "dark:bg-gray-800":""}`}>
       <div className={`flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 `}>
-        <div className="w-full rounded-lg bg-white shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700 mt-[-2rem] md:mt-[-4rem]">
+        <div className="w-full rounded-lg bg-white shadow dark:border sm:max-w-md xl:p-0 mt-[-2rem] md:mt-[-4rem]">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="text-center mb-12">
               <span>

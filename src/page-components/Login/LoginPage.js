@@ -3,11 +3,11 @@ import InputField from "@/components/UI/InputField";
 import { useAuth } from '@/services/auth.service';
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import { useRouter } from 'next/router';
-// import { useTheme } from '@/my-components/Services/ThemeContext';
+import { useTheme } from '@/components/Shared/ThemeContext';
 
 function LoginPage() {
   const { login } = useAuth();
-  // const { isDarkMode } = useTheme(); // Access dark mode state
+  const { isDarkMode } = useTheme(); // Access dark mode state
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState({ text: "", type: "" });
@@ -36,13 +36,14 @@ function LoginPage() {
       setMessage({ text: error_msg.error, type: "error" });
     }
   };
-  // ${isDarkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'}
-  // ${isDarkMode ? 'bg-gray-900 text-white' : ' text-gray-900'}
+
   return (
-    <div className={`font-sans `}>
-      <div className="sm:mt-20  min-h-screen flex flex-col items-center justify-center">
-        <div className="grid md:grid-cols-2 bg-white items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md">
+    <div className={`${isDarkMode ? "bg-gray-800" : "bg-white"} font-sans`}>
+      <div className={`sm:mt-20 min-h-screen flex flex-col items-center justify-center`}>
+        <div className={`${isDarkMode ? "bg-gray-300" : "bg-white"} grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-lg`}>
           <div className="md:max-w-md w-full px-4 py-4">
+            <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
+            <p className="mb-6 text-center">Please fill in your login information to access your account.</p>
             <form onSubmit={handleSubmit}>
               <div className="space-y-6">
                 <InputField
@@ -66,10 +67,14 @@ function LoginPage() {
                   isPasswordVisible={isPasswordVisible}
                 />
               </div>
-              <div className="!mt-10">
+              <div className="flex justify-between mt-4">
+                <a href="/register" className="text-sm text-blue-600 hover:underline">Sign up</a>
+                <a href="/" className="text-sm text-blue-600 hover:underline">Forgot password?</a>
+              </div>
+              <div className="mt-10">
                 <button
                   type="submit"
-                  className={`w-full py-3 px-4 text-sm font-semibold rounded focus:outline-none  text-black`}
+                  className="w-full py-3 px-4 text-sm font-semibold rounded focus:outline-none bg-blue-600 text-white"
                 >
                   Login
                 </button>
@@ -81,7 +86,7 @@ function LoginPage() {
             <img
               src="https://readymadeui.com/signin-image.webp"
               className="w-full h-full object-contain"
-              alt=""
+              alt="Sign In Illustration"
             />
           </div>
         </div>
