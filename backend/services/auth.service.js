@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
         return { success: true, message: 'Login successful' };
       } else {
         const errorData = await response.json();
-        return { success: false, message: errorData.message || 'Login failed' };
+        return { success: false, message: errorData || 'Login failed' };
       }
     } catch (error) {
       console.error('Login error:', error);
