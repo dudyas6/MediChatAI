@@ -11,7 +11,6 @@ function ContactSection() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [msg, setMsg] = useState("");
-  const { isDarkMode } = useTheme();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -101,7 +100,7 @@ function ContactSection() {
       <h2 className="text-4xl font-bold text-center mb-10">Contact Us!</h2>
       <div className="flex flex-col justify-between lg:flex-row gap-10 lg:gap-5">
         <div className="lg:min-w-[345px]">
-          <div className={`${isDarkMode?"bg-gray-800":""} font-[sans-serif] max-w-6xl mx-auto relative shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-3xl overflow-hidden mt-4`}>
+          <div className='dark:bg-gray-800 bg-white font-[sans-serif] max-w-6xl mx-auto relative shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-3xl overflow-hidden mt-4'>
             <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-blue-400"></div>
             <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-blue-400"></div>
 
@@ -127,7 +126,7 @@ function ContactSection() {
                     id="name"
                     required
                     placeholder="Name"
-                    className={`${isDarkMode?"bg-gray-800":"bg-gray-200"} w-full rounded-md py-3 px-4 text-sm outline-blue-600 focus-within:bg-transparent`}
+                    className='dark:bg-gray-200 bg-background w-full rounded-md py-3 px-4 text-sm outline-blue-600 focus-within:bg-transparent'
                     onChange={handleChange}
                   />
                   <input
@@ -136,7 +135,7 @@ function ContactSection() {
                     id="email"
                     required
                     placeholder="Email"
-                    className={`${isDarkMode?"bg-gray-800":"bg-gray-200"} w-full rounded-md py-3 px-4 text-sm outline-blue-600 focus-within:bg-transparent`}
+                    className='dark:bg-gray-200 bg-background w-full rounded-md py-3 px-4 text-sm outline-blue-600 focus-within:bg-transparent'
                     onChange={handleChange}
                   />
                   <textarea
@@ -145,7 +144,7 @@ function ContactSection() {
                     id="message"
                     required
                     rows="6"
-                    className={`${isDarkMode?"bg-gray-800":"bg-gray-200"} w-full rounded-md py-3 px-4 text-sm outline-blue-600 focus-within:bg-transparent`}
+                    className='dark:bg-gray-200 bg-background w-full rounded-md py-3 px-4 text-sm outline-blue-600 focus-within:bg-transparent'
                     onChange={handleChange}
                   >
 

@@ -7,7 +7,6 @@ import { useTheme } from '@/components/Shared/ThemeContext';
 
 function LoginPage() {
   const { login } = useAuth();
-  const { isDarkMode } = useTheme(); // Access dark mode state
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState({ text: "", type: "" });
@@ -38,9 +37,9 @@ function LoginPage() {
   };
 
   return (
-    <div className={`${isDarkMode ? "bg-gray-800" : "bg-white"} font-sans`}>
+    <div className='dark:bg-gray-800 bg-white font-sans'>
       <div className={`sm:mt-20 min-h-screen flex flex-col items-center justify-center`}>
-        <div className={`${isDarkMode ? "bg-gray-300" : "bg-white"} grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-lg`}>
+        <div className='dark:bg-gray-300 bg-white grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-lg'>
           <div className="md:max-w-md w-full px-4 py-4">
             <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
             <p className="mb-6 text-center">Please fill in your login information to access your account.</p>
