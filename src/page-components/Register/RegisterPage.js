@@ -71,8 +71,6 @@ function RegisterPage() {
       setMessage({ text: error_msg.error, type: "error" });
     }
   };
-  // ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-blue-50'}
-  // ${isDarkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'}
   return (
     <section className={`${isDarkMode? "dark:bg-gray-800":""}`}>
       <div className={`flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 `}>
@@ -135,7 +133,7 @@ function RegisterPage() {
               <div className="!mt-10">
                 <button
                   type="submit"
-                  className={`w-full py-3 px-4 text-sm font-semibold rounded focus:outline-none  text-white`}
+                  className="w-full py-3 px-4 text-sm font-semibold rounded focus:outline-none  bg-blue-500 text-white"
                 >
                   Create an account
                 </button>

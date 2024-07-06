@@ -38,7 +38,7 @@ function LoginPage() {
   };
 
   return (
-    <div className={`${isDarkMode ? "bg-gray-800" : "bg-white"} font-sans`}>
+    <div className={`${isDarkMode ? "bg-gray-800" : "bg-background"} font-sans`}>
       <div className={`sm:mt-20 min-h-screen flex flex-col items-center justify-center`}>
         <div className={`${isDarkMode ? "bg-gray-300" : "bg-white"} grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-lg`}>
           <div className="md:max-w-md w-full px-4 py-4">

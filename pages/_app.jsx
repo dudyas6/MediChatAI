@@ -8,7 +8,7 @@ export default function MyApp({ Component, pageProps }) {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <div className='text-[#1d4d85] app min-w-[280px] min-h-screen bg-background dark:bg-dark'>
+        <div className='text-[#1d4d85] app min-w-[280px] min-h-screen bg-background dark:bg-gray-600'>
         <Layout>
           <AccessibilityMenu />
           <Component {...pageProps} />
