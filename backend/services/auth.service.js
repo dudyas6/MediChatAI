@@ -1,3 +1,4 @@
+import { set } from 'mongoose';
 import React, { createContext, useState, useEffect, useContext } from 'react';
 
 const AuthContext = createContext();
@@ -12,19 +13,24 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const token = localStorage.getItem('token');
     if (token) {
       fetch('/api/auth/verify', {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
       })
-        .then(response => response.json())
-        .then(data => setCurrentUser(data))
-        .catch(error => {
+        .then((response) => response.json())
+        .then((data) => {
+          setCurrentUser(data);
+          setLoading(false);
+        })
+        .catch((error) => {
           console.error('Error fetching profile:', error);
           localStorage.removeItem('token');
         });
@@ -44,21 +50,27 @@ export const AuthProvider = ({ children }) => {
         const userResponse = await fetch('/api/auth/verify', {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${data.token}`,
+            Authorization: `Bearer ${data.token}`,
           },
         });
         if (userResponse.ok) {
           const userData = await userResponse.json();
           setCurrentUser(userData);
         }
-        return { success: true, message: 'Login successful' };
+        return {
+          success: true,
+          message: 'Login successful, moving to homepage',
+        };
       } else {
         const errorData = await response.json();
         return { success: false, message: errorData || 'Login failed' };
       }
     } catch (error) {
       console.error('Login error:', error);
-      return { success: false, message: 'An unexpected error occurred. Please try again later.' };
+      return {
+        success: false,
+        message: 'An unexpected error occurred. Please try again later.',
+      };
     }
   };
 
@@ -73,11 +85,17 @@ export const AuthProvider = ({ children }) => {
         return { success: true, message: 'Account created successfully!' };
       } else {
         const errorData = await response.json();
-        return { success: false, message: errorData.message || 'Registration failed' };
+        return {
+          success: false,
+          message: errorData.message || 'Registration failed',
+        };
       }
     } catch (error) {
       console.error('Registration error:', error);
-      return { success: false, message: 'An unexpected error occurred. Please try again later.' };
+      return {
+        success: false,
+        message: 'An unexpected error occurred. Please try again later.',
+      };
     }
   };
 
@@ -87,7 +105,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ currentUser, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ currentUser, loading, login, register, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

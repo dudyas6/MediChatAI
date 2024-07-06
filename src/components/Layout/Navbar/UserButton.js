@@ -10,7 +10,7 @@ const UserButton = () => {
 
   const handleUserClick = () => {
     if (currentUser) {
-      router.push('/profile');
+      router.push(`/${currentUser.username}`);
     } else {
       router.push('/login');
     }
