@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useTheme } from '@/components/Shared/ThemeContext';
+import AccessibilityBtnImg from '@/assets/Images/accessibility_btn_image.png';
+import Image from 'next/image';
 
 const AccessibilityMenu = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
@@ -30,19 +32,22 @@ const AccessibilityMenu = () => {
     <>
       <div className="fixed bottom-3 right-4 z-50">
         <button
-          className={`bg-white text-black dark:bg-gray-800 dark:text-white rounded-full p-2 shadow-md`}
+          className={`${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'} rounded-full p-2 shadow-md`}
           onClick={() => setIsOpen(!isOpen)}
+          style={{ width: '64px', height: '64px', borderRadius: '50%' }}
         >
-          <img src="https://developer.apple.com/assets/elements/icons/accessibility/accessibility-128x128_2x.png" alt="Accessibility" width="64" height="64" />
+          <Image src={AccessibilityBtnImg} alt="Accessibility" width="64" height="64" className="rounded-full" />
         </button>
       </div>
       {isOpen && (
-        <div className={`fixed bottom-24 right-4 z-50 bg-white dark:bg-gray-800 shadow-md p-4 rounded-md`}>
+        <div className={`fixed bottom-24 right-4 z-50 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-b'} shadow-md p-4 rounded-md`}>
           <ul>
             <li className="flex items-center mb-2">
-              <button className={`text-lg font-bold px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-md`} onClick={handleDecreaseTextSize}>-</button>
+              <button className={`${isDarkMode ? "bg-gray-500":"bg-gray-200"} text-lg font-bold px-3 py-1  rounded-md`}
+              onClick={handleDecreaseTextSize}>-</button>
               <span className="mx-2">Text Size</span>
-              <button className={`text-lg font-bold px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-md`} onClick={handleIncreaseTextSize}>+</button>
+              <button className={`${isDarkMode ? "bg-gray-500":"bg-gray-200"} text-lg font-bold px-3 py-1  rounded-md`}
+              onClick={handleIncreaseTextSize}>+</button>
             </li>
             <li className="flex items-center mb-2">
               <span className="mr-2">High Contrast</span>
@@ -53,7 +58,7 @@ const AccessibilityMenu = () => {
                   onChange={handleToggleHighContrast}
                   className="hidden"
                 />
-                <div className={`toggle-switch-toggle relative ml-0.5 w-7 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner`}>
+                <div className="toggle-switch-toggle relative ml-0.5 w-7 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner">
                   <div className={`toggle-path absolute w-4 h-4 bg-white dark:bg-gray-300 rounded-full shadow-md transform transition ${highContrast ? 'translate-x-4' : 'translate-x-0'}`}></div>
                 </div>
               </label>
@@ -67,7 +72,7 @@ const AccessibilityMenu = () => {
                   onChange={toggleDarkMode}
                   className="hidden"
                 />
-                <div className={`toggle-switch-toggle relative ml-5 w-8 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner`}>
+                <div className="toggle-switch-toggle relative ml-5 w-8 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner">
                   <div className={`toggle-path absolute w-4 h-4 bg-white dark:bg-gray-300 rounded-full shadow-md transform transition ${isDarkMode ? 'translate-x-4' : 'translate-x-0'}`}></div>
                 </div>
               </label>

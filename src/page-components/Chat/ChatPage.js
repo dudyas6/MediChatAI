@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import { useTheme } from '@/my-components/Services/ThemeContext';
-
+import { useTheme } from '@/components/Shared/ThemeContext';
+import AccessibilityMenu from '@/components/Shared/AccessibilityMenu'; 
 function ChatPage() {
-    // const { isDarkMode } = useTheme();
+    const { isDarkMode } = useTheme();
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const messagesEndRef = useRef(null);
@@ -28,17 +28,13 @@ function ChatPage() {
 
     useEffect(() => {
         // Scroll to the bottom of the chat container
-        // messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [messages]);
-    // ${isDarkMode ? 'bg-gray-800 text-white' : ''}
-    // ${isDarkMode ? 'dark:text-white dark:bg-gray-600' : ''}
-    //${isDarkMode ? 'dark:text-white' : ''}
-    //${isDarkMode ? 'bg-gray-800' : 'bg-gray-100'}
-    //${isDarkMode ? 'dark:bg-gray-600 dark:border-gray-600 dark:text-white' : ''}
-    // ${isDarkMode ? 'dark:bg-gray-600' : ''}
+
     return (
-        <div className={`flex justify-center items-center h-screen `}>
-            <div className={`mt-8 sm:mt-14 bg-white dark:bg-gray-700 shadow-lg rounded-lg w-3/4 md:w-1/2 lg:w-2/3 h-5/6 flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto `}>
+        <div className={`flex justify-center items-center h-screen ${isDarkMode ? 'bg-gray-800 text-white' : ''}`}>
+             <AccessibilityMenu />
+            <div className={`mt-8 sm:mt-14 bg-white ${isDarkMode ? 'bg-gray-700' : 'bg-white'} shadow-lg rounded-lg w-3/4 md:w-1/2 lg:w-2/3 h-5/6 flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto`}>
                 <div className="flex-1 overflow-y-auto p-4">
                     {messages.map((message, index) => (
                         <div key={index} className={`mb-4 ${message.sender === 'user' ? 'flex justify-start' : 'flex justify-end'}`}>
@@ -53,7 +49,7 @@ function ChatPage() {
                                     <div className="font-medium">
                                         {message.sender === 'user' ? 'User' : 'Bot'}
                                     </div>
-                                    <div className={`rounded-lg p-2 shadow max-w-sm ${message.sender === 'user' ? 'bg-blue-100' : 'bg-gray-300'} `}>
+                                    <div className={`rounded-lg p-2 shadow max-w-sm ${message.sender === 'user' ? 'bg-blue-100' : 'bg-gray-300'}`}>
                                         {message.text}
                                     </div>
                                 </div>
@@ -62,10 +58,10 @@ function ChatPage() {
                     ))}
                     <div ref={messagesEndRef} />
                 </div>
-                <div className={`p-4  rounded`}>
+                <div className={`p-4 rounded ${isDarkMode ? 'dark:bg-gray-600 dark:border-gray-600 dark:text-white' : ''}`}>
                     <div className="flex items-center">
                         <input
-                            className={`flex-1 border rounded-full py-2 px-4 mr-2 `}
+                            className={`flex-1 border rounded-full py-2 px-4 mr-2 ${isDarkMode ? 'dark:bg-gray-600 dark:border-gray-600 dark:text-white' : 'bg-gray-100'}`}
                             type="text"
                             placeholder="Type your message..."
                             value={input}
