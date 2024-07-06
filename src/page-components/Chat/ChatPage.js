@@ -34,7 +34,7 @@ function ChatPage() {
     return (
         <div className={`flex justify-center items-center h-screen ${isDarkMode ? 'bg-gray-800 text-white' : ''}`}>
              <AccessibilityMenu />
-            <div className={`mt-8 sm:mt-14 bg-white ${isDarkMode ? 'bg-gray-700' : 'bg-white'} shadow-lg rounded-lg w-3/4 md:w-1/2 lg:w-2/3 h-5/6 flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto`}>
+            <div className={`mt-8 sm:mt-14 bg-background ${isDarkMode ? 'bg-gray-700' : 'bg-background'} shadow-lg rounded-lg w-3/4 md:w-1/2 lg:w-2/3 h-5/6 flex flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto`}>
                 <div className="flex-1 overflow-y-auto p-4">
                     {messages.map((message, index) => (
                         <div key={index} className={`mb-4 ${message.sender === 'user' ? 'flex justify-start' : 'flex justify-end'}`}>
@@ -49,7 +49,7 @@ function ChatPage() {
                                     <div className="font-medium">
                                         {message.sender === 'user' ? 'User' : 'Bot'}
                                     </div>
-                                    <div className={`rounded-lg p-2 shadow max-w-sm ${message.sender === 'user' ? 'bg-blue-100' : 'bg-gray-300'}`}>
+                                    <div className={`rounded-lg p-2 shadow max-w-sm ${message.sender === 'user' ? 'bg-blue-400' : 'bg-gray-400'}`}>
                                         {message.text}
                                     </div>
                                 </div>

@@ -6,26 +6,16 @@ import Image from 'next/image';
 const AccessibilityMenu = () => {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const [highContrast, setHighContrast] = useState(true);
+  const [isTextLarge, setIsTextLarge] = useState(false);
 
-  const handleIncreaseTextSize = () => {
+  const handleToggleTextSize = () => {
     const root = document.documentElement;
-    const currentFontSize = window.getComputedStyle(root).fontSize;
-    const newSize = parseFloat(currentFontSize) * 1.25; // Increase by 25%
-    root.style.fontSize = `${newSize}px`;
-  };
-
-  const handleDecreaseTextSize = () => {
-    const root = document.documentElement;
-    const currentFontSize = window.getComputedStyle(root).fontSize;
-    const newSize = parseFloat(currentFontSize) * 0.8; // Decrease by 20%
-    root.style.fontSize = `${newSize}px`;
-  };
-
-  const handleToggleHighContrast = () => {
-    const body = document.body;
-    body.classList.toggle('high-contrast');
-    setHighContrast(!highContrast);
+    if (isTextLarge) {
+      root.style.fontSize = ''; // Reset to default
+    } else {
+      root.style.fontSize = '1.25em'; // Increase by 25%
+    }
+    setIsTextLarge(!isTextLarge);
   };
 
   return (
@@ -40,26 +30,19 @@ const AccessibilityMenu = () => {
         </button>
       </div>
       {isOpen && (
-        <div className={`fixed bottom-24 right-4 z-50 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-b'} shadow-md p-4 rounded-md`}>
+        <div className={`fixed bottom-24 right-4 z-50 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'} shadow-md p-4 rounded-md`}>
           <ul>
             <li className="flex items-center mb-2">
-              <button className={`${isDarkMode ? "bg-gray-500":"bg-gray-200"} text-lg font-bold px-3 py-1  rounded-md`}
-              onClick={handleDecreaseTextSize}>-</button>
-              <span className="mx-2">Text Size</span>
-              <button className={`${isDarkMode ? "bg-gray-500":"bg-gray-200"} text-lg font-bold px-3 py-1  rounded-md`}
-              onClick={handleIncreaseTextSize}>+</button>
-            </li>
-            <li className="flex items-center mb-2">
-              <span className="mr-2">High Contrast</span>
+              <span className="mr-2">Large Text</span>
               <label className="switch">
                 <input
                   type="checkbox"
-                  checked={highContrast}
-                  onChange={handleToggleHighContrast}
+                  checked={isTextLarge}
+                  onChange={handleToggleTextSize}
                   className="hidden"
                 />
-                <div className="toggle-switch-toggle relative ml-0.5 w-7 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner">
-                  <div className={`toggle-path absolute w-4 h-4 bg-white dark:bg-gray-300 rounded-full shadow-md transform transition ${highContrast ? 'translate-x-4' : 'translate-x-0'}`}></div>
+                <div className="toggle-switch-toggle relative ml-6 w-8 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner">
+                  <div className={`toggle-path absolute w-4 h-4 bg-white dark:bg-gray-300 rounded-full shadow-md transform transition ${isTextLarge ? 'translate-x-4' : 'translate-x-0'}`}></div>
                 </div>
               </label>
             </li>

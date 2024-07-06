@@ -11,7 +11,7 @@ function HomePage() {
   const { isDarkMode } = useTheme();
   return (
     <ThemeProvider>
-      <div className={isDarkMode? "bg-gray-800 text-white p-2":"bg-white"}>
+      <div className={isDarkMode? "bg-gray-800 text-white p-2":"bg-background"}>
         <div className="m-auto max-w-[1250px] px-5 md:px-16">
           <WelcomeSection />
           <ServicesSection />

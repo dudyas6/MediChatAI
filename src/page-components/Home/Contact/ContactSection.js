@@ -4,7 +4,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Toastify.module.css";
 import { useTheme } from '@/components/Shared/ThemeContext';
-
+import contactImage from "@/assets/Images/contactImage.png"
+import Image from "next/image"
 function ContactSection() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -106,8 +107,10 @@ function ContactSection() {
 
             <div className="grid md:grid-cols-2 gap-8 py-8 px-6">
               <div className="text-center flex flex-col items-center justify-center">
-                <img
-                  src="https://readymadeui.com/signin-image.webp"
+                <Image
+                  src={contactImage}
+                  width="400 px"
+                  height="400 px"
                   alt=""
                   className="shrink-0 w-5/6"
                 />
