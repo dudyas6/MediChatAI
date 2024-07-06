@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
         /> */}
       </Head>
       <Header />
-      <main className="">{children}</main>
+      <main>{children}</main>
       <Footer />
     </>
   );

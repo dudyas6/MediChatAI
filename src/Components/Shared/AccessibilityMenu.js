@@ -4,9 +4,10 @@ import AccessibilityBtnImg from '@/assets/Images/accessibility_btn_image.png';
 import Image from 'next/image';
 
 const AccessibilityMenu = () => {
-  const { isDarkMode, toggleDarkMode } = useTheme();
+  const { toggleDarkMode } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const [highContrast, setHighContrast] = useState(true);
+  const [highContrast, setHighContrast] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const handleIncreaseTextSize = () => {
     const root = document.documentElement;
@@ -28,11 +29,16 @@ const AccessibilityMenu = () => {
     setHighContrast(!highContrast);
   };
 
+  const handleToggleDarkMode = () => {
+    toggleDarkMode();
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <>
       <div className="fixed bottom-3 right-4 z-50">
         <button
-          className={`${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'} rounded-full p-2 shadow-md`}
+          className="dark:bg-gray-800 text-white rounded-full p-2 shadow-md"
           onClick={() => setIsOpen(!isOpen)}
           style={{ width: '64px', height: '64px', borderRadius: '50%' }}
         >
@@ -40,14 +46,22 @@ const AccessibilityMenu = () => {
         </button>
       </div>
       {isOpen && (
-        <div className={`fixed bottom-24 right-4 z-50 ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-white text-b'} shadow-md p-4 rounded-md`}>
+        <div className="fixed bottom-24 right-4 z-50 dark:bg-gray-800 dark:text-white shadow-md p-4 rounded-md">
           <ul>
             <li className="flex items-center mb-2">
-              <button className={`${isDarkMode ? "bg-gray-500":"bg-gray-200"} text-lg font-bold px-3 py-1  rounded-md`}
-              onClick={handleDecreaseTextSize}>-</button>
+              <button
+                className="dark:bg-gray-500 text-lg font-bold px-3 py-1 rounded-md"
+                onClick={handleDecreaseTextSize}
+              >
+                -
+              </button>
               <span className="mx-2">Text Size</span>
-              <button className={`${isDarkMode ? "bg-gray-500":"bg-gray-200"} text-lg font-bold px-3 py-1  rounded-md`}
-              onClick={handleIncreaseTextSize}>+</button>
+              <button
+                className="dark:bg-gray-500 text-lg font-bold px-3 py-1 rounded-md"
+                onClick={handleIncreaseTextSize}
+              >
+                +
+              </button>
             </li>
             <li className="flex items-center mb-2">
               <span className="mr-2">High Contrast</span>
@@ -69,11 +83,11 @@ const AccessibilityMenu = () => {
                 <input
                   type="checkbox"
                   checked={isDarkMode}
-                  onChange={toggleDarkMode}
+                  onChange={handleToggleDarkMode}
                   className="hidden"
                 />
                 <div className="toggle-switch-toggle relative ml-5 w-8 h-4 bg-gray-400 dark:bg-gray-600 rounded-full shadow-inner">
-                  <div className={`toggle-path absolute w-4 h-4 bg-white dark:bg-gray-300 rounded-full shadow-md transform transition ${isDarkMode ? 'translate-x-4' : 'translate-x-0'}`}></div>
+                  <div className="toggle-path absolute w-4 h-4 bg-white dark:bg-gray-300 rounded-full shadow-md transform transition translate-x-0"></div>
                 </div>
               </label>
             </li>
