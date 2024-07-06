@@ -8,6 +8,7 @@
       "@/api-lib/*": ["backend/api-lib/*"],
       "@/assets/*": ["assets/*"],
       "@/models/*": ["backend/models/*"],
+      "@/services/*": ["backend/services/*"],
     }
   }
 }
