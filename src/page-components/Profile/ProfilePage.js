@@ -6,21 +6,19 @@ import { useRouter } from 'next/router';
 const ProfilePage = () => {
   const { currentUser, logout, loading: authLoading } = useAuth();
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const username = router.query;
 
   useEffect(() => {
     if (!authLoading) {
       if (!currentUser) {
         router.push('/');
       } else {
-        setLoading(false);
+        if (username.username !== currentUser.username) {
+          router.push('/404');
+        }
       }
     }
   }, [currentUser, authLoading, router]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <SectionWrapper id="profile">
