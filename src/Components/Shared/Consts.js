@@ -1,27 +1,9 @@
-// import neurology from '@/assets/Images/Icons/Neurology.png';
-// import cardiology from '@/assets/Images/Icons/Cardiology.png';
-// import orthopedics from '@/assets/Images/Icons/Orthopoedics.png';
-// import surgery from '@/assets/Images/Icons/Surgery.png';
-// import dentistry from '@/assets/Images/Icons/Dentistry.png';
-// import radiology from '@/assets/Images/Icons/Radiology.png';
-// import urology from '@/assets/Images/Icons/Urology.png';
-// import medicine from '@/assets/Images/Icons/Medicine.png';
-// import seeMoreImage from '@/assets/Images/Icons/seeMoreImage.png';
-
-// import Banner1 from '@/assets/Images/Banner1.png';
-// import Banner2 from '@/assets/Images/Banner2.png';
-
-// import doc1 from '@/assets/Images/Doctors/doc1.png';
-// import doc2 from '@/assets/Images/Doctors/doc2.png';
-// import doc3 from '@/assets/Images/Doctors/doc3.png';
-// import doc4 from '@/assets/Images/Doctors/doc4.png';
-
-// import user1 from '@/assets/Images/users/user1.jpg';
-// import user2 from '@/assets/Images/users/user2.jpg';
-// import user3 from '@/assets/Images/users/user3.jpg';
-
-// import logo from '@/assets/Images/logo.png';
 import serviceImage from "@/assets//Images/servicesImage.png"
+import consultationLogo from "@/assets/Logos/consultationLogo.webp"
+import mentalHealthLogo from "@/assets/Logos/mentalHealthLogo.png"
+import specializedServicesLogo from "@/assets/Logos/specializedServicesLogo.png"
+
+
 export const links = ['Home', 'Services', 'About', 'Contact'];
 
 export const cardNums = [
@@ -46,7 +28,7 @@ export const cardNums = [
 
 export const ServicesData = [
   {
-    img: "https://cdn3.iconfinder.com/data/icons/business-round-set-1/128/CONSULTING-512.png",
+    img: consultationLogo,
     title: 'General Consultation',
     id: 'generalconsultation',
     heading: 'General Consultation',
@@ -58,7 +40,7 @@ export const ServicesData = [
     ],
   },
   {
-    img: "https://cdn.icon-icons.com/icons2/1749/PNG/512/44_113675.png",
+    img: mentalHealthLogo,
     title: 'Mental Health Support',
     id: 'mentalhealthsupport',
     heading: 'Mental Health Support',
@@ -70,7 +52,7 @@ export const ServicesData = [
     ],
   },
   {
-    img: "https://www.clinicbyclevelandclinic.com/wp-content/uploads/2022/05/For-Patients.png",
+    img: specializedServicesLogo,
     title: 'Specialized Services',
     id: 'specializedservices',
     heading: 'Specialized Services',
@@ -81,18 +63,18 @@ export const ServicesData = [
 
     ],
   },
-  {
-    img: "https://www.clinicbyclevelandclinic.com/wp-content/uploads/2022/05/For-Patients.png",
-    title: 'Specialized Services',
-    id: 'specializedservices',
-    heading: 'Specialized Services',
-    texts: [
-      'Get second opinions on diagnoses and treatment plans.',
-      'Receive referrals to specialists based on health conditions.',
-      'Explore alternative and complementary medicine options.',
+  // {
+  //   img: "https://www.clinicbyclevelandclinic.com/wp-content/uploads/2022/05/For-Patients.png",
+  //   title: 'Specialized Services',
+  //   id: 'specializedservices',
+  //   heading: 'Specialized Services',
+  //   texts: [
+  //     'Get second opinions on diagnoses and treatment plans.',
+  //     'Receive referrals to specialists based on health conditions.',
+  //     'Explore alternative and complementary medicine options.',
 
-    ],
-  },
+  //   ],
+  // },
 ];
 
 export const InformationBannerData = {
