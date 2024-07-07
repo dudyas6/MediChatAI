@@ -26,7 +26,7 @@ const Header = () => {
     const observerOptions = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.6, // Adjust this threshold as needed
+      threshold: 0.6,
     };
 
     const observerCallback = (entries) => {
@@ -39,8 +39,6 @@ const Header = () => {
     };
 
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    // Observe each section
     const sections = document.querySelectorAll('section');
     sections.forEach((section) => {
       sectionRefs.current[section.id] = section;
@@ -57,7 +55,7 @@ const Header = () => {
     <div
       className={`${flexBetween} ${
         isTopOfPage ? 'bg-background' : 'bg-[#84ceff]'
-      } transition fixed top-0 z-30 w-full p-5 md:px-16`}
+      } transition fixed top-0 z-30 w-full p-5 md:px-16 shadow-md`}
     >
       <Image src={mediChatLogo} width={300} height={50} alt="Logo" />
       <Navbar

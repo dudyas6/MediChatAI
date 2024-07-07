@@ -19,6 +19,12 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&amp;display=swap"
             rel="stylesheet"
           />
+          <link
+            rel="icon"
+            href="/title-logo.png"
+            type="image/png"
+            sizes="32x32"
+          />{' '}
         </Head>
         <body>
           <Main />

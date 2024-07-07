@@ -2,7 +2,7 @@ import Image from 'next/image';
 import mediChatLogo from '@/assets/Logos/medichat.png';
 const Footer = () => {
   return (
-    <div className="bg-[#aed4ff] p-6 md:px-16 mt-14 shadow-md">
+    <div className="bg-[#aed4ff] p-6 md:px-16 shadow-md">
       <div className="max-w-[1250px] m-auto flex justify-center gap-14 flex-wrap md:flex-nowrap">
       <Image src={mediChatLogo} width={300} height={50} alt="Logo" />
         <div className="justify-center font-bold">
