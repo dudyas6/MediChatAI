@@ -1,14 +1,14 @@
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
-import NavigationLink from "./NavigationLink";
-import UserButton from "./UserButton";
+import { useAuth } from "@/services/auth.service";
+import UserButton from "@/components/UI/UserButton";
 import useMediaQuery from "@/components/Hooks/useMediaQuery";
 import Links from "./Links";
 
 const NavBar = ({ flexBetween, selectedPage, setSelectedPage }) => {
   const [isMenuToggled, setIsMenuToggled] = useState(false);
   const isAboveMediumScreens = useMediaQuery("(min-width: 900px)");
-
+  const { currentUser } = useAuth();
   return (
     <nav>
       {isAboveMediumScreens && (
@@ -18,13 +18,25 @@ const NavBar = ({ flexBetween, selectedPage, setSelectedPage }) => {
               selectedPage={selectedPage}
               setSelectedPage={setSelectedPage}
             />
-            <UserButton />
+          <div className="relative">
+            <UserButton width={50} height={50} />
+            {currentUser && (
+              <span className="h-3 w-3 rounded-full border border-white bg-green-500 block absolute bottom-2 right-0"></span>
+            )}
+          </div>
+
+
           </div>
         </div>
       )}
       {!isAboveMediumScreens && (
         <div className="flex flex-row gap-4">
-                  <UserButton />
+          <div className="relative">
+            <UserButton width={50} height={50} />
+            {currentUser && (
+              <span className="h-3 w-3 rounded-full border border-white bg-green-500 block absolute bottom-2 right-0"></span>
+            )}
+          </div>
         <button onClick={() => setIsMenuToggled((prev) => !prev)}>
           <Bars3Icon className="h-8 w-8" />
         </button>

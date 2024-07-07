@@ -4,7 +4,7 @@ import { useAuth } from '@/services/auth.service';
 import { useRouter } from 'next/router';
 import User from '@/assets//Logos/User.jpg';
 
-const UserButton = () => {
+const UserButton = ({width, height}) => {
   const { currentUser } = useAuth();
   const router = useRouter();
 
@@ -24,12 +24,9 @@ const UserButton = () => {
           src={User}
           alt="User"
           onClick={handleUserClick}
-          width={40}
-          height={40}
+          width={width}
+          height={height}
         />
-        {currentUser && (
-          <span className="h-3 w-3 rounded-full border border-white bg-green-500 block absolute bottom-0 right-0"></span>
-        )}
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import { connectToDatabase } from '@/api-lib/mongodb';
+import { logout } from '@/services/auth.service';
 import User from 'backend/models/user.model';
 import jwt from 'jsonwebtoken';
 
@@ -21,7 +22,10 @@ const verifyUser = async (req, res) => {
     const user = await User.findById(decoded.id).select('-password');
     res.status(200).json(user);
   } catch (err) {
-    res.status(401).json({ error: 'Not authorized' });
+    if (err.name === 'TokenExpiredError') {
+      logout();
+    }
+    res.status(401).json({ err });
   }
 };
 
