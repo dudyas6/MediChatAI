@@ -15,33 +15,36 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+      getCurrentUser();
+  }, []);
+
+  const getCurrentUser = async () => {
     setLoading(true);
     const token = localStorage.getItem('token');
     if (token) {
-      fetch('/api/auth/verify', {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => {
-          if (response.status === 401) {
-            logout();
-            throw new Error('Token expired');
-          }
-          return response.json();
-        })
-        .then((data) => {
-          setCurrentUser(data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching profile:', error);
+      try {
+        const response = await fetch('/api/auth/verify', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
+  
+        if (response.status === 401) {
+          logout();
+          throw new Error('Token expired');
+        }
+        const data = await response.json();
+        setCurrentUser(data);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+      } finally {
+        setLoading(false);
+      }
     } else {
       setLoading(false);
     }
-  }, []);
+  };
 
   const login = async (username, password) => {
     try {

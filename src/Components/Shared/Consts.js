@@ -87,3 +87,10 @@ export const InformationBannerData = {
   ],
   img: serviceImage,
 };
+
+export const defaultSession = {
+  chat_id: '-1',
+  user: '',
+  messages: [],
+  createdAt: null,
+}

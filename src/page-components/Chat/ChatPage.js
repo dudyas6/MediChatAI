@@ -1,47 +1,80 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTheme } from '@/components/Shared/ThemeContext';
 import ChatHistory from './ChatHistory';
+import { useAuth } from '@/controllers/auth.controller';
+import { postChatSession }  from '@/controllers/chat.controller'
+import { getChatHistoryFromDB} from '@/controllers/chat.controller'
+import { defaultSession } from '@/components/Shared/Consts'
 
 function ChatPage() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
+    const [isFetchingHistory, setisFetchingHistory] = useState(false);
+    const [chatHistory, setChatHistory] = useState(null);
+    const [currentSession, setCurrentSession] = useState(defaultSession);
+    const { currentUser, loading } = useAuth();
 
     const messagesEndRef = useRef(null);
+
+    useEffect(() => {
+        setisFetchingHistory(true);
+        if (loading && !currentUser) 
+            return; 
+        if (currentUser) {
+            currentSession.user = currentUser.username;
+            setCurrentSession(currentSession);
+        }
+        async function fetchHistory(currentUser) {
+            const res = await getChatHistoryFromDB(currentUser);
+            setChatHistory(res)
+        }
+        fetchHistory(currentUser);
+        setisFetchingHistory(false);
+    }, [loading]);
 
     const handleSend = async (e) => {
         if (input.trim() !== '') {
             const newMessage = { text: input, sender: 'user' };
+            const botReply = { text: '...', sender: 'bot' };
             const updatedMessages = [...messages, newMessage];
             setMessages(updatedMessages);
+            const finalMessages = [...updatedMessages, botReply];
+            //Update Session
+            currentSession.messages = finalMessages
+            setCurrentSession(currentSession);
+            //Update Live Chat
             setInput('');
             setTimeout(() => {
-                const botReply = { text: '...', sender: 'bot' };
-                const finalMessages = [...updatedMessages, botReply];
                 setMessages(finalMessages);
-
-                postChatSession("null", finalMessages, null)
-                    .then(({ success, message: responseMsg }) => {
-                        if (!success) console.log(responseMsg);
-                    })
-                    .catch(error => {
-                        console.error("Error posting chat session:", error);
-                    });
             }, 1000);
+
+            
+            console.log(currentSession)
+            const res = await postChatSession(currentUser ? currentUser.username : "guest", currentSession)
+            .then(({ success, message: responseMsg }) => {
+                if (!success) 
+                    console.log(responseMsg);
+            })
+            .catch(error => {
+                console.error("Error posting chat session:", error);
+            });
         }
     };
 
     const handleNewChat = () => {
+        setCurrentSession(defaultSession);
         setMessages([]);
     }
 
     const handleChatHistoryClick = (history) => {
+        setCurrentSession(history);
         setMessages(history.messages);
     };
 
     return (
         <div className='flex items-center justify-center h-screen dark:bg-gray-800 dark:text-white'>
             <div className='flex w-3/4 mt-10 h-5/6'>
-                <ChatHistory handleChatHistoryClick={handleChatHistoryClick} handleNewChat={handleNewChat} />
+                <ChatHistory handleChatHistoryClick={handleChatHistoryClick} handleNewChat={handleNewChat} chatHistory={chatHistory} isFetchingHistory={isFetchingHistory} />
                 <div className='flex flex-col w-3/4 rounded-lg shadow-lg bg-background dark:bg-gray-700'>
                     <div className="flex-1 p-4 overflow-y-auto">
                         {messages.map((message, index) => (
