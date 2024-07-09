@@ -1,113 +1,75 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import { connectToDatabase } from '@/api-lib/mongodb';
+import User from 'backend/models/user.model';
+import jwt from 'jsonwebtoken';
 
-const AuthContext = createContext();
+const jwtSecret = process.env.JWT_SECRET;
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+export const getUserFromDB = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    await connectToDatabase();
+    const user = await User.findOne({ username });
+
+    if (user && (await user.matchPassword(password))) {
+      await setUserJwtToken(user, res);
+    } else {
+      res
+        .status(401)
+        .json({ error: 'Invalid username or password, please try again.' });
+    }
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
-  return context;
 };
 
-export const AuthProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(true);
-    const token = localStorage.getItem('token');
-    if (token) {
-      fetch('/api/auth/verify', {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setCurrentUser(data);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error fetching profile:', error);
-          localStorage.removeItem('token');
-        });
+export const addUserToDB = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    await connectToDatabase();
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json('Username already exists');
     }
-  }, []);
+    const newUser = new User({ username, password });
+    await newUser.save();
+    res.status(200).json('Successfully registered!');
+  } catch (err) {
+    res.status(500).json('Error: ' + err.message);
+  }
+};
 
-  const login = async (username, password) => {
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem('token', data.token);
-        const userResponse = await fetch('/api/auth/verify', {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${data.token}`,
-          },
-        });
-        if (userResponse.ok) {
-          const userData = await userResponse.json();
-          setCurrentUser(userData);
-        }
-        return {
-          success: true,
-          message: 'Login successful, moving to homepage',
-        };
-      } else {
-        const errorData = await response.json();
-        return { success: false, message: errorData || 'Login failed' };
-      }
-    } catch (error) {
-      console.error('Login error:', error);
-      return {
-        success: false,
-        message: 'An unexpected error occurred. Please try again later.',
-      };
+export const verifyUserToken = async (req, res) => {
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    token = req.headers.authorization.split(' ')[1];
+  }
+  if (!token) {
+    return res.status(401).json({ error: 'Not authorized' });
+  }
+  try {
+    const decoded = jwt.verify(token, jwtSecret);
+    await connectToDatabase();
+    const user = await User.findById(decoded.id).select('-password');
+    res.status(200).json(user);
+  } catch (err) {
+    if (err.name === 'TokenExpiredError') {
+      res.status(401).json({ error: 'Token expired' });
     }
-  };
+    res.status(401).json({ err });
+  }
+};
 
-  const register = async (username, password) => {
-    try {
-      const response = await fetch('/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      });
-      if (response.ok) {
-        return { success: true, message: 'Account created successfully!' };
-      } else {
-        const errorData = await response.json();
-        return {
-          success: false,
-          message: errorData.message || 'Registration failed',
-        };
-      }
-    } catch (error) {
-      console.error('Registration error:', error);
-      return {
-        success: false,
-        message: 'An unexpected error occurred. Please try again later.',
-      };
-    }
-  };
-
-  const logout = () => {
-    localStorage.removeItem('token');
-    setCurrentUser(null);
-  };
-
-  return (
-    <AuthContext.Provider
-      value={{ currentUser, loading, login, register, logout }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+// Helper Functions
+const setUserJwtToken = async (user, res) => {
+  try {
+    const token = jwt.sign({ id: user._id }, jwtSecret, {
+      expiresIn: '12h',
+    });
+    res.status(200).json({ token });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 };

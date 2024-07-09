@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import InputField from "@/components/UI/InputField";
 import Checkbox from "@/components/UI/CheckBox";
-import { useAuth } from '@/services/auth.service';
+import { useAuth } from '@/controllers/auth.controller';
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import medichatLogo from "Assets/Logos/medichat.png";
 import { useTheme } from '@/components/Shared/ThemeContext';

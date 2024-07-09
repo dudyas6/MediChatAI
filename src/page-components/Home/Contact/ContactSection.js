@@ -3,7 +3,6 @@ import SectionWrapper from "../SectionWrapper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Toastify.module.css";
-import { useTheme } from '@/components/Shared/ThemeContext';
 import contactImage from "@/assets/Images/contactImage.png"
 import Image from "next/image"
 function ContactSection() {

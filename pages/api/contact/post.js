@@ -1,10 +1,6 @@
 import { connectToDatabase } from '@/api-lib/mongodb';
 import ContactReport from 'backend/models/contact.model';
 
-const handlers = {
-  POST: handleContactReport,
-};
-
 const handleContactReport = async (req, res) => {
   const { name, email, message } = req.body;
   try {
@@ -23,6 +19,10 @@ const handleContactReport = async (req, res) => {
   } catch (err) {
     res.status(500).json('Error: ' + err.message);
   }
+};
+
+const handlers = {
+  POST: handleContactReport,
 };
 
 export default async function handler(req, res) {

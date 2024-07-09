@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { useAuth } from '@/services/auth.service';
+import { useAuth } from '@/controllers/auth.controller';
 import { useRouter } from 'next/router';
 import User from '@/assets//Logos/User.jpg';
 

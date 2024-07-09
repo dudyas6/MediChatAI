@@ -1,6 +1,6 @@
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
-import { useAuth } from "@/services/auth.service";
+import { useAuth } from "@/controllers/auth.controller";
 import UserButton from "@/components/UI/UserButton";
 import useMediaQuery from "@/components/Hooks/useMediaQuery";
 import Links from "./Links";

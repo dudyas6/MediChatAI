@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import InputField from "@/components/UI/InputField";
-import { useAuth } from '@/services/auth.service';
-import ErrorMessage from "@/components/UI/ErrorMessage";
+import { useAuth } from '@/controllers/auth.controller';
 import { useRouter } from 'next/router';
-import { useTheme } from '@/components/Shared/ThemeContext';
+import ErrorMessage from "@/components/UI/ErrorMessage";
+import InputField from "@/components/UI/InputField";
 
 function LoginPage() {
   const { login } = useAuth();

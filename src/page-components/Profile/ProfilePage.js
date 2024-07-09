@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/services/auth.service';
+import { useAuth } from '@/controllers/auth.controller';
 import { useRouter } from 'next/router';
 import Sidebar from './Sidebar';
 import Overview from './Cards/Overview';

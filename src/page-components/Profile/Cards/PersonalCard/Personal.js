@@ -1,4 +1,4 @@
-import { useAuth } from '@/services/auth.service';
+import { useAuth } from '@/controllers/auth.controller';
 import userLogo from '@/assets/Logos/User.jpg';
 import Image from 'next/image';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';

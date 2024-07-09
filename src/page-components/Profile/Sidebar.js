@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '@/services/auth.service';
+import { useAuth } from '@/controllers/auth.controller';
 import UserButton from "@/components/UI/UserButton";
 import icons from '@/components/Shared/Icons'
 import SidebarListItem from './SidebarListItem';

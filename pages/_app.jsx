@@ -1,10 +1,8 @@
 import '@/assets/index.css';
 import { Layout } from '@/components/Layout';
-import Head from 'next/head';
 import { ThemeProvider } from '@/components/Shared/ThemeContext';
-import { AuthProvider } from '@/services/auth.service';
+import { AuthProvider } from '@/controllers/auth.controller';
 import AccessibilityMenu from "@/components/Shared/AccessibilityMenu";
-import titleLogo from '@/assets/Logos/specializedServicesLogo.png';
 
 export default function MyApp({ Component, pageProps }) {
   return (
