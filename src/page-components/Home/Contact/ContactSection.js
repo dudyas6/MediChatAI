@@ -5,6 +5,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Toastify.module.css";
 import contactImage from "@/assets/Images/contactImage.png"
 import Image from "next/image"
+import { postContactRequest } from "@/controllers/contact.controller";
+
 function ContactSection() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -57,75 +59,38 @@ function ContactSection() {
     }
   };
 
-  const postContactRequest = async (name, email, message) => {
-    try {
-      const response = await fetch('/api/contact/post', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          message,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        return {
-          success: false,
-          message: errorData.message || 'An error occurred!',
-        };
-      }
-
-      const data = await response.json();
-      return {
-        success: true,
-        message: "Message sent, we'll be soon in touch!",
-      };
-    } catch (error) {
-      console.error('Error sending contact request:', error);
-      return {
-        success: false,
-        message: 'An unexpected error occurred!',
-      };
-    }
-  };
-
-
   return (
     <SectionWrapper id="contact">
-      <h2 className="text-4xl font-bold text-center mb-10">Contact Us!</h2>
-      <div className="flex flex-col justify-between lg:flex-row gap-10 lg:gap-5">
+      <h2 className="mb-10 text-4xl font-bold text-center">Contact Us!</h2>
+      <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-5">
         <div className="lg:min-w-[345px]">
           <div className='dark:bg-gray-600 bg-white font-[sans-serif] max-w-6xl mx-auto relative shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-3xl overflow-hidden mt-4'>
-            <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full bg-blue-400"></div>
-            <div className="absolute -top-6 -right-6 w-20 h-20 rounded-full bg-blue-400"></div>
+            <div className="absolute w-20 h-20 bg-blue-400 rounded-full -bottom-6 -left-6"></div>
+            <div className="absolute w-20 h-20 bg-blue-400 rounded-full -top-6 -right-6"></div>
 
-            <div className="grid md:grid-cols-2 gap-8 py-8 px-6">
-              <div className="text-center flex flex-col items-center justify-center">
+            <div className="grid gap-8 px-6 py-8 md:grid-cols-2">
+              <div className="flex flex-col items-center justify-center text-center">
                 <Image
                   src={contactImage}
                   width="400 px"
                   height="400 px"
                   alt=""
-                  className="shrink-0 w-5/6"
+                  className="w-5/6 shrink-0"
                 />
               </div>
 
               <form className="rounded-tl-3xl rounded-bl-3xl" onSubmit={handleSubmit}>
-                <h2 className="text-2xl font-bold text-center mb-6">
+                <h2 className="mb-6 text-2xl font-bold text-center">
                   Let us know what you think!
                 </h2>
-                <div className="max-w-md mx-auto space-y-3 relative">
+                <div className="relative max-w-md mx-auto space-y-3">
                   <input
                     type="text"
                     name="name"
                     id="name"
                     required
                     placeholder="Name"
-                    className='dark:bg-gray-200 bg-background w-full rounded-md py-3 px-4 text-sm outline-blue-600 focus-within:bg-transparent'
+                    className='w-full px-4 py-3 text-sm rounded-md dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
                     onChange={handleChange}
                   />
                   <input
@@ -134,7 +99,7 @@ function ContactSection() {
                     id="email"
                     required
                     placeholder="Email"
-                    className='dark:bg-gray-200 bg-background w-full rounded-md py-3 px-4 text-sm outline-blue-600 focus-within:bg-transparent'
+                    className='w-full px-4 py-3 text-sm rounded-md dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
                     onChange={handleChange}
                   />
                   <textarea
@@ -143,7 +108,7 @@ function ContactSection() {
                     id="message"
                     required
                     rows="6"
-                    className='dark:bg-gray-200 bg-background w-full rounded-md py-3 px-4 text-sm outline-blue-600 focus-within:bg-transparent'
+                    className='w-full px-4 py-3 text-sm rounded-md dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
                     onChange={handleChange}
                   >
 
@@ -158,7 +123,7 @@ function ContactSection() {
                       width="16px"
                       height="16px"
                       fill="#fff"
-                      className="mr-2 inline"
+                      className="inline mr-2"
                       viewBox="0 0 548.244 548.244"
                     >
                       <path
@@ -170,7 +135,7 @@ function ContactSection() {
                     </svg>
                     Send Message
                   </button>
-                  <p className="self-center text-center font-bold text-red-600">{msg}</p>
+                  <p className="self-center font-bold text-center text-red-600">{msg}</p>
                 </div>
 
               </form>
