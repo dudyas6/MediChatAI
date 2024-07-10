@@ -6,6 +6,7 @@ export const addContactReportToDB = async (req, res) => {
       await connectToDatabase();
       const existingContact = await ContactReport.findOne({ message });
       if (existingContact) {
+        
         return res
           .status(400)
           .json({

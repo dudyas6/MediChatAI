@@ -54,7 +54,7 @@ const Header = () => {
   return (
     <div
       className={`${flexBetween} ${
-        isTopOfPage ? 'bg-background' : 'bg-[#84ceff]'
+        isTopOfPage ? 'bg-background' : 'bg-[#84ceff] dark:bg-blue-400'
       } transition fixed top-0 z-30 w-full p-5 md:px-16 shadow-md`}
     >
       <Image src={mediChatLogo} width={300} height={50} alt="Logo" />

@@ -16,10 +16,10 @@ export const postContactRequest = async (name, email, message) => {
             const errorData = await response.json();
             return {
                 success: false,
-                message: errorData.message || 'An error occurred!',
+                message: errorData.error || 'An error occurred!',
             };
         }
-
+        
         const data = await response.json();
         return {
             success: true,

@@ -54,8 +54,10 @@ function ContactSection() {
 
     if (success) {
       toast.success(responseMsg);
+      
     } else {
       setMsg(responseMsg.error);
+      setMsg(responseMsg);
     }
   };
 
@@ -90,7 +92,7 @@ function ContactSection() {
                     id="name"
                     required
                     placeholder="Name"
-                    className='w-full px-4 py-3 text-sm rounded-md dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
+                    className='w-full px-4 py-3 text-sm rounded-md dark:text-black dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
                     onChange={handleChange}
                   />
                   <input
@@ -99,7 +101,7 @@ function ContactSection() {
                     id="email"
                     required
                     placeholder="Email"
-                    className='w-full px-4 py-3 text-sm rounded-md dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
+                    className='w-full px-4 py-3 text-sm rounded-md dark:text-black dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
                     onChange={handleChange}
                   />
                   <textarea
@@ -108,7 +110,7 @@ function ContactSection() {
                     id="message"
                     required
                     rows="6"
-                    className='w-full px-4 py-3 text-sm rounded-md dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
+                    className='w-full px-4 py-3 text-sm rounded-md dark:text-black dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
                     onChange={handleChange}
                   >
 
@@ -135,7 +137,7 @@ function ContactSection() {
                     </svg>
                     Send Message
                   </button>
-                  <p className="self-center font-bold text-center text-red-600">{msg}</p>
+                  <p className="self-center font-bold text-center text-red-600 dark:text-red-500">{msg}</p>
                 </div>
 
               </form>

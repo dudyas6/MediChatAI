@@ -12,9 +12,9 @@ const Service = ({ SelectService, setSelectService, service }) => {
         SelectService === lowerCaseService
           ? 'bg-[#6adcff] rounded-ss-[25px] xs:rounded-ss-[50px] sm:rounded-ss-[75px] max-h-[250px]'
           : 'bg-[#ffffffd1] hover:bg-[#c2f1ff] rounded-lg max-h-[250px]'
-      } cursor-pointer transition-all rounded-lg flex flex-col items-center gap-4 p-2 xs:p-4 lg:p-10 shadow-md `}
+      } cursor-pointer transition-all rounded-lg flex flex-col items-center gap-4 p-2 xs:p-4 lg:p-10 shadow-md dark:bg-gray-600 `}
     >
-      <div className="w-[30px] xs:w-[50px] md:w-[75px] lg:w-[60px] h-auto">
+      <div className=" w-[30px] xs:w-[50px] md:w-[75px] lg:w-[60px] h-auto">
         <Image
           src={service.img}
           alt={service.title}
