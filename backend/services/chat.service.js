@@ -15,28 +15,21 @@ export const handleGetChatHistory = async (req, res) => {
 
 export const handleAddChatHistory = async (req, res) => {
     let chat_id = req.body.session.chat_id;
-    console.log(chat_id);
-    console.log(req.body)
     try {
         await connectToDatabase();
         if (chat_id == '-1')
             chat_id = v4();
-        console.log(chat_id)
-        const existingChat = ChatHistory.findOne({ chat_id: chat_id })
 
-        if (!existingChat) {
-            console.log("Existing")
-            await updateExistingChatHistory(req, res);
+        const existingChat = await ChatHistory.findOne({ chat_id: chat_id });
+        if (existingChat) {
+            await updateExistingChatHistory(req, res, existingChat);
         } else {
-            console.log("Not Existing")
             await addNewChatHistory(req, res, chat_id);
         }
     } catch (error) {
-        res.json(error);
+        res.status(500).json({ error: error.message });
     }
 };
-
-
 
 const addNewChatHistory = async (req, res, chat_id) => {
     try {
@@ -60,19 +53,13 @@ const addNewChatHistory = async (req, res, chat_id) => {
     }
 };
 
-
-const updateExistingChatHistory = async (req, res) => {
+const updateExistingChatHistory = async (req, res, existingChat) => {
     try {
-        const { user, session } = req.body;
-        const { chat_id } = session;
-        const updatedChatHistory = await ChatHistory.findOneAndUpdate(
-            { chat_id: chat_id },
-            { new: true }
-        );
-
-        if (!updatedChatHistory) {
-            return res.status(404).json({ error: 'Chat history not found' });
-        }
+        const { session } = req.body;
+        const { messages } = session;
+        console.log(messages)
+        existingChat.messages = messages;
+        const updatedChatHistory = await existingChat.save();
 
         res.status(200).json(updatedChatHistory);
     } catch (error) {
