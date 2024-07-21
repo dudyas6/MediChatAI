@@ -1,37 +1,52 @@
-import React, { useEffect } from 'react';
-import { useAuth } from '@/components/Services/AuthContext';
-import SectionWrapper from 'src/page-components/Home/SectionWrapper';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '@/controllers/auth.controller';
 import { useRouter } from 'next/router';
+import Sidebar from './Sidebar';
+import Overview from './Cards/Overview';
+import Personal from './Cards/PersonalCard/Personal';
+import Medical from './Cards/MedicalCard/Medical';
 
 const ProfilePage = () => {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, logout, loading: authLoading } = useAuth();
   const router = useRouter();
+  const route = router.query;
+
+  const [selectedComponent, setSelectedComponent] = useState('Overview');
 
   useEffect(() => {
-    if (!currentUser) {
-      router.push('/');
+    if (!authLoading) {
+      if (!currentUser) {
+        router.push('/');
+      } else {
+        if (route.username !== currentUser.username) {
+          router.push('/404');
+        }
+      }
     }
-  }, [currentUser, router]);
+  }, [currentUser, authLoading, router]);
 
-  if (!currentUser) {
-    return null; // Or render a loading spinner
-  }
+  const renderComponent = () => {
+    switch (selectedComponent) {
+      case 'Overview':
+        return <Overview id="overview"/>;
+      case 'Personal':
+        return <Personal id="general"/>;
+      case 'Medical':
+        return <Medical id="medical"/>;
+      default:
+        return null;
+    }
+  };
 
   return (
-    <SectionWrapper id="profile">
-      <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10 text-center md:text-left">
-        <div className="tracking-wider md:tracking-normal max-w-xs lg:max-w-xl">
-          <h1 className="lg:text-7xl text-4xl font-bold">Your Profile</h1>
-          <p className="text-lg md:text-base lg:text-xl my-10">
-            {currentUser.email}
-          </p>
-          <button onClick={logout}>Log Out</button>
-        </div>
-        <div className="max-w-xs md:max-w-none">
-          <img src={""} alt="hero" />
+    <div className="pt-18 pb-3 md:pt-24 pr-2" id="profile">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+        <Sidebar setSelectedComponent={setSelectedComponent} />
+        <div className="bg-white custom-shadow relative min-h-[900px] max-h-[900px] w-screen min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto">
+          {renderComponent()}
         </div>
       </div>
-    </SectionWrapper>
+    </div>
   );
 };
 

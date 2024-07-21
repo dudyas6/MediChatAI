@@ -28,10 +28,10 @@ const ServicesSection = () => {
           ))}
         </div>
         <div className="lg:min-w-[345px]">
-          <h3 className="text-xl xs:text-2xl font-bold mb-6">
+          <h3 className="text-xl xs:text-2xl font-bold mb-6 text-center">
             {selectedServiceData?.heading}
           </h3>
-          <ul className="lg:ml-5 min-h-[310px] sm:min-h-[225px] md:min-h-[190px] lg:min-h-[375px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 gap-4 md:gap-6">
+          <ul className="lg:ml-5 min-h-[200px] sm:min-h-[200px] md:min-h-[190px] lg:min-h-[200px] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-1 gap-3 md:gap-2">
             {selectedServiceData?.texts.map((text, index) => (
               <ListItem key={index} text={text} />
             ))}

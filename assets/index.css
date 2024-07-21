@@ -78,3 +78,7 @@
   background-color: white; /* Or any color you prefer */
   border-bottom: 1px solid #ccc; /* Optional, for a slight separation from content below */
 }
+
+.custom-shadow {
+  box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.2);
+}

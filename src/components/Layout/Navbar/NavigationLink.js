@@ -11,9 +11,9 @@ const NavigationLink = ({ href, page, setSelectedPage }) => {
     if (setSelectedPage) {
       setSelectedPage(lowerCasePage);
       setTimeout(() => {
-        document
-          .getElementById(lowerCasePage)
-          .scrollIntoView({ behavior: 'smooth' });
+        const element = document.getElementById(lowerCasePage);
+        if (!element) return;
+        element.scrollIntoView({ behavior: 'smooth' });
       }, 100);
     }
     router.push(href, undefined, { shallow: true });
