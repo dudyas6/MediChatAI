@@ -58,7 +58,7 @@ typings/
 .env
 .env.local
 
-medichat-storage.json
+
 
 # next.js build output
 .next
@@ -68,3 +68,5 @@ package-lock.json
 yarn.lock
 
 .vercel
+medichat-storage.json
+'medichat-storage.json'
