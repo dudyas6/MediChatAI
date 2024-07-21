@@ -1,7 +1,7 @@
-import { getUserFromDB } from '@/services/auth.service';
+import { verifyUserAndSetToken } from '@/services/auth.service';
 
 const handlers = {
-  POST: getUserFromDB,
+  POST: verifyUserAndSetToken,
 };
 
 export default async function handler(req, res) {

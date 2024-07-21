@@ -33,43 +33,39 @@ export const postContactRequest = async (name, email, message) => {
 };
 
 export const sendEmail = async (user) => {
-    try {
-        const resetUrl= "http://localhost:3000/resetpassword/${user._id}"
-        const response = await fetch('/api/contact/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                to: user.email,
-                subject: 'Password Reset Request',
-                text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
+  try {
+    const resetUrl = 'http://localhost:3000/resetpassword/${user._id}';
+    const response = await fetch('/api/contact/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        to: user.email,
+        subject: 'Password Reset Request',
+        text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
                 Please click on the following link, or paste this into your browser to complete the process:\n\n
                 ${resetUrl}\n\n
-                If you did not request this, please ignore this email and your password will remain unchanged.\n`
-        }),
-            
+                If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+      }),
     });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            return {
-                success: false,
-                message: errorData.error || 'An error occurred!',
-            };
-        }
-        
-        const data = await response.json();
-        return {
-            success: true,
-            message: "Email has been sent!",
-        };
-    } catch (error) {
-        console.error('Error sending email:', error);
-        return {
-            success: false,
-            message: 'An unexpected error occurred!',
-        };
-
-    }
+    if (!response.ok) {
+      const errorData = await response.json();
+      return {
+        success: false,
+        message: errorData.error || 'An error occurred!',
+      };
+    }
+    return {
+      success: true,
+      message: 'Email has been sent!',
+    };
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return {
+      success: false,
+      message: 'An unexpected error occurred!',
+    };
+  }
 };

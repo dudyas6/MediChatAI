@@ -4,11 +4,11 @@ import jwt from 'jsonwebtoken';
 
 const jwtSecret = process.env.JWT_SECRET;
 
-export const getUserFromDB = async (req, res) => {
+export const verifyUserAndSetToken = async (req, res) => {
   const { username, password } = req.body;
   try {
     await connectToDatabase();
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username: username });
 
     if (user && (await user.matchPassword(password))) {
       await setUserJwtToken(user, res);
@@ -22,31 +22,15 @@ export const getUserFromDB = async (req, res) => {
   }
 };
 
-export const findUserInDB = async (req, res) => {
-  const username = req.query.username;
-  try {
-    await connectToDatabase();
-    const user = await User.findOne({ username });
-    if (user) {
-      res.status(200).json({ message: 'User found!', user: user });
-    } else {
-      res.status(401).json({ error: 'service : User does not exist' });
-    }
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
-
-
 export const addUserToDB = async (req, res) => {
-  const { username,email, password } = req.body;
+  const { username, email, password } = req.body;
   try {
     await connectToDatabase();
-    const existingUser = await User.findOne({ username });
+    const existingUser = await User.findOne({ username: username });
     if (existingUser) {
       return res.status(400).json('Username already exists');
     }
-    const newUser = new User({ username,email, password });
+    const newUser = new User({ username, email, password });
     await newUser.save();
     res.status(200).json('Successfully registered!');
   } catch (err) {

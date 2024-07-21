@@ -1,7 +1,7 @@
-import { verifyUserToken,findUserInDB } from '@/services/auth.service';
+import { findUserInDB } from '@/services/user.service';
 
 const handlers = {
-  GET: verifyUserToken,
+  GET: findUserInDB,
 };
 
 export default async function handler(req, res) {
