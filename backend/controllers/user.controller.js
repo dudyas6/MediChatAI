@@ -17,7 +17,10 @@ export async function updateUserPersonalDetails(currentUser, formData) {
         message: error,
       };
     }
+    const updatedUser = await response.json();
+
     return {
+      updatedUser: updatedUser,
       success: true,
       message: 'Details updated succesfuly!',
     };
@@ -47,7 +50,7 @@ export const findExistingUser = async (username) => {
   }
 };
 
-export const uploadUserImage = async (formData, currentUser, field) => {
+export const uploadUserImage = async (formData) => {
   try {
     const response = await fetch('/api/user/details/image', {
       method: 'POST',

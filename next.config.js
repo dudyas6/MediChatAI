@@ -8,6 +8,7 @@ module.exports = {
     ];
   },
   images: {
+    minimumCacheTTL: 5,
     domains: ['drive.google.com'],
   },
 };

@@ -2,10 +2,12 @@ import React from 'react';
 import Image from 'next/image';
 import { useAuth } from '@/controllers/auth.controller';
 import { useRouter } from 'next/router';
-import User from '@/assets//Logos/User.jpg';
+import { useEffect, useState } from 'react';
+import User from '@/assets/Logos/User.jpg';
 
-const UserButton = ({width, height}) => {
-  const { currentUser } = useAuth();
+const UserButton = ({ width, height }) => {
+  const { currentUser, loading } = useAuth();
+  const [currentUserImage, setCurrentUserImage] = useState(User);
   const router = useRouter();
 
   const handleUserClick = () => {
@@ -16,12 +18,24 @@ const UserButton = ({width, height}) => {
     }
   };
 
+  useEffect(() => {
+    if (currentUser) {
+      setCurrentUserImage(
+        currentUser.details.profilePicture
+          ? currentUser.details.profilePicture
+          : User
+      );
+    } else {
+      setCurrentUserImage(User);
+    }
+  }, [currentUser, loading]);
+
   return (
     <div className="space-x-10 flex items-center justify-center">
       <div className="relative inline-block">
         <Image
           className="cursor-pointer w-10 h-10 rounded-full"
-          src={User}
+          src={currentUserImage}
           alt="User"
           onClick={handleUserClick}
           width={width}

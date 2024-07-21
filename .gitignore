@@ -58,6 +58,8 @@ typings/
 .env
 .env.local
 
+medichat-storage.json
+
 # next.js build output
 .next
 

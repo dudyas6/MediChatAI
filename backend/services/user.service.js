@@ -8,8 +8,10 @@ export const updateUserDetails = async (req, res) => {
     const user = await User.findOne({ username: currentUser.username });
     if (user) {
       user.details = { ...user.details.toObject(), ...formData };
+
       await user.save();
-      res.status(200).json('User details updated successfully!');
+
+      res.status(200).json(user);
     } else {
       res.json('Internal error, please try again later.');
     }

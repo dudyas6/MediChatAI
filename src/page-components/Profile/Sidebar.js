@@ -5,7 +5,7 @@ import icons from '@/components/Shared/Icons';
 import SidebarListItem from './SidebarListItem';
 
 const Sidebar = ({ setSelectedComponent }) => {
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   return (
     <nav className="bg-white custom-shadow min-h-[900px] top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto flex">
       <div className="relative flex flex-col w-full min-h-full">
@@ -50,8 +50,7 @@ const Sidebar = ({ setSelectedComponent }) => {
         <div className="mt-4 ">
           <ul className="px-2 space-y-4 ">
             <hr className="my-6" />
-            {/* <SidebarListItem name="Settings" /> */}
-            <SidebarListItem name="Log out" />
+            <SidebarListItem name="Logout" onClick={() => logout()} />
           </ul>
         </div>
       </div>
