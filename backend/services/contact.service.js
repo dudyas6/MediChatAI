@@ -23,10 +23,11 @@ export const addContactReportToDB = async (req, res) => {
 //Sending a reset password link
 export const sendResetPasswordEmail = async (req, res) => {
   const { to, subject, text } = req.body;
-
+  console.log("HERE")
   let transporter = nodemailer.createTransport({
     host: 'smtp-mail.outlook.com',
     port: 587,
+    secure: false,
     auth: {
       user: 'medichatproject@outlook.com',
       pass: 'medi1234 ',
@@ -36,8 +37,8 @@ export const sendResetPasswordEmail = async (req, res) => {
   let mailOptions = {
     from: 'medichatproject@outlook.com',
     to: to,
-    subject,
-    text,
+    subject: subject,
+    text: text,
   };
   try {
     await transporter.sendMail(mailOptions);

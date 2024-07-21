@@ -1,6 +1,6 @@
-import { addContactReportToDB } from '@/services/contact.service';
+import { sendResetPasswordEmail } from '@/services/contact.service';
 const handlers = {
-  POST: addContactReportToDB,
+  POST: sendResetPasswordEmail,
 };
 
 export default async function handler(req, res) {

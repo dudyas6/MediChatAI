@@ -34,8 +34,8 @@ export const postContactRequest = async (name, email, message) => {
 
 export const sendEmail = async (user) => {
   try {
-    const resetUrl = 'http://localhost:3000/resetpassword/${user._id}';
-    const response = await fetch('/api/contact/', {
+    const resetUrl = `http://localhost:3000/resetpassword/${user._id}`;
+    const response = await fetch('/api/auth/restore', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
