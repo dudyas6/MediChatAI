@@ -1,5 +1,4 @@
 export async function updateUserPersonalDetails(currentUser, formData) {
-  //validate form data?
   try {
     const response = await fetch('/api/user/details', {
       method: 'POST',
@@ -45,5 +44,43 @@ export const findExistingUser = async (username) => {
     return { success: true, message: 'User Found!', user: user };
   } else {
     return { success: false, message: 'controller: User does not exist!' };
+  }
+};
+
+export const uploadUserImage = async (formData, currentUser, field) => {
+  try {
+    const response = await fetch('/api/user/details/image', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+    return data.fileUrl;
+  } catch (error) {
+    console.error('There was an error uploading the image:', error);
+    throw error;
+  }
+};
+
+export const getUserImages = async (username) => {
+  try {
+    const response = await fetch(
+      `/api/user/details/image?username=${username}`,
+      {
+        method: 'GET',
+      }
+    );
+    const data = await response.json();
+    if (!response.ok) {
+      console.error('Network response was not ok');
+    }
+    return data;
+  } catch (error) {
+    console.error('There was an error uploading the image:', error);
+    throw error;
   }
 };

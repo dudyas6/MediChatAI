@@ -1,20 +1,29 @@
 import { useAuth } from '@/controllers/auth.controller';
-import { useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import userLogo from '@/assets/Logos/User.jpg';
 import Image from 'next/image';
-import { updateUserPersonalDetails } from '@/controllers/user.controller';
+import {
+  updateUserPersonalDetails,
+  uploadUserImage,
+} from '@/controllers/user.controller';
 
 const Personal = () => {
   const { currentUser } = useAuth();
-  const [selectedImage, setSelectedImage] = useState(userLogo);
-  const [selectedCover, setSelectedCover] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(
+    currentUser.details.profilePicture
+      ? currentUser.details.profilePicture
+      : userLogo
+  );
+  const [selectedCover, setSelectedCover] = useState(
+    currentUser.details.coverPhoto ? currentUser.details.coverPhoto : null
+  );
+  const [imageFile, setImageFile] = useState(null);
+  const [coverFile, setCoverFile] = useState(null);
   const [formData, setFormData] = useState(
     currentUser.details
       ? currentUser.details
       : {
           about: '',
-          profilePicture: null,
-          coverPhoto: null,
           firstName: '',
           lastName: '',
           country: '',
@@ -35,27 +44,34 @@ const Personal = () => {
     document.getElementById('fileInputProfile').click();
   };
 
-  const handleCoverChange = (event) => {
+  const handleFileUpload = async (file, field) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('username', currentUser.username);
+    formData.append('field', field);
+
+    try {
+      await uploadUserImage(formData, currentUser, field);
+    } catch (error) {
+      console.error('Error uploading the image:', error);
+    }
+  };
+
+  const handleCoverChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const fileURL = URL.createObjectURL(file);
       setSelectedCover(fileURL);
-      setFormData((prev) => ({
-        ...prev,
-        coverPhoto: fileURL,
-      }));
+      setCoverFile(file);
     }
   };
 
-  const handlePhotoChange = (event) => {
+  const handlePhotoChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const fileURL = URL.createObjectURL(file);
       setSelectedImage(fileURL);
-      setFormData((prev) => ({
-        ...prev,
-        profilePicture: fileURL,
-      }));
+      setImageFile(file);
     }
   };
 
@@ -67,9 +83,22 @@ const Personal = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    updateUserPersonalDetails(currentUser, formData);
+    try {
+      if (imageFile) {
+        await handleFileUpload(imageFile, 'profilePicture');
+        imageFile = null;
+      }
+      if (coverFile) {
+        await handleFileUpload(coverFile, 'coverPhoto');
+        coverFile = null;
+      }
+
+      updateUserPersonalDetails(currentUser, formData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -121,6 +150,7 @@ const Personal = () => {
                   alt="User"
                   width={100}
                   height={100}
+                  quality={100}
                   className="rounded-full"
                 />
                 <button
@@ -161,6 +191,7 @@ const Personal = () => {
                             alt="Cover Photo Preview"
                             width={1980}
                             height={1020}
+                            quality={100}
                             className="rounded-md border border-gray-300"
                           />
                         </div>

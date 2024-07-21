@@ -10,6 +10,7 @@
       "@/models/*": ["backend/models/*"],
       "@/services/*": ["backend/services/*"],
       "@/controllers/*": ["backend/controllers/*"],
+      "@/middleware/*": ["backend/middleware/*"],
     }
   }
 }
