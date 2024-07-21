@@ -38,6 +38,10 @@ function LoginPage() {
   };
 
   const handleForgotPassword = async () => {
+    if(username==""){
+      setMessage({ text: 'Enter Username in order to continue!', type: 'error' });
+      return;
+    }
     //need to get the user's email and send him his password.
     const response = await findExistingUser(username);
     if (response.success) {
@@ -88,6 +92,7 @@ function LoginPage() {
                   Sign up
                 </a>
                 <button
+                  type = "button"
                   onClick={(event) => {
                     event.preventDefault();
                     handleForgotPassword();
