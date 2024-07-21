@@ -10,6 +10,24 @@ export const useAuth = () => {
   return context;
 };
 
+export const findExistingUser = async (username) => {
+  const userResponse = await fetch(`/api/auth/verify?username=${encodeURIComponent(username)}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const data = await userResponse.json();
+  // Handle the response here
+  if (userResponse.ok) {
+    return { success: true, message: 'User Found!', user: data.user };
+  } else {
+    return { success: false, message: 'controller: User does not exist!' };
+  }
+};
+
+
+
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -83,12 +101,12 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (username, password) => {
+  const register = async (username,email, password) => {
     try {
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username,email, password }),
       });
       if (response.ok) {
         return { success: true, message: 'Account created successfully!' };
@@ -115,7 +133,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, loading, login, register, logout }}
+      value={{ currentUser, loading, login, register, logout,findExistingUser }}
     >
       {children}
     </AuthContext.Provider>

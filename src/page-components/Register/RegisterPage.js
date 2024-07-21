@@ -9,6 +9,7 @@ import { useTheme } from '@/components/Shared/ThemeContext';
 function RegisterPage() {
   const { register } = useAuth();
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [termsValue, setTermsValue] = useState(false);
@@ -24,6 +25,9 @@ function RegisterPage() {
       switch (name) {
         case "username":
           setUsername(value);
+          break;
+        case "email":
+          setEmail(value);
           break;
         case "password":
           setPassword(value);
@@ -61,8 +65,7 @@ function RegisterPage() {
       setMessage({ text: errorMsg, type: "error" });
       return;
     }
-
-    const { success, message: error_msg } = await register(username, password);
+    const { success, message: error_msg } = await register(username, email, password);
 
     if (success) {
       setMessage({ text: error_msg, type: "success" });
@@ -76,9 +79,9 @@ function RegisterPage() {
       <div className={`flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 `}>
         <div className="w-full rounded-lg bg-white shadow dark:border sm:max-w-md xl:p-0 mt-[-2rem] md:mt-[-4rem]">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <div className="text-center mb-12">
+            <div className="mb-12 text-center">
               <span>
-                <img src={medichatLogo} alt="logo" className="w-20 inline-block" />
+                <img src={medichatLogo} alt="logo" className="inline-block w-20" />
               </span>
             </div>
             <form onSubmit={handleSubmit}>
@@ -91,6 +94,15 @@ function RegisterPage() {
                   onChange={handleChange}
                   placeholder="Enter username"
                   iconName="user"
+                />
+                <InputField
+                  label="Email"
+                  type="email"
+                  name="email"
+                  value={email}
+                  onChange={handleChange}
+                  placeholder="Enter email"
+                  iconName="envelope"
                 />
                 <InputField
                   label="Password"
@@ -120,7 +132,7 @@ function RegisterPage() {
                       I accept the{" "}
                       <a
                         href="/"
-                        className="text-blue-600 font-semibold hover:underline ml-1"
+                        className="ml-1 font-semibold text-blue-600 hover:underline"
                       >
                         Terms and Conditions
                       </a>
@@ -133,17 +145,17 @@ function RegisterPage() {
               <div className="!mt-10">
                 <button
                   type="submit"
-                  className={`w-full py-3 px-4 text-sm font-semibold rounded focus:outline-none  text-white`}
+                  className={`w-full py-3 px-4 text-sm font-semibold rounded focus:outline-none text-white`}
                 >
                   Create an account
                 </button>
               </div>
             </form>
-            <p className="text-sm mt-6 text-center">
+            <p className="mt-6 text-sm text-center">
               Already have an account?{" "}
               <a
                 href="/login"
-                className="text-blue-600 font-semibold hover:underline ml-1"
+                className="ml-1 font-semibold text-blue-600 hover:underline"
               >
                 Login here
               </a>

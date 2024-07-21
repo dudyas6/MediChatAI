@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useAuth } from '@/controllers/auth.controller';
+import { useAuth, findExistingUser } from '@/controllers/auth.controller';
 import { useRouter } from 'next/router';
 import ErrorMessage from "@/components/UI/ErrorMessage";
 import InputField from "@/components/UI/InputField";
+import { sendEmail } from "@/controllers/contact.controller"
+
 
 function LoginPage() {
   const { login } = useAuth();
@@ -35,12 +37,26 @@ function LoginPage() {
     }
   };
 
+  const handleForgotPassword = async () => {
+    //need to get the user's email and send him his password.
+    const response = await findExistingUser(username);
+    if (response.success) {
+      sendEmail(response.user);
+      setMessage({ text: "An email has been sent to you!", type: "success" });
+    }
+    else
+      setMessage({ text: "Username does not exist!", type: "error" });
+
+
+
+  }
+
   return (
-    <div className='dark:bg-gray-800 bg-white font-sans'>
+    <div className='font-sans bg-white dark:bg-gray-800'>
       <div className={`sm:mt-20 min-h-screen flex flex-col items-center justify-center`}>
         <div className='dark:bg-gray-300 bg-white grid md:grid-cols-2 items-center gap-4 max-md:gap-8 max-w-6xl max-md:max-w-lg w-full p-4 m-4 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-lg'>
-          <div className="md:max-w-md w-full px-4 py-4">
-            <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
+          <div className="w-full px-4 py-4 md:max-w-md">
+            <h2 className="mb-6 text-2xl font-bold text-center">Sign In</h2>
             <p className="mb-6 text-center">Please fill in your login information to access your account.</p>
             <form onSubmit={handleSubmit}>
               <div className="space-y-6">
@@ -67,12 +83,15 @@ function LoginPage() {
               </div>
               <div className="flex justify-between mt-4">
                 <a href="/register" className="text-sm text-blue-600 hover:underline">Sign up</a>
-                <a href="/" className="text-sm text-blue-600 hover:underline">Forgot password?</a>
+                <button onClick={(event) => {
+                  event.preventDefault();
+                  handleForgotPassword();
+                }} className="text-sm text-blue-600 hover:underline">Forgot password?</button>
               </div>
               <div className="mt-10">
                 <button
                   type="submit"
-                  className="w-full py-3 px-4 text-sm font-semibold rounded focus:outline-none bg-blue-600 text-white"
+                  className="w-full px-4 py-3 text-sm font-semibold text-white bg-blue-600 rounded focus:outline-none"
                 >
                   Login
                 </button>
@@ -83,7 +102,7 @@ function LoginPage() {
           <div className="md:h-full bg-[#000842] rounded-xl lg:p-12 p-8">
             <img
               src="https://readymadeui.com/signin-image.webp"
-              className="w-full h-full object-contain"
+              className="object-contain w-full h-full"
               alt="Sign In Illustration"
             />
           </div>
