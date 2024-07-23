@@ -1,28 +1,28 @@
-import React, { useState } from "react";
-import SectionWrapper from "../SectionWrapper";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import "./Toastify.module.css";
-import contactImage from "@/assets/Images/contactImage.png"
-import Image from "next/image"
-import { postContactRequest } from "@/controllers/contact.controller";
+import React, { useState } from 'react';
+import SectionWrapper from '../SectionWrapper';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './Toastify.module.css';
+import contactImage from '@/assets/Images/contactImage.png';
+import Image from 'next/image';
+import { postContactRequest } from '@/controllers/contact.controller';
 
 function ContactSection() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [msg, setMsg] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [msg, setMsg] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
-      case "name":
+      case 'name':
         setName(value);
         break;
-      case "email":
+      case 'email':
         setEmail(value);
         break;
-      case "message":
+      case 'message':
         setMessage(value); // Corrected here
         break;
       default:
@@ -32,14 +32,14 @@ function ContactSection() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let errorMsg = "";
+    let errorMsg = '';
 
     if (/[^a-zA-Z]/.test(name)) {
-      errorMsg += "Name contains invalid characters!\n";
+      errorMsg += 'Name contains invalid characters!\n';
     }
 
     if (message.length < 5) {
-      errorMsg += "Message is too short!\n";
+      errorMsg += 'Message is too short!\n';
     }
 
     setMsg(errorMsg);
@@ -54,7 +54,6 @@ function ContactSection() {
 
     if (success) {
       toast.success(responseMsg);
-      
     } else {
       setMsg(responseMsg.error);
       setMsg(responseMsg);
@@ -66,7 +65,7 @@ function ContactSection() {
       <h2 className="mb-10 text-4xl font-bold text-center">Contact Us!</h2>
       <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-5">
         <div className="lg:min-w-[345px]">
-          <div className='dark:bg-gray-600 bg-white font-[sans-serif] max-w-6xl mx-auto relative shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-3xl overflow-hidden mt-4'>
+          <div className="dark:bg-gray-600 bg-white font-[sans-serif] max-w-6xl mx-auto relative shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-3xl overflow-hidden mt-4">
             <div className="absolute w-20 h-20 bg-blue-400 rounded-full -bottom-6 -left-6"></div>
             <div className="absolute w-20 h-20 bg-blue-400 rounded-full -top-6 -right-6"></div>
 
@@ -81,7 +80,10 @@ function ContactSection() {
                 />
               </div>
 
-              <form className="rounded-tl-3xl rounded-bl-3xl" onSubmit={handleSubmit}>
+              <form
+                className="rounded-tl-3xl rounded-bl-3xl"
+                onSubmit={handleSubmit}
+              >
                 <h2 className="mb-6 text-2xl font-bold text-center">
                   Let us know what you think!
                 </h2>
@@ -92,7 +94,7 @@ function ContactSection() {
                     id="name"
                     required
                     placeholder="Name"
-                    className='w-full px-4 py-3 text-sm rounded-md dark:text-black dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
+                    className="w-full px-4 py-3 text-sm rounded-md dark:text-black dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent"
                     onChange={handleChange}
                   />
                   <input
@@ -101,7 +103,7 @@ function ContactSection() {
                     id="email"
                     required
                     placeholder="Email"
-                    className='w-full px-4 py-3 text-sm rounded-md dark:text-black dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
+                    className="w-full px-4 py-3 text-sm rounded-md dark:text-black dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent"
                     onChange={handleChange}
                   />
                   <textarea
@@ -110,11 +112,9 @@ function ContactSection() {
                     id="message"
                     required
                     rows="6"
-                    className='w-full px-4 py-3 text-sm rounded-md dark:text-black dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent'
+                    className="w-full px-4 py-3 text-sm rounded-md dark:text-black dark:bg-gray-200 bg-background outline-blue-600 focus-within:bg-transparent"
                     onChange={handleChange}
-                  >
-
-                  </textarea>
+                  ></textarea>
 
                   <button
                     type="submit"
@@ -137,15 +137,15 @@ function ContactSection() {
                     </svg>
                     Send Message
                   </button>
-                  <p className="self-center font-bold text-center text-red-600 dark:text-red-500">{msg}</p>
+                  <p className="self-center font-bold text-center text-red-600 dark:text-red-500">
+                    {msg}
+                  </p>
                 </div>
-
               </form>
             </div>
           </div>
         </div>
       </div>
-      <ToastContainer />
     </SectionWrapper>
   );
 }
