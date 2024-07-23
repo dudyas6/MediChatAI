@@ -30,3 +30,9 @@ export const findUserInDB = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+export const updateUserPassword = async () =>{
+  console.log("GOT TO THE SERVICE!");
+  const {username,newPassword} = req.body;
+  console.log("user-service update pass- "+username);
+}

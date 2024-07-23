@@ -16,5 +16,6 @@ export default function MyApp({ Component, pageProps }) {
         </div>
       </AuthProvider>
     </ThemeProvider>
+
   );
 }
