@@ -50,7 +50,6 @@ export const findExistingUser = async (username) => {
   }
 };
 
-<<<<<<< Updated upstream
 export const uploadUserImage = async (formData) => {
   try {
     const response = await fetch('/api/user/details/image', {
@@ -88,17 +87,17 @@ export const getUserImages = async (username) => {
     throw error;
   }
 };
-=======
-export const updateUserPassword = async (username,newPassword) => {
+
+export const updateUserPassword = async (username, newPassword) => {
   try {
-    const response = await fetch('/resetpassword/resetpassword', {
+    const response = await fetch('/change-password/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         username,
-        newPassword
+        newPassword,
       }),
     });
     if (!response.ok) {
@@ -118,6 +117,4 @@ export const updateUserPassword = async (username,newPassword) => {
       message: e,
     };
   }
-  
 };
->>>>>>> Stashed changes

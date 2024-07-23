@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ErrorMessage from '@/components/UI/ErrorMessage';
-import {updateUserPassword} from "@/controllers/user.controller"
+import { updateUserPassword } from '@/controllers/user.controller';
 
 export default function ResetPasswordForm() {
   const [newPassword, setNewPassword] = useState('');
@@ -24,9 +24,8 @@ export default function ResetPasswordForm() {
     );
 
     if (success) {
-      console.log("update password succeeded");
+      console.log('update password succeeded');
       setMessage(responseMsg);
-      
     } else {
       setMessage(responseMsg.error);
       setMessage(responseMsg);
@@ -35,10 +34,16 @@ export default function ResetPasswordForm() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="w-full max-w-sm p-8 bg-white rounded-lg shadow-md">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-sm p-8 bg-white rounded-lg shadow-md"
+      >
         <h2 className="mb-6 text-2xl font-bold text-center">Reset Password</h2>
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="password">
+          <label
+            className="block mb-2 text-sm font-bold text-gray-700"
+            htmlFor="password"
+          >
             New Password
           </label>
           <input
@@ -52,7 +57,10 @@ export default function ResetPasswordForm() {
           />
         </div>
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="confirmPassword">
+          <label
+            className="block mb-2 text-sm font-bold text-gray-700"
+            htmlFor="confirmPassword"
+          >
             Confirm New Password
           </label>
           <input

@@ -25,27 +25,29 @@ export const addContactReportToDB = async (req, res) => {
 //Sending a reset password link
 export const sendResetPasswordEmail = async (req, res) => {
   const { username, to, subject } = req.body;
-  const token = jwt.sign({username: username}, jwtSecret, {
+  const token = jwt.sign({ username: username }, jwtSecret, {
     expiresIn: '1h',
   });
-  const resetURL = `http://localhost:3000/resetpassword/username=${username}`;
+  const resetURL = `http://localhost:3000/reset-password/username=${username}`;
 
   let text = `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
   Please click on the following link, or paste this into your browser to complete the process:\n\n
   ${resetURL}\n\n
   If you did not request this, please ignore this email and your password will remain unchanged.\n`;
+
   let transporter = nodemailer.createTransport({
-    host: 'smtp-mail.outlook.com',
-    port: 587,
-    secure: false,
+    service: 'Gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
-      user: 'medichatproject@outlook.com',
-      pass: 'medi1234',
+      user: process.env.EMAIL,
+      pass: process.env.EMAIL_PASSWORD,
     },
   });
 
   let mailOptions = {
-    from: 'medichatproject@outlook.com',
+    from: "noreply@gmail.com",
     to: to,
     subject: subject,
     text: text,

@@ -38,12 +38,16 @@ function LoginPage() {
   };
 
   const handleForgotPassword = async () => {
-    if(username==""){
-      setMessage({ text: 'Enter Username in order to continue!', type: 'error' });
+    if (username == '') {
+      setMessage({
+        text: 'Enter Username in order to continue!',
+        type: 'error',
+      });
       return;
     }
-    //need to get the user's email and send him his password.
+
     const response = await findExistingUser(username);
+
     if (response.success) {
       sendEmail(response.user);
       setMessage({ text: 'An email has been sent to you!', type: 'success' });
@@ -92,7 +96,7 @@ function LoginPage() {
                   Sign up
                 </a>
                 <button
-                  type = "button"
+                  type="button"
                   onClick={(event) => {
                     event.preventDefault();
                     handleForgotPassword();

@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 
-
 export const postContactRequest = async (name, email, message) => {
   try {
     const response = await fetch('/api/contact/', {
@@ -38,8 +37,8 @@ export const postContactRequest = async (name, email, message) => {
 export const sendEmail = async (user) => {
   try {
     const username = user.username;
-    
-    const response = await fetch('/api/auth/restore', {
+
+    const response = await fetch('/api/auth/restore-password', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -47,8 +46,7 @@ export const sendEmail = async (user) => {
       body: JSON.stringify({
         username: username,
         to: user.email,
-        subject: 'Password Reset Request',
-        
+        subject: 'MediChat - Password Reset Request',
       }),
     });
 
