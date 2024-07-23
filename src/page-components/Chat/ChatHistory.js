@@ -7,6 +7,7 @@ const ChatHistory = ({
   handleChatHistoryClick,
   handleNewChat,
   chatHistory,
+  isNewChat,
 }) => {
   return (
     <div className="w-1/4 p-4 overflow-y-auto bg-gray-200 dark:bg-gray-700">
@@ -19,6 +20,13 @@ const ChatHistory = ({
           New Chat
         </button>
       </div>
+      {isNewChat && (
+        <div className="mb-4 cursor-pointer" onClick={handleNewChat}>
+          <div className="p-2 bg-gray-300 rounded dark:bg-gray-600">
+            New Chat
+          </div>
+        </div>
+      )}
       {chatHistory &&
         [...chatHistory].reverse().map((history) => (
           <div
