@@ -13,7 +13,7 @@ export default function ResetPasswordForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      toast.success("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
 
@@ -31,7 +31,7 @@ export default function ResetPasswordForm() {
       toast.success("Password Updated Successfully!");
       setTimeout(() => {
         router.push('/login');
-      }, 2000); // 1 second delay
+      }, 2000); 
     } else {
       setMessage(responseMsg.error);
       setMessage(responseMsg);

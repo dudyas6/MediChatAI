@@ -25,6 +25,8 @@ export const findUserInDB = async (req, res) => {
   try {
     await connectToDatabase();
     const user = await User.findOne({ username: username });
+    if(user==null)
+      res.status(400).json({ error: err.message });
     res.status(200).json(user);
   } catch (err) {
     res.status(400).json({ error: err.message });

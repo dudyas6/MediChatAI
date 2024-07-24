@@ -1,170 +1,154 @@
-import { useAuth } from '@/controllers/auth.controller';
+
 import userLogo from '@/assets/Logos/User.jpg';
 import Image from 'next/image';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import { useAuth } from '@/controllers/auth.controller';
+import React, { useState } from "react";
 const Medical = () => {
   const { currentUser } = useAuth();
   return (
     <form>
       <div className="space-y-12 max-w-[60%] border p-4">
-        <div className="border-b border-gray-900/10 pb-12">
+        <div className="pb-12 border-b border-gray-900/10">
           <h2 className="text-base font-semibold leading-7 text-gray-900">
             Medical Information
           </h2>
           <p className="mt-1 text-sm leading-6 text-gray-600">
             Please let us know about your medical history for better assistance.
           </p>
-
-          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-3">
+          <div className="mt-4 sm:col-span-3">
               <label
-                htmlFor="first-name"
+                htmlFor="gender"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                First name
-              </label>
-              <div className="mt-2">
-                <input
-                  id="first-name"
-                  name="first-name"
-                  type="text"
-                  autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-3">
-              <label
-                htmlFor="last-name"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Last name
-              </label>
-              <div className="mt-2">
-                <input
-                  id="last-name"
-                  name="last-name"
-                  type="text"
-                  autoComplete="family-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-4">
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-
-            <div className="sm:col-span-3">
-              <label
-                htmlFor="country"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Country
+                Gender
               </label>
               <div className="mt-2">
                 <select
-                  id="country"
-                  name="country"
-                  autoComplete="country-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  id="gender"
+                  name="gender"
+                  autoComplete="gender"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 >
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
+                  <option value="">Select</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
                 </select>
               </div>
             </div>
-
-            <div className="col-span-full">
+          <div className="mt-5 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-4">
               <label
-                htmlFor="street-address"
+                htmlFor="date-of-birth"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Street address
+                Date of Birth
               </label>
               <div className="mt-2">
                 <input
-                  id="street-address"
-                  name="street-address"
-                  type="text"
-                  autoComplete="street-address"
+                  id="date-of-birth"
+                  name="date-of-birth"
+                  type="date"
+                  autoComplete="bday"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
-            <div className="sm:col-span-2 sm:col-start-1">
+            <div className="mt-5 sm:col-span-3">
               <label
-                htmlFor="city"
+                htmlFor="chronic-conditions"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                City
+                Chronic Conditions
               </label>
-              <div className="mt-2">
+              <div className="mt-1">
                 <input
-                  id="city"
-                  name="city"
+                  placeholder="Permanent Diseases"
+                  id="chronic-conditions"
+                  name="chronic-conditions"
                   type="text"
-                  autoComplete="address-level2"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
-            <div className="sm:col-span-2">
+            <div className="mt-5 sm:col-span-3">
               <label
-                htmlFor="region"
+                htmlFor="past-medical-conditions"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                State / Province
+                Past Medical Conditions Or Surgeries
               </label>
-              <div className="mt-2">
+              <div className="mt-1">
                 <input
-                  id="region"
-                  name="region"
+                  placeholder="Past Medical Treatments And Conditions You Had"
+                  id="pastmedical conditions"
+                  name="past-medical-conditions"
                   type="text"
-                  autoComplete="address-level1"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
 
-            <div className="sm:col-span-2">
+            <div className="mt-5 sm:col-span-3">
               <label
-                htmlFor="postal-code"
+                htmlFor="allergies"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                ZIP / Postal code
+                Allergies
               </label>
-              <div className="mt-2">
+              <div className="mt-1">
                 <input
-                  id="postal-code"
-                  name="postal-code"
+                  placeholder="Allergies"
+                  id="allergies"
+                  name="allergies"
                   type="text"
-                  autoComplete="postal-code"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
+
+            <div className="mt-5 sm:col-span-4">
+              <label
+                htmlFor="medications"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Current Medications
+              </label>
+              <div className="mt-2">
+                <input
+                  placeholder="Dailey Taken Medications"
+                  id="medications"
+                  name="medications"
+                  type="text"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="mt-5 sm:col-span-3">
+              <label
+                htmlFor="lifestyle-information"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Lifestyle Information 
+              </label>
+              <div className="mt-2">
+                <input
+                  placeholder="Smoking Status, Alcohol Consumption, Diet etc..."
+                  id="lifestyle information"
+                  name="lifestyle-information"
+                  type="text"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+
           </div>
         </div>
-        <div className="mt-6 flex items-center justify-end gap-x-6">
+        <div className="flex items-center justify-end mt-6 gap-x-6">
           <button
             type="button"
             className="text-sm font-semibold leading-6 text-gray-900"
@@ -173,7 +157,7 @@ const Medical = () => {
           </button>
           <button
             type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
             Save
           </button>

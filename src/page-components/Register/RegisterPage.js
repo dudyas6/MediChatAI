@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import InputField from "@/components/UI/InputField";
 import Checkbox from "@/components/UI/CheckBox";
-import { useAuth } from '@/controllers/auth.controller';
-import ErrorMessage from "@/components/UI/ErrorMessage";
-import medichatLogo from "Assets/Logos/medichat.png";
-import { useTheme } from '@/components/Shared/ThemeContext';
-
+import { useAuth } from '@/controllers/auth.controller'
+import medichatLogo from "assets/Logos/medichat.png";
+import { useRouter } from 'next/router';
+import {toast} from 'react-toastify';
 function RegisterPage() {
   const { register } = useAuth();
   const [username, setUsername] = useState("");
@@ -13,10 +12,9 @@ function RegisterPage() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [termsValue, setTermsValue] = useState(false);
-  const [message, setMessage] = useState({ text: "", type: "" });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
-
+  const router = useRouter();
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     if (type === "checkbox") {
@@ -51,26 +49,28 @@ function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let errorMsg = "";
 
     if (password !== confirmPassword) {
-      errorMsg += "Passwords do not match!\n";
+      toast.error("Passwords do not match!");
+    return;
     }
 
     if (!termsValue) {
-      errorMsg += "Please accept terms and conditions!\n";
-    }
-
-    if (errorMsg !== "") {
-      setMessage({ text: errorMsg, type: "error" });
+      toast.error("Please accept terms and conditions!");
       return;
     }
+
     const { success, message: error_msg } = await register(username, email, password);
 
     if (success) {
-      setMessage({ text: error_msg, type: "success" });
+      toast.success(error_msg);
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000); 
+      //setMessage({ text: error_msg, type: "success" });
     } else {
-      setMessage({ text: error_msg.error, type: "error" });
+      toast.error(error_msg);
+      //setMessage({ text: error_msg.error, type: "error" });
     }
   };
 
@@ -145,7 +145,7 @@ function RegisterPage() {
               <div className="!mt-10">
                 <button
                   type="submit"
-                  className={`w-full py-3 px-4 text-sm font-semibold rounded focus:outline-none text-white`}
+                   className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                 >
                   Create an account
                 </button>
@@ -160,7 +160,6 @@ function RegisterPage() {
                 Login here
               </a>
             </p>
-            <ErrorMessage message={message} />
           </div>
         </div>
       </div>

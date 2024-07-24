@@ -37,7 +37,6 @@ export const postContactRequest = async (name, email, message) => {
 export const sendEmail = async (user) => {
   try {
     const username = user.username;
-
     const response = await fetch('/api/auth/restore-password', {
       method: 'POST',
       headers: {

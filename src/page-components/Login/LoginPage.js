@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import ErrorMessage from '@/components/UI/ErrorMessage';
 import InputField from '@/components/UI/InputField';
 import { sendEmail } from '@/controllers/contact.controller';
+import {toast} from 'react-toastify';
 
 function LoginPage() {
   const { login } = useAuth();
@@ -28,6 +29,7 @@ function LoginPage() {
     e.preventDefault();
     const { success, message: error_msg } = await login(username, password);
     if (success) {
+      toast.success(error_msg);
       setMessage({ text: error_msg, type: 'success' });
       setTimeout(() => {
         router.push('/');
@@ -47,11 +49,11 @@ function LoginPage() {
     }
 
     const response = await findExistingUser(username);
-
-    if (response.success) {
+      if (response.success) {
       sendEmail(response.user);
-      setMessage({ text: 'An email has been sent to you!', type: 'success' });
-    } else setMessage({ text: 'Username does not exist!', type: 'error' });
+      toast.success('An email has been sent to you!');
+    } else toast.error("User does not exist!");
+    
   };
 
   return (
