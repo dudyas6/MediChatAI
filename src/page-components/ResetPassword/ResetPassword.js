@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ErrorMessage from '@/components/UI/ErrorMessage';
 import { updateUserPassword } from '@/controllers/user.controller';
+import {toast} from 'react-toastify';
 
 export default function ResetPasswordForm() {
   const [newPassword, setNewPassword] = useState('');
@@ -12,11 +13,14 @@ export default function ResetPasswordForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      setMessage({ text: 'Passwords do not match!', type: 'error' });
+      toast.success("Passwords do not match!");
       return;
     }
 
     const username = router.query.id;
+    const parts = username.split("_");
+    // Extract the username
+    username = parts[0];
     //update password to this username
     const { success, message: responseMsg } = await updateUserPassword(
       username,
@@ -24,8 +28,10 @@ export default function ResetPasswordForm() {
     );
 
     if (success) {
-      console.log('update password succeeded');
-      setMessage(responseMsg);
+      toast.success("Password Updated Successfully!");
+      setTimeout(() => {
+        router.push('/login');
+      }, 2000); // 1 second delay
     } else {
       setMessage(responseMsg.error);
       setMessage(responseMsg);

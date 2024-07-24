@@ -1,4 +1,5 @@
 import '@/assets/index.css';
+import 'react-toastify/dist/ReactToastify.css';
 import '@/assets/toastify-custom.css';
 import { Layout } from '@/components/Layout';
 import { ThemeProvider } from '@/components/Shared/ThemeContext';
@@ -16,7 +17,17 @@ export default function MyApp({ Component, pageProps }) {
           </Layout>
         </div>
       </AuthProvider>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-center" // Position of the toast notifications
+        autoClose={3000} // Auto close duration in milliseconds
+        hideProgressBar={false} // Whether to hide the progress bar
+        newestOnTop={false} // Whether the newest toast appears on top
+        closeOnClick // Close toast on click
+        rtl={false} // Right-to-left support
+        pauseOnFocusLoss // Pause auto-close timer on focus loss
+        draggable // Allow to drag the toast
+        theme="light" // Theme of the toast (light or dark)
+      />
     </ThemeProvider>
 
   );

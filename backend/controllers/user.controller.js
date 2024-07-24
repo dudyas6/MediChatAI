@@ -90,8 +90,9 @@ export const getUserImages = async (username) => {
 
 export const updateUserPassword = async (username, newPassword) => {
   try {
-    const response = await fetch('/change-password/', {
-      method: 'POST',
+    console.log("CON  "+username);
+    const response = await fetch('http://localhost:3000/api/auth/change-password', {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },

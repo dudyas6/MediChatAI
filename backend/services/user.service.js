@@ -1,6 +1,6 @@
 import { connectToDatabase } from '@/api-lib/mongodb';
 import User from 'backend/models/user.model';
-
+import bcrypt from 'bcryptjs';
 export const updateUserDetails = async (req, res) => {
   const { currentUser, formData } = req.body;
   try {
@@ -31,8 +31,21 @@ export const findUserInDB = async (req, res) => {
   }
 };
 
-export const updateUserPassword = async () =>{
-  console.log("GOT TO THE SERVICE!");
-  const {username,newPassword} = req.body;
-  console.log("user-service update pass- "+username);
-}
+export const updateUserPassword = async (req, res) => {
+  const { username, newPassword } = req.body;
+
+  try {
+    await connectToDatabase();
+
+    const user = await User.findOne({ username: username });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    user.password = newPassword;
+    await user.save();
+    res.status(200).json({ message: 'Password updated successfully' });
+
+  } catch (err) {
+    res.status(500).json({ error: 'Error: ' + err.message });
+  }
+};
