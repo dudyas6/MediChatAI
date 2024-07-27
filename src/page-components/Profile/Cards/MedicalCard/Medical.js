@@ -1,163 +1,218 @@
-
-import userLogo from '@/assets/Logos/User.jpg';
-import Image from 'next/image';
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import { medicalProperties } from '@/components/Shared/Consts';
 import { useAuth } from '@/controllers/auth.controller';
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import ComboBox from './ComboBox';
+
 const Medical = () => {
   const { currentUser } = useAuth();
+  const [selectedChronicConditions, setSelectedChronicConditions] = useState(
+    []
+  );
+  const [selectedPastConditions, setSelectedPastConditions] = useState([]);
+  const [selectedAllergies, setSelectedAllergies] = useState([]);
+  const [selectedMedications, setSelectedMedications] = useState([]);
+  const [selectedLifestyle, setSelectedLifestyle] = useState([]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(selectedChronicConditions);
+
+    // Example: Submit data to an API
+    // fetch('/api/submit', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     console.log('Success:', data);
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error:', error);
+    //   });
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className="space-y-12 max-w-[60%] border p-4">
-        <div className="pb-12 border-b border-gray-900/10">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
+        <div className="space-y-6">
+          <h3 className="text-xl font-medium text-gray-900">
             Medical Information
-          </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
-            Please let us know about your medical history for better assistance.
+          </h3>
+          <p className="text-sm text-gray-600">
+            Please provide detailed medical history for better assistance.
           </p>
-          <div className="mt-4 sm:col-span-3">
+
+          <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+            <div>
               <label
                 htmlFor="gender"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900"
               >
                 Gender
               </label>
-              <div className="mt-2">
-                <select
-                  id="gender"
-                  name="gender"
-                  autoComplete="gender"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                >
-                  <option value="">Select</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </div>
+              <select
+                id="gender"
+                name="gender"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              >
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
             </div>
-          <div className="mt-5 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-4">
+
+            <div>
               <label
                 htmlFor="date-of-birth"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium text-gray-900"
               >
                 Date of Birth
               </label>
-              <div className="mt-2">
-                <input
-                  id="date-of-birth"
-                  name="date-of-birth"
-                  type="date"
-                  autoComplete="bday"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
+              <input
+                type="date"
+                id="date-of-birth"
+                name="date-of-birth"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
             </div>
 
-            <div className="mt-5 sm:col-span-3">
+            <div className="sm:col-span-2">
               <label
-                htmlFor="chronic-conditions"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                htmlFor="height"
+                className="block text-sm font-medium text-gray-900"
               >
-                Chronic Conditions
+                Height (in cm)
               </label>
-              <div className="mt-1">
-                <input
-                  placeholder="Permanent Diseases"
-                  id="chronic-conditions"
-                  name="chronic-conditions"
-                  type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
+              <input
+                type="number"
+                id="height"
+                name="height"
+                placeholder="e.g., 170"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
             </div>
 
-            <div className="mt-5 sm:col-span-3">
+            <div className="sm:col-span-2">
               <label
-                htmlFor="past-medical-conditions"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                htmlFor="weight"
+                className="block text-sm font-medium text-gray-900"
               >
-                Past Medical Conditions Or Surgeries
+                Weight (in kg)
               </label>
-              <div className="mt-1">
-                <input
-                  placeholder="Past Medical Treatments And Conditions You Had"
-                  id="pastmedical conditions"
-                  name="past-medical-conditions"
-                  type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
+              <input
+                type="number"
+                id="weight"
+                name="weight"
+                placeholder="e.g., 70"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
             </div>
 
-            <div className="mt-5 sm:col-span-3">
+            <div className="sm:col-span-2">
               <label
-                htmlFor="allergies"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                htmlFor="blood-type"
+                className="block text-sm font-medium text-gray-900"
               >
-                Allergies
+                Blood Type
               </label>
-              <div className="mt-1">
-                <input
-                  placeholder="Allergies"
-                  id="allergies"
-                  name="allergies"
-                  type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
+              <select
+                id="blood-type"
+                name="blood-type"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              >
+                <option value="">Select</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+              </select>
             </div>
 
-            <div className="mt-5 sm:col-span-4">
-              <label
-                htmlFor="medications"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Current Medications
-              </label>
-              <div className="mt-2">
-                <input
-                  placeholder="Dailey Taken Medications"
-                  id="medications"
-                  name="medications"
-                  type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
+            <div className="sm:col-span-1">
+              <ComboBox
+                label="Chronic Conditions"
+                options={medicalProperties.Chronic}
+                selectedOptions={selectedChronicConditions}
+                setSelectedOptions={setSelectedChronicConditions}
+              />
             </div>
 
-            <div className="mt-5 sm:col-span-3">
-              <label
-                htmlFor="lifestyle-information"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Lifestyle Information 
-              </label>
-              <div className="mt-2">
-                <input
-                  placeholder="Smoking Status, Alcohol Consumption, Diet etc..."
-                  id="lifestyle information"
-                  name="lifestyle-information"
-                  type="text"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
+            <div className="sm:col-span-1">
+              <ComboBox
+                label="Past Medical Conditions or Surgeries"
+                options={medicalProperties.ConditionsAndSurgeries}
+                selectedOptions={selectedPastConditions}
+                setSelectedOptions={setSelectedPastConditions}
+              />
             </div>
 
+            <div className="sm:col-span-1">
+              <ComboBox
+                label="Allergies"
+                options={medicalProperties.Allergies}
+                selectedOptions={selectedAllergies}
+                setSelectedOptions={setSelectedAllergies}
+              />
+            </div>
 
+            <div className="sm:col-span-1">
+              <ComboBox
+                label="Current Medications"
+                options={medicalProperties.Medication}
+                selectedOptions={selectedMedications}
+                setSelectedOptions={setSelectedMedications}
+              />
+            </div>
+
+            <div className="sm:col-span-1">
+              <ComboBox
+                label="Lifestyle Information"
+                options={medicalProperties.Lifestyle}
+                selectedOptions={selectedLifestyle}
+                setSelectedOptions={setSelectedLifestyle}
+              />
+            </div>
+          </div>
+          <div className="col-span-full">
+            <label
+              htmlFor="extra"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Additional Details
+            </label>
+            <div className="mt-2">
+              <textarea
+                id="extra"
+                name="extra"
+                rows={4}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                // value={formData.about}
+                // onChange={handleChange}
+                placeholder="Please let us know more about your health, if there is something missing in the form."
+              />
+            </div>
+            <p className="mt-3 text-sm leading-6 text-gray-600"></p>
           </div>
         </div>
-        <div className="flex items-center justify-end mt-6 gap-x-6">
+
+        <div className="flex justify-end">
           <button
             type="button"
-            className="text-sm font-semibold leading-6 text-gray-900"
+            className="px-4 py-2 mr-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Cancel
           </button>
           <button
             type="submit"
-            className="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Save
           </button>
