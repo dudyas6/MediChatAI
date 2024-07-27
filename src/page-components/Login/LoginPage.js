@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import ErrorMessage from '@/components/UI/ErrorMessage';
 import InputField from '@/components/UI/InputField';
 import { sendEmail } from '@/controllers/contact.controller';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 
 function LoginPage() {
   const { login } = useAuth();
@@ -13,6 +13,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState({ text: '', type: '' });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [loading, setLoading] = useState(false); // Added loading state
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -27,7 +28,10 @@ function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading
     const { success, message: error_msg } = await login(username, password);
+    setLoading(false); // End loading
+
     if (success) {
       toast.success(error_msg);
       setMessage({ text: error_msg, type: 'success' });
@@ -40,7 +44,7 @@ function LoginPage() {
   };
 
   const handleForgotPassword = async () => {
-    if (username == '') {
+    if (username === '') {
       setMessage({
         text: 'Enter Username in order to continue!',
         type: 'error',
@@ -49,11 +53,12 @@ function LoginPage() {
     }
 
     const response = await findExistingUser(username);
-      if (response.success) {
+    if (response.success) {
       sendEmail(response.user);
       toast.success('An email has been sent to you!');
-    } else toast.error("User does not exist!");
-    
+    } else {
+      toast.error("User does not exist!");
+    }
   };
 
   return (
@@ -80,14 +85,13 @@ function LoginPage() {
                 />
                 <InputField
                   label="Password"
-                  type="password"
+                  type={isPasswordVisible ? 'text' : 'password'} // Toggle password visibility
                   name="password"
                   value={password}
                   onChange={handleChange}
                   placeholder="Enter password"
                   iconName="eye"
                   onIconClick={togglePasswordVisibility}
-                  isPasswordVisible={isPasswordVisible}
                 />
               </div>
               <div className="flex justify-between mt-4">
@@ -111,9 +115,30 @@ function LoginPage() {
               <div className="mt-10">
                 <button
                   type="submit"
-                  className="w-full px-4 py-3 text-sm font-semibold text-white bg-blue-600 rounded focus:outline-none"
+                  className={`w-full px-4 py-3 text-sm font-semibold text-white bg-blue-600 rounded focus:outline-none ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  disabled={loading} // Disable button while loading
                 >
-                  Login
+                  {loading ? (
+                    <div className="flex items-center justify-center">
+                      <svg
+                        className="w-5 h-5 mr-2 animate-spin text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M4 12a8 8 0 1 1 16 0A8 8 0 0 1 4 12z"
+                        />
+                      </svg>
+                      Loading...
+                    </div>
+                  ) : (
+                    'Login'
+                  )}
                 </button>
               </div>
               <ErrorMessage message={message} />
