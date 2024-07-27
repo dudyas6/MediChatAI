@@ -1,15 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ErrorMessage from '@/components/UI/ErrorMessage';
-import { updateUserPassword } from '@/controllers/user.controller';
+import { updateUserPassword ,checkResetToken} from '@/controllers/user.controller';
 import {toast} from 'react-toastify';
+
 
 export default function ResetPasswordForm() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
   const router = useRouter();
   const [message, setMessage] = useState({ text: '', type: '' });
+  
+  
+  const tokenVerification = async (token) =>{
+    const response = await checkResetToken(token);
+    if(response.success==false){
+      router.push("/404");
+    }
+   }
+   
+  useEffect(() => {    
+    if (router.isReady) {
+      const query = router.query.id;
+      const parts = query.split("_");
+      const token = parts[1];
+      tokenVerification(token);
 
+    }
+
+   },[router.isReady, router.query]);
+
+   
+   
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
@@ -26,6 +48,7 @@ export default function ResetPasswordForm() {
       username,
       newPassword
     );
+    
 
     if (success) {
       toast.success("Password Updated Successfully!");

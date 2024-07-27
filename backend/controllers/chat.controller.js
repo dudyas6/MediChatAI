@@ -43,3 +43,17 @@ export const getChatHistoryFromDB = async (user) => {
     const data = await response.json();
     return data;
 }
+
+export const sendMessageToOPENAI = async (message) =>{
+    const response = await fetch(`/api/chat/sendmsgapi`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            message
+        }),
+    });
+    const data = await response.json();
+    return data;
+}

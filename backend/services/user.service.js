@@ -1,6 +1,9 @@
 import { connectToDatabase } from '@/api-lib/mongodb';
 import User from 'backend/models/user.model';
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+const jwtSecret = process.env.JWT_SECRET;
 export const updateUserDetails = async (req, res) => {
   const { currentUser, formData } = req.body;
   try {
@@ -51,3 +54,13 @@ export const updateUserPassword = async (req, res) => {
     res.status(500).json({ error: 'Error: ' + err.message });
   }
 };
+
+export const verifyResetToken = (req,res) =>{
+  const token = req.body.token;
+  try{
+    jwt.verify(token, jwtSecret);
+  }
+  catch(error){//invalid sign
+   res.status(500).json(error);
+  }
+}

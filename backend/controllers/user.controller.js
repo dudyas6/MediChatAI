@@ -90,7 +90,6 @@ export const getUserImages = async (username) => {
 
 export const updateUserPassword = async (username, newPassword) => {
   try {
-    console.log("CON  "+username);
     const response = await fetch('http://localhost:3000/api/auth/change-password', {
       method: 'PATCH',
       headers: {
@@ -119,3 +118,34 @@ export const updateUserPassword = async (username, newPassword) => {
     };
   }
 };
+
+export const checkResetToken = async (token) => {
+  try {
+    const response = await fetch('http://localhost:3000/api/auth/change-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        token
+      }),
+    });
+    console.log("CONTROLLER RESPONSE: "+response.ok);
+    if (!response.ok) {
+      const error = await response.json();
+      return {
+        success: false,
+        message: error,
+      };
+    }
+    return {
+      success: true,
+      message: 'some message!',
+    };
+  } catch (e) {
+    return {
+      success: false,
+      message: e,
+    };
+  }
+}

@@ -9,6 +9,7 @@ import {
 import { defaultSession } from '@/components/Shared/Consts';
 import SectionWrapper from '../Home/SectionWrapper';
 import User from '@/assets/Logos/User.jpg';
+import {sendMessageToOPENAI} from "@/controllers/chat.controller"
 
 function ChatPage() {
   const [messages, setMessages] = useState([]);
@@ -55,6 +56,8 @@ function ChatPage() {
       const finalMessages = [...updatedMessages, botReply];
       // Update Session
       currentSession.messages = finalMessages;
+      const respose = await sendMessageToOPENAI(newMessage.text); //send message to CHATGPT
+      console.log("CHAT RESPONSE: "+response);
       setCurrentSession(currentSession);
       // Update Live Chat with bot's message
       setInput('');
@@ -121,7 +124,7 @@ function ChatPage() {
                   <div className="flex items-start space-x-2">
                     {message.sender === 'user' && (
                       <Image
-                        className="cursor-pointer w-10 h-10 rounded-full"
+                        className="w-10 h-10 rounded-full cursor-pointer"
                         src={currentUserImage}
                         alt="User"
                         width={40}
