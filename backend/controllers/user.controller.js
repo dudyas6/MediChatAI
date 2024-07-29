@@ -32,6 +32,41 @@ export async function updateUserPersonalDetails(currentUser, formData) {
   }
 }
 
+export async function updateUserMedicalDetails(currentUser, formData) {
+  try {
+    console.log(formData);
+    const response = await fetch('/api/user/details/updatemedical', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        currentUser,
+        formData,
+      }),
+    });
+    if (!response.ok) {
+      const error = await response.json();
+      return {
+        success: false,
+        message: error,
+      };
+    }
+    const updatedUser = await response.json();
+
+    return {
+      updatedUser: updatedUser,
+      success: true,
+      message: 'Details updated succesfuly!',
+    };
+  } catch (e) {
+    return {
+      success: false,
+      message: e,
+    };
+  }
+}
+
 export const findExistingUser = async (username) => {
   const userResponse = await fetch(
     `/api/user?username=${encodeURIComponent(username)}`,
@@ -149,3 +184,4 @@ export const checkResetToken = async (token) => {
     };
   }
 }
+

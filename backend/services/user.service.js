@@ -23,6 +23,23 @@ export const updateUserDetails = async (req, res) => {
   }
 };
 
+export const updateMedicalUserDetails = async (req, res) => {
+  const { currentUser, formData } = req.body;
+  try {
+    await connectToDatabase();
+    const user = await User.findOne({ username: currentUser.username });
+    if (user) {
+      user.medical_details = { ...user.details.toObject(), ...formData };
+      await user.save();
+      res.status(200).json(user);
+    } else {
+      res.json('Internal error, please try again later.');
+    }
+  } catch (err) {
+    res.status(500).json('Error: ' + err.message);
+  }
+};
+
 export const findUserInDB = async (req, res) => {
   const username = req.query.username;
   try {
@@ -64,3 +81,5 @@ export const verifyResetToken = (req,res) =>{
    res.status(500).json(error);
   }
 }
+
+

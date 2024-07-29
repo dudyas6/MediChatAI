@@ -7,14 +7,14 @@ import SidebarListItem from './SidebarListItem';
 const Sidebar = ({ setSelectedComponent }) => {
   const { currentUser, logout } = useAuth();
   return (
-    <nav className="bg-white custom-shadow min-h-[900px] top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto flex">
-      <div className="relative flex flex-col w-full min-h-full">
-        <div className="relative flex flex-wrap items-center justify-center mr-8 cursor-pointer">
+    <nav className="dark:bg-gray-500 bg-white custom-shadow min-h-[900px] top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto flex">
+      <div className="relative flex flex-col w-full min-h-full ">
+        <div className="relative flex flex-wrap items-center justify-center mr-8 cursor-pointer ">
           <div className="pt-2">
             <UserButton width={60} height={60} />
           </div>
           <div className="ml-4">
-            <p className="text-sm text-[#333] font-semibold">Welcome!</p>
+            <p className="dark:text-white text-sm text-[#333] font-semibold">Welcome!</p>
             <p className="text-sm text-center text-gray-400">
               {currentUser?.username}
             </p>
@@ -22,9 +22,9 @@ const Sidebar = ({ setSelectedComponent }) => {
         </div>
         <hr className="my-6" />
         <div>
-          <h4 className="mb-4 text-sm text-gray-400">Personal</h4>
+          <h4 className="text-sm text-gray-400 dark:text-white dark:text-whitemb-4">Personal</h4>
           <ul className="flex-1 px-2 space-y-4">
-            <SidebarListItem
+            <SidebarListItem 
               name="Overview"
               icon={icons.dashboard}
               onClick={() => setSelectedComponent('Overview')}
@@ -33,7 +33,7 @@ const Sidebar = ({ setSelectedComponent }) => {
         </div>
         <hr className="my-6" />
         <div className="flex-1">
-          <h4 className="mb-4 text-sm text-gray-400">Settings</h4>
+          <h4 className="mb-4 text-sm text-gray-400 dark:text-white">Settings</h4>
           <ul className="flex-1 px-2 space-y-4">
             <SidebarListItem
               name="Personal Details"

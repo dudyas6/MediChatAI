@@ -1,62 +1,95 @@
 import { medicalProperties } from '@/components/Shared/Consts';
 import { useAuth } from '@/controllers/auth.controller';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ComboBox from './ComboBox';
+import { updateUserMedicalDetails } from "@/controllers/user.controller";
+import { toast } from 'react-toastify';
 
 const Medical = () => {
-  const { currentUser } = useAuth();
-  const [selectedChronicConditions, setSelectedChronicConditions] = useState(
-    []
-  );
+  const { currentUser, getCurrentUser } = useAuth();
+  const [selectedChronicConditions, setSelectedChronicConditions] = useState([]);
   const [selectedPastConditions, setSelectedPastConditions] = useState([]);
   const [selectedAllergies, setSelectedAllergies] = useState([]);
   const [selectedMedications, setSelectedMedications] = useState([]);
   const [selectedLifestyle, setSelectedLifestyle] = useState([]);
+  const [formData, setFormData] = useState({
+    gender: '',
+    dateOfBirth: '',
+    height: '',
+    weight: '',
+    bloodType: '',
+    chronicConditions: [],
+    allergies: [],
+    lifestyleInfo: [],
+    pastMedicalConditions: [],
+    currentMedications: [],
+    additionalDetails: ''
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(selectedChronicConditions);
+  useEffect(() => {
+    if (currentUser) {
+      setFormData(currentUser.medical_details || {
+        gender: '',
+        dateOfBirth: '',
+        height: '',
+        weight: '',
+        bloodType: '',
+        chronicConditions: [],
+        allergies: [],
+        lifestyleInfo: [],
+        pastMedicalConditions: [],
+        currentMedications: [],
+        additionalDetails: ''
+      });
+      setSelectedChronicConditions(currentUser.medical_details?.chronicConditions || []);
+      setSelectedPastConditions(currentUser.medical_details?.pastMedicalConditions || []);
+      setSelectedAllergies(currentUser.medical_details?.allergies || []);
+      setSelectedMedications(currentUser.medical_details?.currentMedications || []);
+      setSelectedLifestyle(currentUser.medical_details?.lifestyleInfo || []);
+    }
+  }, [currentUser]);
 
-    // Example: Submit data to an API
-    // fetch('/api/submit', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log('Success:', data);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error:', error);
-    //   });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const updatedData = {
+      ...formData,
+      chronicConditions: selectedChronicConditions,
+      pastMedicalConditions: selectedPastConditions,
+      allergies: selectedAllergies,
+      currentMedications: selectedMedications,
+      lifestyleInfo: selectedLifestyle
+    };
+    console.log(formData.dateOfBirth);
+    await updateUserMedicalDetails(currentUser, updatedData);
+    getCurrentUser();
+    toast.success("Medical details updated successfully");
+  };
+
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="space-y-12 max-w-[60%] border p-4">
         <div className="space-y-6">
-          <h3 className="text-xl font-medium text-gray-900">
-            Medical Information
-          </h3>
-          <p className="text-sm text-gray-600">
-            Please provide detailed medical history for better assistance.
-          </p>
+          <h3 className="text-xl font-medium text-gray-900">Medical Information</h3>
+          <p className="text-sm text-gray-600">Please provide detailed medical history for better assistance.</p>
 
           <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
             <div>
-              <label
-                htmlFor="gender"
-                className="block text-sm font-medium text-gray-900"
-              >
-                Gender
-              </label>
+              <label htmlFor="gender" className="block text-sm font-medium text-gray-900">Gender</label>
               <select
                 id="gender"
                 name="gender"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                value={formData.gender}
+                onChange={handleChange}
+                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               >
                 <option value="">Select</option>
                 <option value="male">Male</option>
@@ -66,63 +99,51 @@ const Medical = () => {
             </div>
 
             <div>
-              <label
-                htmlFor="date-of-birth"
-                className="block text-sm font-medium text-gray-900"
-              >
-                Date of Birth
-              </label>
+              <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-900">Date of Birth</label>
               <input
                 type="date"
-                id="date-of-birth"
-                name="date-of-birth"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                id="dateOfBirth"
+                name="dateOfBirth"
+                value={formData.dateOfBirth}
+                onChange={handleChange}
+                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label
-                htmlFor="height"
-                className="block text-sm font-medium text-gray-900"
-              >
-                Height (in cm)
-              </label>
+              <label htmlFor="height" className="block text-sm font-medium text-gray-900">Height (in cm)</label>
               <input
-                type="number"
+                type="text"
                 id="height"
                 name="height"
+                value={formData.height}
+                onChange={handleChange}
                 placeholder="e.g., 170"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label
-                htmlFor="weight"
-                className="block text-sm font-medium text-gray-900"
-              >
-                Weight (in kg)
-              </label>
+              <label htmlFor="weight" className="block text-sm font-medium text-gray-900">Weight (in kg)</label>
               <input
-                type="number"
+                type="text"
                 id="weight"
                 name="weight"
+                value={formData.weight}
+                onChange={handleChange}
                 placeholder="e.g., 70"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label
-                htmlFor="blood-type"
-                className="block text-sm font-medium text-gray-900"
-              >
-                Blood Type
-              </label>
+              <label htmlFor="bloodType" className="block text-sm font-medium text-gray-900">Blood Type</label>
               <select
-                id="blood-type"
-                name="blood-type"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                id="bloodType"
+                name="bloodType"
+                value={formData.bloodType}
+                onChange={handleChange}
+                className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               >
                 <option value="">Select</option>
                 <option value="A+">A+</option>
@@ -183,19 +204,19 @@ const Medical = () => {
           </div>
           <div className="col-span-full">
             <label
-              htmlFor="extra"
+              htmlFor="additionalDetails"
               className="block text-sm font-medium leading-6 text-gray-900"
             >
               Additional Details
             </label>
             <div className="mt-2">
               <textarea
-                id="extra"
-                name="extra"
+                id="additionalDetails"
+                name="additionalDetails"
                 rows={4}
+                value={formData.additionalDetails}
+                onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                // value={formData.about}
-                // onChange={handleChange}
                 placeholder="Please let us know more about your health, if there is something missing in the form."
               />
             </div>

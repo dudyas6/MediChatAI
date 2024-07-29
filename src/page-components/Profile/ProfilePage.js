@@ -39,10 +39,10 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="pt-18 pb-3 md:pt-24 pr-2" id="profile">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+    <div className="pb-3 pr-2 pt-18 md:pt-24" id="profile">
+      <div className="flex flex-col items-center justify-between gap-3 text-center md:flex-row md:text-left">
         <Sidebar setSelectedComponent={setSelectedComponent} />
-        <div className="bg-white custom-shadow relative min-h-[900px] max-h-[900px] w-screen min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto">
+        <div className="dark:bg-gray-500 bg-white custom-shadow relative min-h-[900px] max-h-[900px] w-screen min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto">
           {renderComponent()}
         </div>
       </div>

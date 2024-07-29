@@ -20,6 +20,19 @@ const UserSchema = new mongoose.Schema({
     postalCode: { type: String, default: '' },
     notifications: { type: Boolean, default: false},
   },
+  medical_details:{
+    gender:{type:String,default:''},
+    dateOfBirth:{type:Date, default: null},
+    height:{type:String,default:''},
+    weight:{type:String},
+    bloodType:{type:String},
+    chronicConditions: { type: [String], default: [] },
+      allergies: { type: [String], default: [] },
+      lifestyleInfo: { type: [String], default: [] },
+      pastMedicalConditions: { type: [String], default: [] },
+      currentMedications: { type: [String], default: [] },
+    additionalDetails:{type:String}
+  }
 });
 
 UserSchema.pre('save', async function (next) {
