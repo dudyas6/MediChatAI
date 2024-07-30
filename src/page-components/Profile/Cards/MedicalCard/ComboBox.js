@@ -54,7 +54,7 @@ const ComboBox = ({ label, options, selectedOptions, setSelectedOptions }) => {
       >
         {renderSelectedOptions(selectedOptions) || 'Select options'}
         <svg
-          className="w-6 h-6 text-gray-800 ml-2"
+          className="w-6 h-6 ml-2 text-gray-800"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -101,7 +101,7 @@ const ComboBox = ({ label, options, selectedOptions, setSelectedOptions }) => {
                 />
                 <label
                   htmlFor={option}
-                  className="relative mr-3 flex items-center justify-center p-1 peer-checked:before:hidden before:block before:absolute before:w-full before:h-full before:bg-white w-5 h-5 cursor-pointer bg-blue-600 border rounded overflow-hidden"
+                  className="relative flex items-center justify-center w-5 h-5 p-1 mr-3 overflow-hidden bg-blue-600 border rounded cursor-pointer peer-checked:before:hidden before:block before:absolute before:w-full before:h-full before:bg-white"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

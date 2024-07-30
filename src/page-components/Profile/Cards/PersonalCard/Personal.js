@@ -8,6 +8,7 @@ import {
 } from '@/controllers/user.controller';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {countries} from '@/components/Shared/Consts';
 
 const Personal = () => {
   const { currentUser, getCurrentUser } = useAuth();
@@ -136,12 +137,12 @@ const Personal = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="space-y-12 max-w-[60%] border p-4">
-          <div className="border-b border-gray-900/10 pb-12">
+        <div className=" space-y-12 max-w-[60%] border p-4">
+          <div className="pb-12 border-b border-gray-900/10">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Profile
             </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600">
+            <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-white">
               This information will be displayed publicly so be careful what you
               share.
             </p>
@@ -165,7 +166,7 @@ const Personal = () => {
                     placeholder="Tell us about yourself."
                   />
                 </div>
-                <p className="mt-3 text-sm leading-6 text-gray-600">
+                <p className="mt-3 text-sm leading-6 text-gray-600 dark:text-white">
                   Write a few sentences about yourself.
                 </p>
               </div>
@@ -177,7 +178,7 @@ const Personal = () => {
                 >
                   Profile Picture
                 </label>
-                <div className="mt-2 flex items-center gap-x-3">
+                <div className="flex items-center mt-2 gap-x-3">
                   {selectedImage && (
                     <Image
                       src={selectedImage}
@@ -212,11 +213,11 @@ const Personal = () => {
                 >
                   Cover Photo
                 </label>
-                <div className="mt-2 flex flex-col items-center justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                <div className="flex flex-col items-center justify-center px-6 py-10 mt-2 border border-dashed rounded-lg border-gray-900/25">
                   <div className="text-center">
                     {selectedCover ? (
                       <div
-                        className="relative cursor-pointer rounded-md bg-white border border-gray-300"
+                        className="relative bg-white border border-gray-300 rounded-md cursor-pointer"
                         onClick={handleImageClick}
                       >
                         <Image
@@ -225,21 +226,21 @@ const Personal = () => {
                           width={1980}
                           height={1020}
                           quality={100}
-                          className="rounded-md border border-gray-300"
+                          className="border border-gray-300 rounded-md"
                         />
                       </div>
                     ) : (
                       <>
-                        <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                        <div className="flex mt-4 text-sm leading-6 text-gray-600">
                           <label
                             htmlFor="fileInputCover"
-                            className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                            className="relative font-semibold text-indigo-600 bg-white rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
                             <span>Upload a file</span>
                           </label>
-                          <p className="pl-1">or drag and drop</p>
+                          <p className="pl-1 dark:text-white">or drag and drop</p>
                         </div>
-                        <p className="text-xs leading-5 text-gray-600">
+                        <p className="text-xs leading-5 text-gray-600 dark:text-white">
                           PNG, JPG, GIF up to 10MB
                         </p>
                       </>
@@ -258,15 +259,15 @@ const Personal = () => {
             </div>
           </div>
 
-          <div className="border-b border-gray-900/10 pb-12">
+          <div className="pb-12 border-b border-gray-900/10">
             <h2 className="text-base font-semibold leading-7 text-gray-900">
               Personal Information
             </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600">
+            <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-white">
               Use a permanent address where you can receive mail.
             </p>
 
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-3">
                 <label
                   htmlFor="first-name"
@@ -325,9 +326,12 @@ const Personal = () => {
                     value={formData.country}
                     onChange={handleChange}
                   >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
+                    <option value="">Select Country</option>
+                    {countries.map((country) => (
+                      <option key={country} value={country}>
+                        {country}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>
@@ -438,18 +442,18 @@ const Personal = () => {
               </div>
 
               <div className="col-span-full">
-                <div className="mt-2 flex items-center">
+                <div className="flex items-center mt-2">
                   <input
                     id="notifications"
                     name="notifications"
                     type="checkbox"
-                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600"
                     checked={formData.notifications}
                     onChange={handleChange}
                   />
                   <label
                     htmlFor="notifications"
-                    className="ml-2 block text-sm leading-6 text-gray-900"
+                    className="block ml-2 text-sm leading-6 text-gray-900"
                   >
                     Receive notifications
                   </label>
@@ -458,7 +462,7 @@ const Personal = () => {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-end gap-x-6">
+          <div className="flex items-center justify-end mt-6 gap-x-6">
             <button
               type="button"
               className="text-sm font-semibold leading-6 text-gray-900"
@@ -467,7 +471,7 @@ const Personal = () => {
             </button>
             <button
               type="submit"
-              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Save
             </button>

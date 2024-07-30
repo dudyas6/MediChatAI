@@ -19,7 +19,7 @@ export default function MyApp({ Component, pageProps }) {
       </AuthProvider>
       <ToastContainer
         position="bottom-center" // Position of the toast notifications
-        autoClose={3000} // Auto close duration in milliseconds
+        autoClose={2000} // Auto close duration in milliseconds
         hideProgressBar={false} // Whether to hide the progress bar
         newestOnTop={false} // Whether the newest toast appears on top
         closeOnClick // Close toast on click
