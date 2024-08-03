@@ -37,7 +37,6 @@ const addNewChatHistory = async (req, res, chat_id) => {
         const { user, session } = req.body;
         const { messages } = session;
 
-        // Create a new ChatHistory document based on your Mongoose schema
         const newChatHistory = new ChatHistory({
             chat_id: chat_id,
             user: user,
