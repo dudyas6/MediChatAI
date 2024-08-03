@@ -1,4 +1,4 @@
-import { sendMessageToAPI} from '@/services/chat.service'
+import { sendMessageToAPI} from '@/middleware/interpreter'
 
 const handlers = {
   POST: sendMessageToAPI

@@ -4,11 +4,13 @@ import { useAuth } from '@/controllers/auth.controller';
 import {
   postChatSession,
   getChatHistoryFromDB,
+  sendMessageToOPENAI
 } from '@/controllers/chat.controller';
 import { defaultSession } from '@/components/Shared/Consts';
 import SectionWrapper from '../Home/SectionWrapper';
 import User from '@/assets/Logos/User.jpg';
 import ChatBox from './ChatBox';
+
 
 function ChatPage() {
   const [messages, setMessages] = useState([]);
@@ -47,8 +49,9 @@ function ChatPage() {
 
   const handleSend = async () => {
     if (input.trim() !== '') {
+      const response =await sendMessageToOPENAI(input); //send message to openAI api
       const newMessage = { text: input, sender: 'user' };
-      const botReply = { text: '...', sender: 'bot' };
+      const botReply = { text: response.reply, sender: 'bot' };
       setInput('');
       const updatedMessages = [...messages, newMessage];
       setMessages(updatedMessages);
@@ -56,7 +59,6 @@ function ChatPage() {
       currentSession.messages = finalMessages;
 
       setCurrentSession(currentSession);
-
       setTimeout(() => {
         setMessages(finalMessages);
       }, 1000);
@@ -103,23 +105,23 @@ function ChatPage() {
           isFetchingHistory={isFetchingHistory}
           isNewChat={isNewChat}
         />
-        <div className="flex-1 flex-col relative">
-          <div className="bg-white p-4 text-gray-700">
+        <div className="relative flex-col flex-1">
+          <div className="p-4 text-gray-700 bg-white">
             <h1 className="text-2xl font-semibold">{currentSession._id}</h1>
           </div>
           <ChatBox messages={messages} currentUserImage={currentUserImage} />
-          <div className="bg-white border-t border-gray-300 p-4 absolute bottom-0 w-full">
+          <div className="absolute bottom-0 w-full p-4 bg-white border-t border-gray-300">
             <div className="flex items-center">
               <input
                 type="text"
                 placeholder="Type a message..."
-                className="w-full p-2 rounded-md border border-gray-400 focus:outline-none focus:border-blue-500"
+                className="w-full p-2 border border-gray-400 rounded-md focus:outline-none focus:border-blue-500"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               />
               <button
-                className="bg-indigo-500 text-white px-4 py-2 rounded-md ml-2"
+                className="px-4 py-2 ml-2 text-white bg-indigo-500 rounded-md"
                 onClick={handleSend}
               >
                 Send
