@@ -49,7 +49,7 @@ function ChatPage() {
 
   const handleSend = async () => {
     if (input.trim() !== '') {
-      const response =await sendMessageToOPENAI(input); //send message to openAI api
+      const response =await sendMessageToOPENAI(input,currentUser); //send message to openAI api
       const newMessage = { text: input, sender: 'user' };
       const botReply = { text: response.reply, sender: 'bot' };
       setInput('');

@@ -44,14 +44,20 @@ export const getChatHistoryFromDB = async (user) => {
     return data;
 }
 
+<<<<<<< Updated upstream
 export const sendMessageToOPENAI = async (message) =>{
     const response = await fetch(`/api/chat/`, {
+=======
+export const sendMessageToOPENAI = async (message,currentUser) =>{
+    const response = await fetch(`/api/chat/sendmsgapi`, {
+>>>>>>> Stashed changes
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            message
+            message,
+            currentUser
         }),
     });
     const data = await response.json();
