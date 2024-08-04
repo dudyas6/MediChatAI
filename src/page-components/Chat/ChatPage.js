@@ -29,8 +29,8 @@ function ChatPage() {
     if (currentUser) {
       currentSession.user = currentUser.username;
       setCurrentUserImage(
-        currentUser.details.profilePicture
-          ? currentUser.details.profilePicture
+        currentUser.details.profilePhoto
+          ? currentUser.details.profilePhoto
           : User
       );
       setCurrentSession(currentSession);

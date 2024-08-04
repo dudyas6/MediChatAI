@@ -8,7 +8,7 @@ import {
 } from '@/controllers/user.controller';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {countries} from '@/components/Shared/Consts';
+import { countries } from '@/components/Shared/Consts';
 
 const Personal = () => {
   const { currentUser, getCurrentUser } = useAuth();
@@ -22,12 +22,15 @@ const Personal = () => {
     lastName: '',
     country: '',
     streetAddress: '',
+    coverPhoto: '',
+    profilePhoto: '',
     phone: '',
     city: '',
     region: '',
     postalCode: '',
     notifications: false,
   });
+  const [isSubmitting, setIsSubmitting] = useState(false); // New state for loading
 
   const handleImageClick = () => {
     document.getElementById('fileInputCover').click();
@@ -38,13 +41,14 @@ const Personal = () => {
   };
 
   const handleFileUpload = async (file, field) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('username', currentUser.username);
-    formData.append('field', field);
+    const data = new FormData();
+    data.append('file', file);
+    data.append('username', currentUser.username);
+    data.append('field', field);
 
     try {
-      await uploadUserImage(formData);
+      const imageURL = await uploadUserImage(data);
+      return imageURL;
     } catch (error) {
       console.error('Error uploading the image:', error);
     }
@@ -79,28 +83,44 @@ const Personal = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validateForm()) return;
+
+    setIsSubmitting(true); // Start loading
+
     try {
-      if (imageFile) {
-        await handleFileUpload(imageFile, 'profilePicture');
-        setImageFile(null);
-      }
+      const newFormData = { ...formData };
+
       if (coverFile) {
-        await handleFileUpload(coverFile, 'coverPhoto');
+        const coverPhotoURL = await handleFileUpload(coverFile, 'coverPhoto');
+        newFormData.coverPhoto = coverPhotoURL;
         setCoverFile(null);
       }
-      await updateUserPersonalDetails(currentUser, formData);
+
+      if (imageFile) {
+        const profilePhotoURL = await handleFileUpload(
+          imageFile,
+          'profilePhoto'
+        );
+        newFormData.profilePhoto = profilePhotoURL;
+        setImageFile(null);
+      }
+
+      setFormData(newFormData);
+
+      await updateUserPersonalDetails(currentUser, newFormData);
       getCurrentUser();
       toast.success(
         'Profile updated successfully, effects might appear in a short period of time.'
       );
     } catch (error) {
       toast.error('Failed to update profile.');
+    } finally {
+      setIsSubmitting(false); // End loading
     }
   };
 
   useEffect(() => {
     if (currentUser) {
-      setSelectedImage(currentUser.details?.profilePicture || userLogo);
+      setSelectedImage(currentUser.details?.profilePhoto || userLogo);
       setSelectedCover(currentUser.details?.coverPhoto || '');
       setFormData(
         currentUser.details || {
@@ -109,6 +129,8 @@ const Personal = () => {
           lastName: '',
           country: '',
           streetAddress: '',
+          coverPhoto: '',
+          profilePhoto: '',
           phone: '',
           city: '',
           region: '',
@@ -134,20 +156,22 @@ const Personal = () => {
 
     return valid;
   };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className=" space-y-12 max-w-[60%] border p-4">
+        <div className="space-y-12 max-w-[60%] border p-4">
           <div className="pb-12 border-b border-gray-900/10">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Profile
-            </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-white">
+            <h3 className="text-xl font-medium text-gray-900">
+              Personal Information
+            </h3>
+            <p className="text-sm text-gray-600">
               This information will be displayed publicly so be careful what you
               share.
             </p>
 
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 max-w-[80%]">
+              {/* About Section */}
               <div className="col-span-full">
                 <label
                   htmlFor="about"
@@ -171,6 +195,7 @@ const Personal = () => {
                 </p>
               </div>
 
+              {/* Profile Picture Section */}
               <div className="col-span-full">
                 <label
                   htmlFor="photo"
@@ -206,6 +231,7 @@ const Personal = () => {
                 </div>
               </div>
 
+              {/* Cover Photo Section */}
               <div className="col-span-full">
                 <label
                   htmlFor="fileInputCover"
@@ -238,242 +264,196 @@ const Personal = () => {
                           >
                             <span>Upload a file</span>
                           </label>
-                          <p className="pl-1 dark:text-white">or drag and drop</p>
+                          <p className="pl-1 dark:text-white">
+                            or drag and drop
+                          </p>
                         </div>
-                        <p className="text-xs leading-5 text-gray-600 dark:text-white">
-                          PNG, JPG, GIF up to 10MB
-                        </p>
+                        <input
+                          id="fileInputCover"
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleCoverChange}
+                        />
                       </>
                     )}
-                    <input
-                      id="fileInputCover"
-                      name="coverPhoto"
-                      type="file"
-                      className="sr-only"
-                      accept="image/png, image/jpeg, image/gif"
-                      onChange={handleCoverChange}
-                    />
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div className="pb-12 border-b border-gray-900/10">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">
-              Personal Information
-            </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-white">
-              Use a permanent address where you can receive mail.
-            </p>
-
-            <div className="grid grid-cols-1 mt-10 gap-x-6 gap-y-8 sm:grid-cols-6">
+              {/* Form Inputs */}
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="first-name"
+                  htmlFor="firstName"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   First name
                 </label>
-                <div className="mt-2">
-                  <input
-                    id="first-name"
-                    name="firstName"
-                    type="text"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    placeholder="First Name"
-                  />
-                </div>
+                <input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  autoComplete="given-name"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="last-name"
+                  htmlFor="lastName"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Last name
                 </label>
-                <div className="mt-2">
-                  <input
-                    id="last-name"
-                    name="lastName"
-                    type="text"
-                    autoComplete="family-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    placeholder="Last Name"
-                  />
-                </div>
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  autoComplete="family-name"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                />
               </div>
 
-              <div className="sm:col-span-3">
+              {/* Other Inputs */}
+              <div className="sm:col-span-4">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Phone
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  autoComplete="tel"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="sm:col-span-4">
                 <label
                   htmlFor="country"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Country
                 </label>
-                <div className="mt-2">
-                  <select
-                    id="country"
-                    name="country"
-                    autoComplete="country-name"
-                    className="block w-full rounded-md border-0 bg-white py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                    value={formData.country}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select Country</option>
-                    {countries.map((country) => (
-                      <option key={country} value={country}>
-                        {country}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <select
+                  id="country"
+                  name="country"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formData.country}
+                  onChange={handleChange}
+                >
+                  {countries.map((country) => (
+                    <option key={country} value={country}>
+                      {country}
+                    </option>
+                  ))}
+                </select>
               </div>
 
-              <div className="col-span-full">
+              <div className="sm:col-span-4">
                 <label
-                  htmlFor="street-address"
+                  htmlFor="streetAddress"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Street address
+                  Street Address
                 </label>
-                <div className="mt-2">
-                  <input
-                    id="street-address"
-                    name="streetAddress"
-                    type="text"
-                    autoComplete="street-address"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={formData.streetAddress}
-                    onChange={handleChange}
-                    placeholder="Street Address"
-                  />
-                </div>
+                <input
+                  type="text"
+                  name="streetAddress"
+                  id="streetAddress"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formData.streetAddress}
+                  onChange={handleChange}
+                />
               </div>
 
-              <div className="sm:col-span-2 sm:col-start-1">
+              <div className="sm:col-span-3">
                 <label
                   htmlFor="city"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   City
                 </label>
-                <div className="mt-2">
-                  <input
-                    id="city"
-                    name="city"
-                    type="text"
-                    autoComplete="address-level2"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={formData.city}
-                    onChange={handleChange}
-                    placeholder="City"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="region"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  State / Province
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="region"
-                    name="region"
-                    type="text"
-                    autoComplete="address-level1"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={formData.region}
-                    onChange={handleChange}
-                    placeholder="State / Province"
-                  />
-                </div>
-              </div>
-
-              <div className="sm:col-span-2">
-                <label
-                  htmlFor="postal-code"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  ZIP / Postal code
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="postal-code"
-                    name="postalCode"
-                    type="text"
-                    autoComplete="postal-code"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={formData.postalCode}
-                    onChange={handleChange}
-                    placeholder="ZIP / Postal Code"
-                  />
-                </div>
+                <input
+                  type="text"
+                  name="city"
+                  id="city"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formData.city}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="sm:col-span-3">
                 <label
-                  htmlFor="phone"
+                  htmlFor="region"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Phone number
+                  Region
                 </label>
-                <div className="mt-2">
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="text"
-                    autoComplete="tel"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Phone Number"
-                  />
-                </div>
+                <input
+                  type="text"
+                  name="region"
+                  id="region"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formData.region}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="sm:col-span-3">
+                <label
+                  htmlFor="postalCode"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Postal Code
+                </label>
+                <input
+                  type="text"
+                  name="postalCode"
+                  id="postalCode"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  value={formData.postalCode}
+                  onChange={handleChange}
+                />
               </div>
 
               <div className="col-span-full">
-                <div className="flex items-center mt-2">
+                <div className="flex items-center gap-x-3">
                   <input
                     id="notifications"
                     name="notifications"
                     type="checkbox"
-                    className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600"
                     checked={formData.notifications}
                     onChange={handleChange}
+                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   />
                   <label
                     htmlFor="notifications"
-                    className="block ml-2 text-sm leading-6 text-gray-900"
+                    className="text-sm font-medium leading-6 text-gray-900"
                   >
-                    Receive notifications
+                    Get notified when updates are available.
                   </label>
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="flex items-center justify-end mt-6 gap-x-6">
-            <button
-              type="button"
-              className="text-sm font-semibold leading-6 text-gray-900"
-            >
-              Cancel
-            </button>
+          <div className="flex justify-end gap-x-6">
             <button
               type="submit"
-              className="px-3 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="px-5 py-2.5 rounded-lg text-sm tracking-wider font-medium border border-current outline-none bg-blue-700 hover:bg-transparent text-white hover:text-blue-700 transition-all duration-300"
+              disabled={isSubmitting} // Disable button while submitting
             >
-              Save
+              {isSubmitting ? 'Updating...' : 'Update'}
             </button>
           </div>
         </div>

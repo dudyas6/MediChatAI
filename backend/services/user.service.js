@@ -29,7 +29,7 @@ export const updateMedicalUserDetails = async (req, res) => {
     await connectToDatabase();
     const user = await User.findOne({ username: currentUser.username });
     if (user) {
-      user.medical_details = { ...user.details.toObject(), ...formData };
+      user.medical = { ...user.medical.toObject(), ...formData };
       await user.save();
       res.status(200).json(user);
     } else {

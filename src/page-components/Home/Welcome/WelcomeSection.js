@@ -10,7 +10,6 @@ function HomePage() {
   const router = useRouter();
 
   const handleClick = () => {
-    console.log('move to chat');
     router.push('/chat');
   };
 

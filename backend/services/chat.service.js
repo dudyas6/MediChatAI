@@ -57,7 +57,6 @@ const updateExistingChatHistory = async (req, res, existingChat) => {
     try {
         const { session } = req.body;
         const { messages } = session;
-        console.log(messages)
         existingChat.messages = messages;
         const updatedChatHistory = await existingChat.save();
 

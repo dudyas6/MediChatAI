@@ -5,6 +5,7 @@ import Sidebar from './Sidebar';
 import Overview from './Cards/Overview';
 import Personal from './Cards/PersonalCard/Personal';
 import Medical from './Cards/MedicalCard/Medical';
+import Loading from '@/components/UI/Loading';
 
 const ProfilePage = () => {
   const { currentUser, logout, loading: authLoading } = useAuth();
@@ -28,15 +29,19 @@ const ProfilePage = () => {
   const renderComponent = () => {
     switch (selectedComponent) {
       case 'Overview':
-        return <Overview id="overview"/>;
+        return <Overview id="overview" />;
       case 'Personal':
-        return <Personal id="general"/>;
+        return <Personal id="general" />;
       case 'Medical':
-        return <Medical id="medical"/>;
+        return <Medical id="medical" />;
       default:
         return null;
     }
   };
+
+  if (authLoading || !currentUser) {
+    return <Loading />;
+  }
 
   return (
     <div className="pb-3 pr-2 pt-18 md:pt-24" id="profile">

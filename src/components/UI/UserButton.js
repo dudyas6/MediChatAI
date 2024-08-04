@@ -21,8 +21,8 @@ const UserButton = ({ width, height }) => {
   useEffect(() => {
     if (currentUser) {
       setCurrentUserImage(
-        currentUser.details.profilePicture
-          ? currentUser.details.profilePicture
+        currentUser.details.profilePhoto
+          ? currentUser.details.profilePhoto
           : User
       );
     } else {

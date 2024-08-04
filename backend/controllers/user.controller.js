@@ -1,5 +1,6 @@
 export async function updateUserPersonalDetails(currentUser, formData) {
   try {
+    console.log(formData);
     const response = await fetch('/api/user/details', {
       method: 'POST',
       headers: {
@@ -34,7 +35,6 @@ export async function updateUserPersonalDetails(currentUser, formData) {
 
 export async function updateUserMedicalDetails(currentUser, formData) {
   try {
-    console.log(formData);
     const response = await fetch('/api/user/details/updatemedical', {
       method: 'POST',
       headers: {
@@ -93,11 +93,11 @@ export const uploadUserImage = async (formData) => {
     });
 
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error('Error uploading image, please try again later.');
     }
 
     const data = await response.json();
-    return data.fileUrl;
+    return data.fileURL;
   } catch (error) {
     console.error('There was an error uploading the image:', error);
     throw error;
@@ -125,16 +125,19 @@ export const getUserImages = async (username) => {
 
 export const updateUserPassword = async (username, newPassword) => {
   try {
-    const response = await fetch('http://localhost:3000/api/auth/change-password', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        username,
-        newPassword,
-      }),
-    });
+    const response = await fetch(
+      'http://localhost:3000/api/auth/change-password',
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          newPassword,
+        }),
+      }
+    );
     if (!response.ok) {
       const error = await response.json();
       return {
@@ -156,16 +159,19 @@ export const updateUserPassword = async (username, newPassword) => {
 
 export const checkResetToken = async (token) => {
   try {
-    const response = await fetch('http://localhost:3000/api/auth/change-password', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        token
-      }),
-    });
-    console.log("CONTROLLER RESPONSE: "+response.ok);
+    const response = await fetch(
+      'http://localhost:3000/api/auth/change-password',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          token,
+        }),
+      }
+    );
+
     if (!response.ok) {
       const error = await response.json();
       return {
@@ -183,5 +189,4 @@ export const checkResetToken = async (token) => {
       message: e,
     };
   }
-}
-
+};

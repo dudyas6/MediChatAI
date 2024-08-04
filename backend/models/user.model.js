@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   details: {
     about: { type: String, default: '' },
-    profilePicture: { type: String, default: '' },
+    profilePhoto: { type: String, default: '' },
     coverPhoto: { type: String, default: '' },
     firstName: { type: String, default: '' },
     lastName: { type: String, default: '' },
@@ -18,21 +18,21 @@ const UserSchema = new mongoose.Schema({
     streetAddress: { type: String, default: '' },
     region: { type: String, default: '' },
     postalCode: { type: String, default: '' },
-    notifications: { type: Boolean, default: false},
+    notifications: { type: Boolean, default: false },
   },
-  medical_details:{
-    gender:{type:String,default:''},
-    dateOfBirth:{type:Date, default: null},
-    height:{type:String,default:''},
-    weight:{type:String},
-    bloodType:{type:String},
+  medical: {
+    gender: { type: String, default: '' },
+    dateOfBirth: { type: Date, default: null },
+    height: { type: String, default: '' },
+    weight: { type: String, default: '' },
+    bloodType: { type: String, default: '' },
     chronicConditions: { type: [String], default: [] },
-      allergies: { type: [String], default: [] },
-      lifestyleInfo: { type: [String], default: [] },
-      pastMedicalConditions: { type: [String], default: [] },
-      currentMedications: { type: [String], default: [] },
-    additionalDetails:{type:String}
-  }
+    allergies: { type: [String], default: [] },
+    lifestyleInfo: { type: [String], default: [] },
+    pastMedicalConditions: { type: [String], default: [] },
+    currentMedications: { type: [String], default: [] },
+    additionalDetails: { type: String, default: '' },
+  },
 });
 
 UserSchema.pre('save', async function (next) {

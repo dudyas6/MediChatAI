@@ -18,11 +18,10 @@ const drive = google.drive({ version: 'v3', auth });
 
 export const config = {
   api: {
-    bodyParser: false, // Disable body parsing, required for `formidable`
+    bodyParser: false,
   },
 };
 
-// Function to upload a file to Google Drive
 const uploadFileToDrive = async (file, username, type) => {
   await connectToDatabase();
 
@@ -33,7 +32,7 @@ const uploadFileToDrive = async (file, username, type) => {
 
   try {
     const listResponse = await drive.files.list({
-      q: `name = '${fileName}' and '${'1ZQNai34oH_rvoxi12rWi9HaiG1sS7rAz'}' in parents`,
+      q: `name = '${fileName}' and '1ZQNai34oH_rvoxi12rWi9HaiG1sS7rAz' in parents`,
       fields: 'files(id)',
       spaces: 'drive',
     });
@@ -49,27 +48,17 @@ const uploadFileToDrive = async (file, username, type) => {
     } else {
       fileURL = await uploadNewFile(file, fileName);
     }
-
-    console.log(fileURL);
-    const user = await User.findOne({ username: username });
-    if (user) {
-      user.details = {
-        ...user.details.toObject(),
-        [type]: fileURL,
-      };
-      await user.save();
-    }
+    return fileURL;
   } catch (error) {
     console.error('Error uploading file:', error);
     throw error;
   }
 };
 
-// Set file permissions to public
 const setPublicAccess = async (fileId) => {
   try {
     await drive.permissions.create({
-      fileId: fileId,
+      fileId,
       resource: {
         type: 'anyone',
         role: 'reader',
@@ -88,15 +77,15 @@ const overRideExistingFile = async (file, fileId) => {
   };
 
   await drive.files.update({
-    fileId: fileId,
-    media: media,
+    fileId,
+    media,
     fields: 'id, webViewLink, webContentLink',
   });
 
   await setPublicAccess(fileId);
 
   const updatedFile = await drive.files.get({
-    fileId: fileId,
+    fileId,
     fields: 'id',
   });
 
@@ -116,13 +105,13 @@ const uploadNewFile = async (file, fileName) => {
 
   const createResponse = await drive.files.create({
     resource: fileMetadata,
-    media: media,
+    media,
     fields: 'id',
   });
 
   await setPublicAccess(createResponse.data.id);
 
-  return `${BASE_URL}${updatedFile.data.id}`;
+  return `${BASE_URL}${createResponse.data.id}`;
 };
 
 // Handler function
@@ -137,18 +126,19 @@ const uploadUserImage = async (req, res) => {
       const username = fields.username[0];
       const fieldName = fields.field[0];
       const file = Array.isArray(files.file) ? files.file[0] : files.file;
-
       if (!file) {
         res.status(400).json({ error: 'No file uploaded' });
         return;
       }
 
-      await uploadFileToDrive(file, username, fieldName);
+      const urlResponse = await uploadFileToDrive(file, username, fieldName);
 
-      res
-        .status(200)
-        .json({ message: `${username} - ${fieldName} successfully uploaded` });
+      res.status(200).json({
+        message: `${username} - ${fieldName} successfully uploaded`,
+        fileURL: urlResponse,
+      });
     } catch (error) {
+      console.error('Error uploading file:', error);
       res.status(500).json({ error: 'Error uploading file' });
     }
   });
@@ -157,9 +147,8 @@ const uploadUserImage = async (req, res) => {
 const getCurrentUserImage = async (req, res) => {
   try {
     const username = req.query.username;
-    console.log(username);
     const response = await drive.files.list({
-      auth: auth,
+      auth,
       q: `name contains '${username}-' and mimeType contains 'image/'`,
       fields: 'files(id, name, webViewLink)',
       pageSize: 2,
@@ -168,7 +157,8 @@ const getCurrentUserImage = async (req, res) => {
     const files = response.data.files;
 
     if (files.length === 0) {
-      throw new Error('File not found');
+      res.status(404).json({ error: 'File not found' });
+      return;
     }
 
     res.status(200).json(files);
