@@ -127,7 +127,7 @@ const Medical = () => {
                 type="date"
                 id="dateOfBirth"
                 name="dateOfBirth"
-                value={formData.dateOfBirth}
+                value={formData.dateOfBirth|| ''}
                 onChange={handleChange}
                 className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
@@ -144,7 +144,7 @@ const Medical = () => {
                 type="text"
                 id="height"
                 name="height"
-                value={formData.height}
+                value={formData.height|| ''}
                 onChange={handleChange}
                 placeholder="e.g., 170"
                 className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -162,7 +162,7 @@ const Medical = () => {
                 type="text"
                 id="weight"
                 name="weight"
-                value={formData.weight}
+                value={formData.weight|| ''}
                 onChange={handleChange}
                 placeholder="e.g., 70"
                 className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
