@@ -100,10 +100,12 @@ function ChatPage() {
       <div className="flex max-h-[900px] overflow-hidden">
         <ChatHistory
           handleChatHistoryClick={handleChatHistoryClick}
-          handleNewChat={handleNewChat}
           chatHistory={chatHistory}
+          setChatHistory = {setChatHistory}
           isFetchingHistory={isFetchingHistory}
-          isNewChat={isNewChat}
+          setIsNewChat={setIsNewChat}
+          handleNewChat={handleNewChat}
+          currentSession={currentSession}
         />
         <div className="relative flex-col flex-1">
           <div className="p-4 text-gray-700 bg-white">

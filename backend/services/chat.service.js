@@ -67,5 +67,25 @@ const updateExistingChatHistory = async (req, res, existingChat) => {
     }
 };
 
+export const deleteChatFromDB = async (req, res) => {
+    const { chatId } = req.body; // Destructure chatId from the request body
+    if (!chatId) {
+        return res.status(400).json({ error: "Chat ID is required." }); // Handle missing chatId
+    }
+
+    try {
+        await connectToDatabase();
+
+        const existingChat = await ChatHistory.findOne({ chat_id: chatId });
+        if (existingChat) {
+            await existingChat.deleteOne();
+            return res.status(200).json({ message: "Chat deleted successfully." }); // Send a success message
+        } else {
+            return res.status(404).json({ error: "Chat not found." }); // Handle case where chat does not exist
+        }
+    } catch (error) {
+        return res.status(500).json({ error: error.message }); // Handle server errors
+    }
+};
 
 

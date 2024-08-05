@@ -60,3 +60,19 @@ export const sendMessageToOPENAI = async (message,currentUser) =>{
     const data = await response.json();
     return data;
 }
+
+
+export const deleteChatFromHistory = async (currentSession) =>{
+    const chatId=currentSession;
+    const response = await fetch(`/api/chat/delete`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            chatId
+        }),
+    });
+    const data = await response.json();
+    return data;
+}
