@@ -4,13 +4,12 @@ import { useAuth } from '@/controllers/auth.controller';
 import {
   postChatSession,
   getChatHistoryFromDB,
-  sendMessageToOPENAI
+  sendMessageToOPENAI,
 } from '@/controllers/chat.controller';
 import { defaultSession } from '@/components/Shared/Consts';
 import SectionWrapper from '../Home/SectionWrapper';
 import User from '@/assets/Logos/User.jpg';
 import ChatBox from './ChatBox';
-
 
 function ChatPage() {
   const [messages, setMessages] = useState([]);
@@ -33,23 +32,25 @@ function ChatPage() {
           ? currentUser.details.profilePhoto
           : User
       );
-      setCurrentSession(currentSession);
       fetchHistory(currentUser);
     } else {
       setCurrentUserImage(User);
     }
+    handleNewChat();
   }, [loading]);
 
   const fetchHistory = async (user) => {
     setIsFetchingHistory(true);
     const res = await getChatHistoryFromDB(user);
+    if (res.length === 0) handleNewChat();
     setChatHistory(res);
     setIsFetchingHistory(false);
+    return res;
   };
 
   const handleSend = async () => {
     if (input.trim() !== '') {
-      const response =await sendMessageToOPENAI(input,currentUser); //send message to openAI api
+      const response = await sendMessageToOPENAI(input, currentUser); // send message to OpenAI API
       const newMessage = { text: input, sender: 'user' };
       const botReply = { text: response.reply, sender: 'bot' };
       setInput('');
@@ -63,17 +64,33 @@ function ChatPage() {
         setMessages(finalMessages);
       }, 1000);
 
-      await postChatSession(
-        currentUser ? currentUser.username : 'guest',
-        currentSession
-      )
-        .then(async ({ success, message: responseMsg }) => {
-          if (!success) console.log(responseMsg);
-          await fetchHistory(currentUser);
-        })
-        .catch((error) => {
-          console.error('Error posting chat session:', error);
-        });
+      try {
+        const { success, message: responseMsg } = await postChatSession(
+          currentUser ? currentUser.username : 'guest',
+          currentSession
+        );
+
+        if (success) {
+          const historyResponse = await fetchHistory(currentUser);
+
+          // Find the chat history object that matches the responseMsg.id
+          const matchedHistory = historyResponse.find(
+            (history) => history.id === responseMsg.id
+          );
+
+          console.log(responseMsg);
+          console.log('Matched chat history:', matchedHistory);
+
+          if (matchedHistory) {
+            handleChatHistoryClick(matchedHistory);
+          } else {
+            console.warn('No matching chat history found.');
+          }
+        }
+      } catch (error) {
+        console.error('Error posting chat session or fetching history:', error);
+      }
+
       setIsNewChat(false);
     }
   };
@@ -101,7 +118,7 @@ function ChatPage() {
         <ChatHistory
           handleChatHistoryClick={handleChatHistoryClick}
           chatHistory={chatHistory}
-          setChatHistory = {setChatHistory}
+          setChatHistory={setChatHistory}
           isFetchingHistory={isFetchingHistory}
           setIsNewChat={setIsNewChat}
           handleNewChat={handleNewChat}
@@ -109,7 +126,7 @@ function ChatPage() {
         />
         <div className="relative flex-col flex-1">
           <div className="p-4 text-gray-700 bg-white">
-            <h1 className="text-2xl font-semibold">{currentSession._id}</h1>
+            <h1 className="text-2xl font-semibold">{currentSession.name}</h1>
           </div>
           <ChatBox messages={messages} currentUserImage={currentUserImage} />
           <div className="absolute bottom-0 w-full p-4 bg-white border-t border-gray-300">

@@ -4,9 +4,12 @@ import React, { useState, useEffect } from 'react';
 import ComboBox from './ComboBox';
 import { updateUserMedicalDetails } from '@/controllers/user.controller';
 import { toast } from 'react-toastify';
+import LoadingButton from '@/components/Shared/LoadingButton';
 
 const Medical = () => {
   const { currentUser, getCurrentUser } = useAuth();
+  const [loading, setLoading] = useState(false);
+
   const [selectedChronicConditions, setSelectedChronicConditions] = useState(
     []
   );
@@ -75,10 +78,11 @@ const Medical = () => {
       currentMedications: selectedMedications,
       lifestyleInfo: selectedLifestyle,
     };
-
+    setLoading(true);
     await updateUserMedicalDetails(currentUser, updatedData);
     getCurrentUser();
     toast.success('Medical details updated successfully');
+    setLoading(false);
   };
 
   return (
@@ -127,7 +131,7 @@ const Medical = () => {
                 type="date"
                 id="dateOfBirth"
                 name="dateOfBirth"
-                value={formData.dateOfBirth|| ''}
+                value={formData.dateOfBirth || ''}
                 onChange={handleChange}
                 className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
@@ -144,7 +148,7 @@ const Medical = () => {
                 type="text"
                 id="height"
                 name="height"
-                value={formData.height|| ''}
+                value={formData.height || ''}
                 onChange={handleChange}
                 placeholder="e.g., 170"
                 className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -162,7 +166,7 @@ const Medical = () => {
                 type="text"
                 id="weight"
                 name="weight"
-                value={formData.weight|| ''}
+                value={formData.weight || ''}
                 onChange={handleChange}
                 placeholder="e.g., 70"
                 className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -263,18 +267,7 @@ const Medical = () => {
         </div>
 
         <div className="flex justify-end">
-          <button
-            type="button"
-            className="px-4 py-2 mr-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Save
-          </button>
+          <LoadingButton loading={loading} buttonText="Update" type="submit" />
         </div>
       </div>
     </form>

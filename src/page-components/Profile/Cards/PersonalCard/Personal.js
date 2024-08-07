@@ -9,9 +9,11 @@ import {
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { countries } from '@/components/Shared/Consts';
+import LoadingButton from '@/components/Shared/LoadingButton';
 
 const Personal = () => {
   const { currentUser, getCurrentUser } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [selectedImage, setSelectedImage] = useState(userLogo);
   const [selectedCover, setSelectedCover] = useState('');
   const [imageFile, setImageFile] = useState(null);
@@ -30,8 +32,6 @@ const Personal = () => {
     postalCode: '',
     notifications: false,
   });
-  const [isSubmitting, setIsSubmitting] = useState(false); // New state for loading
-
   const handleImageClick = () => {
     document.getElementById('fileInputCover').click();
   };
@@ -83,9 +83,7 @@ const Personal = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!validateForm()) return;
-
-    setIsSubmitting(true); // Start loading
-
+    setLoading(true);
     try {
       const newFormData = { ...formData };
 
@@ -114,7 +112,7 @@ const Personal = () => {
     } catch (error) {
       toast.error('Failed to update profile.');
     } finally {
-      setIsSubmitting(false); // End loading
+      setLoading(false);
     }
   };
 
@@ -151,8 +149,6 @@ const Personal = () => {
       toast.error('Last name is required.');
       valid = false;
     }
-
-    // Add more validations as needed
 
     return valid;
   };
@@ -448,13 +444,11 @@ const Personal = () => {
             </div>
           </div>
           <div className="flex justify-end gap-x-6">
-            <button
+            <LoadingButton
+              loading={loading}
+              buttonText="Update"
               type="submit"
-              className="px-5 py-2.5 rounded-lg text-sm tracking-wider font-medium border border-current outline-none bg-blue-700 hover:bg-transparent text-white hover:text-blue-700 transition-all duration-300"
-              disabled={isSubmitting} // Disable button while submitting
-            >
-              {isSubmitting ? 'Updating...' : 'Update'}
-            </button>
+            />
           </div>
         </div>
       </form>

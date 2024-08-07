@@ -4,6 +4,7 @@ import { findExistingUser } from '@/controllers/user.controller';
 import { useRouter } from 'next/router';
 import ErrorMessage from '@/components/UI/ErrorMessage';
 import InputField from '@/components/UI/InputField';
+import LoadingButton from '@/components/Shared/LoadingButton';
 import { sendEmail } from '@/controllers/contact.controller';
 import { toast } from 'react-toastify';
 
@@ -57,7 +58,7 @@ function LoginPage() {
       sendEmail(response.user);
       toast.success('An email has been sent to you!');
     } else {
-      toast.error("User does not exist!");
+      toast.error('User does not exist!');
     }
   };
 
@@ -112,34 +113,13 @@ function LoginPage() {
                   Forgot password?
                 </button>
               </div>
-              <div className="mt-10">
-                <button
+              <div className="mt-10 ">
+                <LoadingButton
+                  style={{ width: '100%' }}
+                  loading={loading}
+                  buttonText="Login"
                   type="submit"
-                  className={`w-full px-4 py-3 text-sm font-semibold text-white bg-blue-600 rounded focus:outline-none ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-                  disabled={loading} // Disable button while loading
-                >
-                  {loading ? (
-                    <div className="flex items-center justify-center">
-                      <svg
-                        className="w-5 h-5 mr-2 animate-spin text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M4 12a8 8 0 1 1 16 0A8 8 0 0 1 4 12z"
-                        />
-                      </svg>
-                      Loading...
-                    </div>
-                  ) : (
-                    'Login'
-                  )}
-                </button>
+                />
               </div>
               <ErrorMessage message={message} />
             </form>

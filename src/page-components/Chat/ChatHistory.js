@@ -1,6 +1,9 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/controllers/auth.controller';
-import { getChatHistoryFromDB, deleteChatFromHistory } from '@/controllers/chat.controller';
+import {
+  getChatHistoryFromDB,
+  deleteChatFromHistory,
+} from '@/controllers/chat.controller';
 
 const ChatHistory = ({
   handleChatHistoryClick,
@@ -12,14 +15,12 @@ const ChatHistory = ({
 }) => {
   const [selectedChatId, setSelectedChatId] = useState(null);
   const { currentUser } = useAuth();
-  
-  
 
   const handleDeleteChat = async (event, chatId) => {
     event.stopPropagation();
-  
+
     try {
-      await deleteChatFromHistory(chatId);;
+      await deleteChatFromHistory(chatId);
       const updatedChatHistory = await getChatHistoryFromDB(currentUser);
       setChatHistory(updatedChatHistory);
       setIsNewChat(true);
@@ -28,11 +29,9 @@ const ChatHistory = ({
       console.error('Error deleting chat:', error);
     }
   };
-  
-
 
   const handleChatClick = (chatId) => {
-    const chat = chatHistory.find(chat => chat.chat_id === chatId);
+    const chat = chatHistory.find((chat) => chat.id === chatId);
     handleChatHistoryClick(chat);
     setSelectedChatId(chatId);
   };
@@ -42,18 +41,16 @@ const ChatHistory = ({
       <header className="flex items-center justify-between p-4 text-white bg-indigo-600 border-b border-gray-300">
         <h1 className="text-2xl font-semibold">Chat History</h1>
         <div>
-          <button onClick={handleNewChat}>
-            New Chat
-          </button>
+          <button onClick={handleNewChat}>New Chat</button>
         </div>
       </header>
       <div className="h-screen p-3 pb-20 overflow-y-auto mb-9">
         {chatHistory &&
           [...chatHistory].reverse().map((history) => (
             <div
-              key={history.chat_id}
+              key={history.id}
               className="flex items-center p-2 mb-4 rounded-md cursor-pointer hover:bg-gray-100"
-              onClick={() => handleChatClick(history.chat_id)}
+              onClick={() => handleChatClick(history.id)}
             >
               <div className="w-12 h-12 mr-3 bg-gray-300 rounded-full">
                 <img
@@ -63,16 +60,19 @@ const ChatHistory = ({
                 />
               </div>
               <div className="flex-1">
-                <h2 className="text-lg font-semibold">Chat {history.chat_id}</h2>
-                <p className="text-gray-600">Last message placeholder</p>
-                {selectedChatId === history.chat_id && currentSession.chat_id === history.chat_id && (
-                  <button
-                    onClick={(event) => handleDeleteChat(event, history.chat_id)}
-                    className="text-red-500"
-                  >
-                    Delete
-                  </button>
-                )}
+                <h2 className="text-lg font-semibold">{history.name}</h2>
+                <p className="text-gray-600">{history.messages[history.messages.length - 1].text}</p>
+                {selectedChatId === history.id &&
+                  currentSession.id === history.id && (
+                    <button
+                      onClick={(event) =>
+                        handleDeleteChat(event, history.id)
+                      }
+                      className="text-red-500"
+                    >
+                      Delete
+                    </button>
+                  )}
               </div>
             </div>
           ))}

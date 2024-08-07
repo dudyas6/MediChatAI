@@ -14,7 +14,9 @@ const Sidebar = ({ setSelectedComponent }) => {
             <UserButton width={60} height={60} />
           </div>
           <div className="ml-4">
-            <p className="dark:text-white text-sm text-[#333] font-semibold">Welcome!</p>
+            <p className="dark:text-white text-sm text-[#333] font-semibold">
+              Welcome!
+            </p>
             <p className="text-sm text-center text-gray-400">
               {currentUser?.username}
             </p>
@@ -22,9 +24,11 @@ const Sidebar = ({ setSelectedComponent }) => {
         </div>
         <hr className="my-6" />
         <div>
-          <h4 className="text-sm text-gray-400 dark:text-white dark:text-whitemb-4">Personal</h4>
+          <h4 className="text-sm text-gray-400 dark:text-white dark:text-whitemb-4">
+            Personal
+          </h4>
           <ul className="flex-1 px-2 space-y-4">
-            <SidebarListItem 
+            <SidebarListItem
               name="Overview"
               icon={icons.dashboard}
               onClick={() => setSelectedComponent('Overview')}
@@ -33,7 +37,9 @@ const Sidebar = ({ setSelectedComponent }) => {
         </div>
         <hr className="my-6" />
         <div className="flex-1">
-          <h4 className="mb-4 text-sm text-gray-400 dark:text-white">Settings</h4>
+          <h4 className="mb-4 text-sm text-gray-400 dark:text-white">
+            Settings
+          </h4>
           <ul className="flex-1 px-2 space-y-4">
             <SidebarListItem
               name="Personal Details"
@@ -50,7 +56,11 @@ const Sidebar = ({ setSelectedComponent }) => {
         <div className="mt-4 ">
           <ul className="px-2 space-y-4 ">
             <hr className="my-6" />
-            <SidebarListItem name="Logout" onClick={() => logout()} />
+            <SidebarListItem
+              name="Logout"
+              icon={icons.logout}
+              onClick={() => logout()}
+            />
           </ul>
         </div>
       </div>

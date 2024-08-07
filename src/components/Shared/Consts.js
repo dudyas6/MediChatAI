@@ -72,7 +72,8 @@ export const InformationBannerData = {
 };
 
 export const defaultSession = {
-  chat_id: '-1',
+  name: 'New Chat',
+  id: '-1',
   user: '',
   messages: [],
   createdAt: null,
