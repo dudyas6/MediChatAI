@@ -50,7 +50,7 @@ function ChatPage() {
 
   const handleSend = async () => {
     if (input.trim() !== '') {
-      const response = await sendMessageToOPENAI(input, currentUser); // send message to OpenAI API
+      const response = await sendMessageToOPENAI(input, currentUser);
       const newMessage = { text: input, sender: 'user' };
       const botReply = { text: response.reply, sender: 'bot' };
       setInput('');
@@ -72,8 +72,6 @@ function ChatPage() {
 
         if (success) {
           const historyResponse = await fetchHistory(currentUser);
-
-          // Find the chat history object that matches the responseMsg.id
           const matchedHistory = historyResponse.find(
             (history) => history.id === responseMsg.id
           );

@@ -4,6 +4,9 @@ import {
   getChatHistoryFromDB,
   deleteChatFromHistory,
 } from '@/controllers/chat.controller';
+import chatLogo from '@/assets/Images/transparent_background.png'
+import Image from 'next/image';
+
 
 const ChatHistory = ({
   handleChatHistoryClick,
@@ -53,8 +56,8 @@ const ChatHistory = ({
               onClick={() => handleChatClick(history.id)}
             >
               <div className="w-12 h-12 mr-3 bg-gray-300 rounded-full">
-                <img
-                  src="https://placehold.co/200x/ffa8e4/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato"
+                <Image
+                  src={chatLogo}
                   alt="User Avatar"
                   className="w-12 h-12 rounded-full"
                 />
