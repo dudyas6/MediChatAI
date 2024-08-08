@@ -4,9 +4,8 @@ import {
   getChatHistoryFromDB,
   deleteChatFromHistory,
 } from '@/controllers/chat.controller';
-import chatLogo from '@/assets/Images/transparent_background.png'
+import chatLogo from '@/assets/Images/transparent_background.png';
 import Image from 'next/image';
-
 
 const ChatHistory = ({
   handleChatHistoryClick,
@@ -17,7 +16,12 @@ const ChatHistory = ({
   currentSession,
 }) => {
   const [selectedChatId, setSelectedChatId] = useState(null);
+  const [guest, setGuest] = useState(false);
   const { currentUser } = useAuth();
+
+  useEffect(() => {
+    setGuest(!currentUser);
+  }, [currentUser]);
 
   const handleDeleteChat = async (event, chatId) => {
     event.stopPropagation();
@@ -48,37 +52,48 @@ const ChatHistory = ({
         </div>
       </header>
       <div className="h-screen p-3 pb-20 overflow-y-auto mb-9">
-        {chatHistory &&
-          [...chatHistory].reverse().map((history) => (
-            <div
-              key={history.id}
-              className="flex items-center p-2 mb-4 rounded-md cursor-pointer hover:bg-gray-100"
-              onClick={() => handleChatClick(history.id)}
-            >
-              <div className="w-12 h-12 mr-3 bg-gray-300 rounded-full">
-                <Image
-                  src={chatLogo}
-                  alt="User Avatar"
-                  className="w-12 h-12 rounded-full"
-                />
+        {guest ? (
+          <div className="text-center text-gray-500">
+            To see history, please Login or Register
+          </div>
+        ) : (
+          chatHistory && chatHistory.length > 0 ? (
+            [...chatHistory].reverse().map((history) => (
+              <div
+                key={history.id}
+                className="flex items-center p-2 mb-4 rounded-md cursor-pointer hover:bg-gray-100"
+                onClick={() => handleChatClick(history.id)}
+              >
+                <div className="w-12 h-12 mr-3 bg-gray-300 rounded-full">
+                  <Image
+                    src={chatLogo}
+                    alt="User Avatar"
+                    className="w-12 h-12 rounded-full"
+                  />
+                </div>
+                <div className="flex-1">
+                  <h2 className="text-lg font-semibold">{history.name}</h2>
+                  <p className="text-gray-600">{history.messages[history.messages.length - 1]?.text}</p>
+                  {selectedChatId === history.id &&
+                    currentSession.id === history.id && (
+                      <button
+                        onClick={(event) =>
+                          handleDeleteChat(event, history.id)
+                        }
+                        className="text-red-500"
+                      >
+                        Delete
+                      </button>
+                    )}
+                </div>
               </div>
-              <div className="flex-1">
-                <h2 className="text-lg font-semibold">{history.name}</h2>
-                <p className="text-gray-600">{history.messages[history.messages.length - 1].text}</p>
-                {selectedChatId === history.id &&
-                  currentSession.id === history.id && (
-                    <button
-                      onClick={(event) =>
-                        handleDeleteChat(event, history.id)
-                      }
-                      className="text-red-500"
-                    >
-                      Delete
-                    </button>
-                  )}
-              </div>
+            ))
+          ) : (
+            <div className="text-center text-gray-500">
+              No History. Start a new Chat
             </div>
-          ))}
+          )
+        )}
       </div>
     </div>
   );

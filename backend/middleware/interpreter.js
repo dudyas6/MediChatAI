@@ -3,24 +3,32 @@ import OpenAI from 'openai';
 export const sendMessageToAPI = async (req, res) => {
   const message = req.body.message;
   const user = req.body.currentUser;
-  const medicalHistoryString = JSON.stringify(user.medical, null, 2);
-  const chatFilter = `You are a Medical assisant bot.
+  let chatFilter;
+  if(!user){
+    chatFilter = `You are a Medical assisant bot.
+    you do not have the user medical history,
+    give simple and clear responses. `;
+  }
+  else{
+    const medicalHistoryString = JSON.stringify(user.medical, null, 2);
+    chatFilter = `You are a Medical assisant bot.
     you have access to a medical profile of the user, here is the profile: ${medicalHistoryString}.
     Answer only medical related subjects and give simple answers using simple words.`;
+  }
   const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
   });
   try {
-    // const response = await openai.chat.completions.create({
-    //   model: 'gpt-3.5-turbo',
-    //   messages: [
-    //     { role: 'system', content: chatFilter },
-    //     { role: 'user', content: message },
-    //   ],
-    // });
+    const response = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        { role: 'system', content: chatFilter },
+        { role: 'user', content: message },
+      ],
+    });
 
-    // const reply = response.choices[0].message.content;
-    const reply = 'This is a reply from the API';
+    const reply = response.choices[0].message.content;
+    //const reply = 'This is a reply from the API';
     // Check if the response and choices array are defined
     res.json({ reply });
   } catch (error) {
