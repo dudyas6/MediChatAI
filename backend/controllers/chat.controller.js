@@ -43,7 +43,7 @@ export const getChatHistoryFromDB = async (user) => {
   return data;
 };
 
-export const sendMessageToOPENAI = async (message, currentUser) => {
+export const sendMessageToOPENAI = async (message, currentUser, currentSession) => {
   const response = await fetch(`/api/chat/`, {
     method: 'POST',
     headers: {
@@ -52,6 +52,7 @@ export const sendMessageToOPENAI = async (message, currentUser) => {
     body: JSON.stringify({
       message,
       currentUser,
+      currentSession,
     }),
   });
   const data = await response.json();

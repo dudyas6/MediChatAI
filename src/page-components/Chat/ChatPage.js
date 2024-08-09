@@ -50,7 +50,7 @@ function ChatPage() {
 
   const handleSend = async () => {
     if (input.trim() !== '') {
-      const response = await sendMessageToOPENAI(input, currentUser);
+      const response = await sendMessageToOPENAI(input, currentUser, currentSession);
       const newMessage = { text: input, sender: 'user' };
       const botReply = { text: response.reply, sender: 'bot' };
       setInput('');
@@ -75,9 +75,6 @@ function ChatPage() {
           const matchedHistory = historyResponse.find(
             (history) => history.id === responseMsg.id
           );
-
-          console.log(responseMsg);
-          console.log('Matched chat history:', matchedHistory);
 
           if (matchedHistory) {
             handleChatHistoryClick(matchedHistory);
