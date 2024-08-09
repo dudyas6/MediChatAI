@@ -50,7 +50,11 @@ function ChatPage() {
 
   const handleSend = async () => {
     if (input.trim() !== '') {
-      const response = await sendMessageToOPENAI(input, currentUser, currentSession);
+      const response = await sendMessageToOPENAI(
+        input,
+        currentUser,
+        currentSession
+      );
       const newMessage = { text: input, sender: 'user' };
       const botReply = { text: response.reply, sender: 'bot' };
       setInput('');
@@ -65,21 +69,23 @@ function ChatPage() {
       }, 1000);
 
       try {
-        const { success, message: responseMsg } = await postChatSession(
-          currentUser ? currentUser.username : 'guest',
-          currentSession
-        );
-
-        if (success) {
-          const historyResponse = await fetchHistory(currentUser);
-          const matchedHistory = historyResponse.find(
-            (history) => history.id === responseMsg.id
+        if (currentUser) {
+          const { success, message: responseMsg } = await postChatSession(
+            currentUser ? currentUser.username : 'guest',
+            currentSession
           );
 
-          if (matchedHistory) {
-            handleChatHistoryClick(matchedHistory);
-          } else {
-            console.warn('No matching chat history found.');
+          if (success) {
+            const historyResponse = await fetchHistory(currentUser);
+            const matchedHistory = historyResponse.find(
+              (history) => history.id === responseMsg.id
+            );
+
+            if (matchedHistory) {
+              handleChatHistoryClick(matchedHistory);
+            } else {
+              console.warn('No matching chat history found.');
+            }
           }
         }
       } catch (error) {
