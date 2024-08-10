@@ -50,17 +50,18 @@ function ChatPage() {
 
   const handleSend = async () => {
     if (input.trim() !== '') {
+      const newMessage = { text: input, sender: 'user' };
+      const botWaitingMsg = { text: '. . .', sender: 'bot' };
+      const updatedMessages = [...messages, newMessage, botWaitingMsg];
+      setInput('');
+      setMessages(updatedMessages);
       const response = await sendMessageToOPENAI(
         input,
         currentUser,
         currentSession
       );
-      const newMessage = { text: input, sender: 'user' };
       const botReply = { text: response.reply, sender: 'bot' };
-      setInput('');
-      const updatedMessages = [...messages, newMessage];
-      setMessages(updatedMessages);
-      const finalMessages = [...updatedMessages, botReply];
+      const finalMessages = [...messages, newMessage, botReply];
       currentSession.messages = finalMessages;
 
       setCurrentSession(currentSession);
@@ -115,7 +116,7 @@ function ChatPage() {
 
   return (
     <SectionWrapper>
-      <div className="flex max-h-[900px] overflow-hidden">
+      <div className="flex overflow-hidden max-h-[calc(100vh-200px)] ">
         <ChatHistory
           handleChatHistoryClick={handleChatHistoryClick}
           chatHistory={chatHistory}

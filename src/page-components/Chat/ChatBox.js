@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const ChatBox = ({ messages, currentUserImage }) => {
   return (
-    <div className="h-screen overflow-y-auto p-4 pb-64">
+    <div className="max-h-[calc(100vh-200px)] p-4 pb-48 overflow-y-auto ">
       {messages.map((message, index) => (
         <div
           key={index}
@@ -17,7 +17,7 @@ const ChatBox = ({ messages, currentUserImage }) => {
         >
           <div className="flex items-start space-x-2">
             {message.sender === 'user' && (
-              <div className="w-12 h-12 rounded-full flex items-center justify-center mr-2">
+              <div className="flex items-center justify-center w-12 h-12 mr-2 rounded-full">
                 <Image
                   className="w-12 h-12 rounded-full cursor-pointer"
                   src={currentUserImage}
@@ -43,7 +43,7 @@ const ChatBox = ({ messages, currentUserImage }) => {
               </div>
             </div>
             {message.sender === 'bot' && (
-              <div className="w-12 h-12 rounded-full flex items-center justify-center ml-2">
+              <div className="flex items-center justify-center w-12 h-12 ml-2 rounded-full">
                 <img
                   className="w-12 h-12 rounded-full"
                   src="https://png.pngtree.com/png-clipart/20190614/original/pngtree-male-medical-doctor-icon-png-image_3708206.jpg"

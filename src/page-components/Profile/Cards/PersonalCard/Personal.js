@@ -156,7 +156,7 @@ const Personal = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="space-y-12 max-w-[60%] border p-4">
+        <div className="space-y-12  w-full md:max-w-[60%] border p-4">
           <div className="pb-12 border-b border-gray-900/10">
             <h3 className="text-xl font-medium text-gray-900">
               Personal Information
@@ -190,8 +190,6 @@ const Personal = () => {
                   Write a few sentences about yourself.
                 </p>
               </div>
-
-              {/* Profile Picture Section */}
               <div className="col-span-full">
                 <label
                   htmlFor="photo"
@@ -226,8 +224,6 @@ const Personal = () => {
                   />
                 </div>
               </div>
-
-              {/* Cover Photo Section */}
               <div className="col-span-full">
                 <label
                   htmlFor="fileInputCover"
@@ -431,7 +427,7 @@ const Personal = () => {
                     type="checkbox"
                     checked={formData.notifications}
                     onChange={handleChange}
-                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                    className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-600"
                   />
                   <label
                     htmlFor="notifications"

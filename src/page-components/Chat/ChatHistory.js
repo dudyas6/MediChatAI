@@ -19,10 +19,18 @@ const ChatHistory = ({
   const [guest, setGuest] = useState(false);
   const { currentUser } = useAuth();
 
+
   useEffect(() => {
     setGuest(!currentUser);
   }, [currentUser]);
 
+  const truncateToWords = (text, maxWords) => {
+    const words = text.split(' ');
+    if (words.length > maxWords) {
+      return words.slice(0, maxWords).join(' ') + '...';
+    }
+    return text;
+  };
   const handleDeleteChat = async (event, chatId) => {
     event.stopPropagation();
 
@@ -73,7 +81,9 @@ const ChatHistory = ({
                 </div>
                 <div className="flex-1">
                   <h2 className="text-lg font-semibold">{history.name}</h2>
-                  <p className="text-gray-600">{history.messages[history.messages.length - 1]?.text}</p>
+                  <p className="text-gray-600">
+                    {truncateToWords(history.messages[history.messages.length - 1]?.text, 12)}
+                  </p>
                   {selectedChatId === history.id &&
                     currentSession.id === history.id && (
                       <button
