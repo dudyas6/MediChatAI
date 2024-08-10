@@ -1,4 +1,4 @@
-import OpenAI from 'openai';
+import { getOpenAIConnection } from '@/api-lib/openai'
 
 export const sendMessageToAPI = async (req, res) => {
   const user = req.body.currentUser;
@@ -6,10 +6,9 @@ export const sendMessageToAPI = async (req, res) => {
   const chatHistory = JSON.stringify(req.body.currentSession.messages, null, 2);
   const chatFilter = generateChatFilter(user, chatHistory, currentMessage);
 
-  const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
   try {
+    const openai = await getOpenAIConnection(); // Await the promise
+
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
@@ -17,13 +16,11 @@ export const sendMessageToAPI = async (req, res) => {
         { role: 'user', content: currentMessage },
       ],
     });
+
     const reply = response.choices[0].message.content;
 
-    // const reply = 'This is a reply from the API';
-    // Check if the response and choices array are defined
     res.json({ reply });
   } catch (error) {
-    // Log detailed error information
     console.error(
       'Error details:',
       error.response ? error.response.data : error.message
@@ -43,7 +40,7 @@ function generateChatFilter(user, chatHistory, currentMessage) {
 
       Give simple and clear responses.
     `;
-          // This is the user's current message: ${currentMessage}.
+    // This is the user's current message: ${currentMessage}.
   } else {
     const medicalHistoryString = JSON.stringify(user.medical, null, 2);
     const personalDetailsString = JSON.stringify(user.details, null, 2);
