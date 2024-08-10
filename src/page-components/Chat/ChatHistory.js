@@ -31,6 +31,7 @@ const ChatHistory = ({
     }
     return text;
   };
+  
   const handleDeleteChat = async (event, chatId) => {
     event.stopPropagation();
 

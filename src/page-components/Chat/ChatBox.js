@@ -1,11 +1,21 @@
-// components/ChatBox.js
-
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import BotImage from "@/assets/Images/transparent_background.png"
 
 const ChatBox = ({ messages, currentUserImage }) => {
+  const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
-    <div className="max-h-[calc(100vh-200px)] p-4 pb-48 overflow-y-auto ">
+    <div 
+      ref={chatContainerRef} 
+      className="max-h-[calc(100vh-200px)] p-4 pb-48 overflow-y-auto"
+    >
       {messages.map((message, index) => (
         <div
           key={index}
@@ -44,9 +54,9 @@ const ChatBox = ({ messages, currentUserImage }) => {
             </div>
             {message.sender === 'bot' && (
               <div className="flex items-center justify-center w-12 h-12 ml-2 rounded-full">
-                <img
+                <Image
                   className="w-12 h-12 rounded-full"
-                  src="https://png.pngtree.com/png-clipart/20190614/original/pngtree-male-medical-doctor-icon-png-image_3708206.jpg"
+                  src={BotImage}
                   alt="Bot Avatar"
                 />
               </div>
