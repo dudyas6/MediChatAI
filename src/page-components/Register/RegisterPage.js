@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import InputField from "@/components/UI/InputField";
 import Checkbox from "@/components/UI/CheckBox";
-import { useAuth } from '@/controllers/auth.controller'
-import medichatLogo from "assets/Logos/medichat.png";
+import { useAuth } from '@/controllers/auth.controller';
+import medichatLogo from "@/assets/Logos/medichat.png";
 import { useRouter } from 'next/router';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
+import Image from 'next/image';
+
 function RegisterPage() {
   const { register } = useAuth();
   const [username, setUsername] = useState("");
@@ -15,6 +17,7 @@ function RegisterPage() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
   const router = useRouter();
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     if (type === "checkbox") {
@@ -52,7 +55,7 @@ function RegisterPage() {
 
     if (password !== confirmPassword) {
       toast.error("Passwords do not match!");
-    return;
+      return;
     }
 
     if (!termsValue) {
@@ -66,24 +69,23 @@ function RegisterPage() {
       toast.success(error_msg);
       setTimeout(() => {
         router.push('/login');
-      }, 2000); 
-      //setMessage({ text: error_msg, type: "success" });
+      }, 2000);
     } else {
       toast.error(error_msg);
-      //setMessage({ text: error_msg.error, type: "error" });
     }
   };
 
   return (
-    <section className='dark:bg-gray-800'>
-      <div className={`flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 `}>
-        <div className="w-full rounded-lg bg-white shadow dark:border sm:max-w-md xl:p-0 mt-[-2rem] md:mt-[-4rem]">
+    <section className='min-h-screen dark:bg-gray-800'>
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-24">
+        <div className="w-full bg-white rounded-lg shadow dark:border sm:max-w-md">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
             <div className="mb-12 text-center">
               <span>
-                <img src={medichatLogo} alt="logo" className="inline-block w-20" />
+                <Image src={medichatLogo} alt="logo" width={300} height={80} />
               </span>
             </div>
+            <div>Please fill the infromation below</div>
             <form onSubmit={handleSubmit}>
               <div className="space-y-6">
                 <InputField
@@ -101,7 +103,7 @@ function RegisterPage() {
                   name="email"
                   value={email}
                   onChange={handleChange}
-                  placeholder="Enter email"
+                  placeholder="Enter email address"
                   iconName="envelope"
                 />
                 <InputField
@@ -145,7 +147,7 @@ function RegisterPage() {
               <div className="!mt-10">
                 <button
                   type="submit"
-                   className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+                  className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                 >
                   Create an account
                 </button>
