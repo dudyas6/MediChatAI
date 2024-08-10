@@ -1,23 +1,22 @@
 import React from "react";
 import SectionWrapper from "../SectionWrapper";
+import teamMember1 from "@/assets/Images/davidasulin.jpeg";
+import teamMember2 from "@/assets/Images/galdanenberg.jpeg";
+import Image from 'next/image';
 
 function AboutSection() {
   return (
     <SectionWrapper id="about">
-      <h2 className="text-4xl font-bold text-center mb-10">Who are we?</h2>
-      <div className="flex flex-col justify-center items-center lg:flex-col gap-10 lg:gap-5">
+      <h2 className="mb-10 text-4xl font-bold text-center">Who are we?</h2>
+      <div className="flex flex-col items-center justify-center gap-10 lg:flex-col lg:gap-5">
         <div className="flex flex-col gap-20 sm:flex-row">
-          <div className="w-40 h-auto relative block bg-gray-100 p-3 rounded-xl text-center font-[sans-serif] mx-auto mt-4">
-            <img src="#" alt="Team Member" className="w-full rounded-xl" />
-            <h4 className="text-sm text-gray-800 mt-4 font-bold">David Asulin</h4>
+          <div className="w-40 h-auto relative block p-3 rounded-xl text-center font-[sans-serif] mx-auto mt-4">
+            <Image src= {teamMember1} alt="Team Member" className="w-full rounded-full bg-color-white " />
+            <h4 className="mt-4 text-sm font-bold text-gray-800 dark:text-white">David Asulin</h4>
           </div>
-          <div className="w-40 h-auto relative block bg-gray-100 p-3 rounded-xl text-center font-[sans-serif] mx-auto mt-4">
-            <img
-              src="#"
-              alt="Team Member"
-              className="w-full rounded-xl"
-            />
-            <h4 className="text-sm text-gray-800 mt-4 font-bold">Gal Danenberg</h4>
+          <div className="w-40 h-auto relative block p-3 rounded-xl text-center font-[sans-serif] mx-auto mt-4">
+          <Image src= {teamMember2} alt="Team Member" className="w-full rounded-full" />
+            <h4 className="mt-4 text-sm font-bold text-gray-800 dark:text-white">Gal Danenberg</h4>
           </div>
         </div>
         <div className="mt-16">
