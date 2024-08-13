@@ -87,7 +87,7 @@ const Medical = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="space-y-12 w-full md:max-w-[60%] border p-4">
+      <div className=" space-y-12 w-full md:max-w-[60%] border p-4">
         <div className="space-y-6">
           <div>
             <h3 className="text-xl font-medium text-gray-900">
@@ -199,7 +199,7 @@ const Medical = () => {
               </select>
             </div>
 
-            <div className="sm:col-span-1">
+            <div className="sm:col-span-1 ">
               <ComboBox
                 label="Chronic Conditions"
                 options={medicalProperties.Chronic}

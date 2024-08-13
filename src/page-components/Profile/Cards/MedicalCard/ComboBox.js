@@ -49,7 +49,7 @@ const ComboBox = ({ label, options, selectedOptions, setSelectedOptions }) => {
       <button
         type="button"
         id="dropdownToggle"
-        className="flex items-center justify-between px-5 py-1.5 xl:min-w-[450px] mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm text-black font-semibold"
+        className="flex items-center justify-between px-5 py-1.5 xl:min-w-[300px] lg:min-w-[250px] mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm text-black font-semibold"
         onClick={() => setIsOpen(!isOpen)}
       >
         {renderSelectedOptions(selectedOptions) || 'Select options'}

@@ -31,10 +31,10 @@ const UserButton = ({ width, height }) => {
   }, [currentUser, loading]);
 
   return (
-    <div className="space-x-10 flex items-center justify-center">
+    <div className="flex items-center justify-center space-x-10">
       <div className="relative inline-block">
         <Image
-          className="cursor-pointer w-10 h-10 rounded-full"
+          className="w-10 h-10 rounded-full cursor-pointer"
           src={currentUserImage}
           alt="User"
           onClick={handleUserClick}
