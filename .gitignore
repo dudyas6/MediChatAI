@@ -69,3 +69,7 @@ yarn.lock
 
 .vercel
 medichat-storage.json
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
