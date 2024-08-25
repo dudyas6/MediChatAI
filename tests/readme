@@ -1,0 +1,29 @@
+# Project Tests
+
+## Description
+This readme file provides an overview of the test folders and their purposes in the project.
+
+## Test Folders
+1. **e2e**: This folder contains end-to-end (e2e) tests that cover the entire website. It includes test scenarios that simulate user interactions and verify the expected behavior of the website as a whole.
+
+2. **api**: The `api` folder contains tests specifically designed to test the API endpoints of the project. These tests focus on verifying the functionality and correctness of the API by sending requests and validating the responses.
+
+3. **validations**: The `validations` folder contains tests that are responsible for verifying the correctness of individual pages. These tests typically focus on validating the content, layout, and functionality of specific pages within the website.
+
+## Getting Started
+To run the tests, follow these steps:
+
+1. Clone the project repository.
+2. Install the necessary dependencies.
+3. Navigate to the respective test folder (`e2e`, `api`, or `validations`).
+4. Run the test suite using the appropriate command or test runner.
+
+## Contributing
+If you would like to contribute to the test suite, please follow these guidelines:
+
+- Fork the repository and create a new branch for your changes.
+- Make your changes and ensure that the tests pass.
+- Submit a pull request with a clear description of your changes.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
