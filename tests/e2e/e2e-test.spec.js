@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { generateRandomLoremIpsum } from '@/components/Shared/Utils';
+import { deleteUserFromDB } from '@/services/user.service';
 
 test.describe('Home Page', () => {
   // Navigate to the home page before each test in this describe block
@@ -241,6 +242,7 @@ test.describe('Authentication', () => {
   });
 
   test('Valid Register', async ({ page }) => {
+    await deleteUserFromDB('rand');
     await page.getByRole('link', { name: 'Sign up' }).click();
     await page.getByPlaceholder('Enter username').click();
     await page.getByPlaceholder('Enter username').fill('rand');
@@ -261,7 +263,9 @@ test.describe('Authentication', () => {
     await page.getByRole('checkbox').check();
     await expect(page.getByRole('checkbox')).toBeChecked();
     await page.getByRole('button', { name: 'Create an account' }).click();
-    await expect(page.getByText('Account created successfully!')).waitFor();
+    await page.getByText('Account created successfully!').waitFor();
+    await expect(page.getByText('Account created successfully!')).toBeVisible();
+    await deleteUserFromDB('rand');
   });
 
   test('Invalid Register', async ({ page }) => {
@@ -282,9 +286,13 @@ test.describe('Authentication', () => {
     await expect(page.getByPlaceholder('Enter confirm password')).toHaveValue(
       'd'
     );
+    await page.getByRole('button', { name: 'Create an account' }).click();
+    await page.getByText('Please accept terms and conditions!').waitFor();
+    await expect(page.getByText('Please accept terms and conditions!')).toBeVisible();
     await page.getByRole('checkbox').check();
     await expect(page.getByRole('checkbox')).toBeChecked();
     await page.getByRole('button', { name: 'Create an account' }).click();
-    await expect(page.getByText('Register Failed')).waitFor();
+    await page.getByText('Username already exists').waitFor();
+    await expect(page.getByText('Username already exists')).toBeVisible();
   });
 });
