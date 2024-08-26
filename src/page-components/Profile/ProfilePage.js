@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/controllers/auth.controller';
 import { useRouter } from 'next/router';
 import Sidebar from './Sidebar';
-import Overview from './Cards/Overview';
 import Personal from './Cards/PersonalCard/Personal';
 import Medical from './Cards/MedicalCard/Medical';
 import Loading from '@/components/UI/Loading';
@@ -14,7 +13,7 @@ const ProfilePage = () => {
   const router = useRouter();
   const route = router.query;
 
-  const [selectedComponent, setSelectedComponent] = useState('Overview');
+  const [selectedComponent, setSelectedComponent] = useState('Personal');
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -42,8 +41,6 @@ const ProfilePage = () => {
 
   const renderComponent = () => {
     switch (selectedComponent) {
-      case 'Overview':
-        return <Overview id="overview" />;
       case 'Personal':
         return <Personal id="general" />;
       case 'Medical':

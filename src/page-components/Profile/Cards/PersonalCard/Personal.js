@@ -224,54 +224,8 @@ const Personal = () => {
                   />
                 </div>
               </div>
-              <div className="col-span-full">
-                <label
-                  htmlFor="fileInputCover"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Cover Photo
-                </label>
-                <div className="flex flex-col items-center justify-center px-6 py-10 mt-2 border border-dashed rounded-lg border-gray-900/25">
-                  <div className="text-center">
-                    {selectedCover ? (
-                      <div
-                        className="relative bg-white border border-gray-300 rounded-md cursor-pointer"
-                        onClick={handleImageClick}
-                      >
-                        <Image
-                          src={selectedCover}
-                          alt="Cover Photo Preview"
-                          width={1980}
-                          height={1020}
-                          quality={100}
-                          className="border border-gray-300 rounded-md"
-                        />
-                      </div>
-                    ) : (
-                      <>
-                        <div className="flex mt-4 text-sm leading-6 text-gray-600">
-                          <label
-                            htmlFor="fileInputCover"
-                            className="relative font-semibold text-indigo-600 bg-white rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                          >
-                            <span>Upload a file</span>
-                          </label>
-                          <p className="pl-1 dark:text-white">
-                            or drag and drop
-                          </p>
-                        </div>
-                        <input
-                          id="fileInputCover"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={handleCoverChange}
-                        />
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
+              
+            
 
               {/* Form Inputs */}
               <div className="sm:col-span-3">

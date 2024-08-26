@@ -23,22 +23,8 @@ const Sidebar = ({ setSelectedComponent }) => {
           </div>
         </div>
         <hr className="my-6" />
-        <div>
-          <h4 className="text-sm text-gray-400 dark:text-white dark:text-whitemb-4">
-            Personal
-          </h4>
-          <ul className="flex-1 px-2 space-y-4">
-            <SidebarListItem
-              name="Overview"
-              icon={icons.dashboard}
-              onClick={() => setSelectedComponent('Overview')}
-            />
-          </ul>
-        </div>
-        <hr className="my-6" />
         <div className="flex-1">
           <h4 className="mb-4 text-sm text-gray-400 dark:text-white">
-            Settings
           </h4>
           <ul className="flex-1 px-2 space-y-4">
             <SidebarListItem
