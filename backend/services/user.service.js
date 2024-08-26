@@ -82,4 +82,20 @@ export const verifyResetToken = (req,res) =>{
   }
 }
 
+export const deleteUserFromDB = async (req, res) => {
+  const { currentUser, formData } = req.body;
+  try {
+    await connectToDatabase();
+    const user = await User.findOne({ username: currentUser.username });
+    if (user) {
+      await user.deleteOne();
+      res.status(200).json(user);
+    } else {
+      res.json('Error deleting User from DB.');
+    }
+  } catch (err) {
+    res.status(500).json('Error: ' + err.message);
+  }
+};
+
 
