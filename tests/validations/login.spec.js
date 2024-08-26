@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('test', async ({ page }) => {
-  await page.goto('http://localhost:3000/');
+  await page.goto('https://medichat-staging.vercel.app/');
   await page.getByRole('img', { name: 'User' }).click();
   await page.getByPlaceholder('Enter username').click();
   await page.getByPlaceholder('Enter username').fill('root');

@@ -35,7 +35,6 @@ function LoginPage() {
 
     if (success) {
       toast.success(error_msg);
-      setMessage({ text: error_msg, type: 'success' });
       setTimeout(() => {
         router.push('/');
       }, 2000);
