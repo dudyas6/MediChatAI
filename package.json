@@ -4,6 +4,8 @@
   "description": "Full fledged app made with Next.JS and MongoDB",
   "main": "index.js",
   "scripts": {
+    "test": "npx playwright test",
+    "test-ui": "npx playwright test --ui",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
