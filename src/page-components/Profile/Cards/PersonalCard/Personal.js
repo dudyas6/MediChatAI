@@ -158,10 +158,10 @@ const Personal = () => {
       <form onSubmit={handleSubmit}>
         <div className="space-y-12  w-full md:max-w-[60%] border p-4">
           <div className="pb-12 border-b border-gray-900/10">
-            <h3 className="text-xl font-medium text-gray-900">
+            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
               Personal Information
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-white">
               This information will be displayed publicly so be careful what you
               share.
             </p>
@@ -171,7 +171,7 @@ const Personal = () => {
               <div className="col-span-full">
                 <label
                   htmlFor="about"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   About
                 </label>
@@ -193,7 +193,7 @@ const Personal = () => {
               <div className="col-span-full">
                 <label
                   htmlFor="photo"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Profile Picture
                 </label>
@@ -225,13 +225,11 @@ const Personal = () => {
                 </div>
               </div>
               
-            
-
               {/* Form Inputs */}
               <div className="sm:col-span-3">
                 <label
                   htmlFor="firstName"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   First name
                 </label>
@@ -249,7 +247,7 @@ const Personal = () => {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="lastName"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Last name
                 </label>
@@ -268,7 +266,7 @@ const Personal = () => {
               <div className="sm:col-span-4">
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Phone
                 </label>
@@ -286,7 +284,7 @@ const Personal = () => {
               <div className="sm:col-span-4">
                 <label
                   htmlFor="country"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Country
                 </label>
@@ -308,7 +306,7 @@ const Personal = () => {
               <div className="sm:col-span-4">
                 <label
                   htmlFor="streetAddress"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Street Address
                 </label>
@@ -325,7 +323,7 @@ const Personal = () => {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="city"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   City
                 </label>
@@ -342,7 +340,7 @@ const Personal = () => {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="region"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Region
                 </label>
@@ -359,7 +357,7 @@ const Personal = () => {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="postalCode"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Postal Code
                 </label>
@@ -385,7 +383,7 @@ const Personal = () => {
                   />
                   <label
                     htmlFor="notifications"
-                    className="text-sm font-medium leading-6 text-gray-900"
+                    className="text-sm font-medium leading-6 text-gray-900 dark:text-white"
                   >
                     Get notified when updates are available.
                   </label>

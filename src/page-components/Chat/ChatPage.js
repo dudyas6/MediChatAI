@@ -115,7 +115,7 @@ function ChatPage() {
   };
 
   return (
-    <SectionWrapper className="dark:bg-gray-800">
+    <SectionWrapper>
       <div className="flex overflow-hidden max-h-[calc(100vh-200px)] ">
         <ChatHistory
           handleChatHistoryClick={handleChatHistoryClick}
@@ -126,9 +126,9 @@ function ChatPage() {
           handleNewChat={handleNewChat}
           currentSession={currentSession}
         />
-        <div className="relative flex-col flex-1">
+        <div className="relative flex-col flex-1 ">
           <div className="p-4 text-gray-700 bg-white dark:bg-gray-700 dark:text-white">
-            <h1 className="text-2xl font-semibold ">{currentSession.name}</h1>
+            <h1 className="text-2xl font-semibold">{currentSession.name}</h1>
           </div>
           <ChatBox messages={messages} currentUserImage={currentUserImage} />
           <div className="absolute bottom-0 w-full p-4 bg-white border-t border-gray-300 dark:bg-gray-800">

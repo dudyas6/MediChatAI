@@ -33,21 +33,22 @@ const Medical = () => {
 
   useEffect(() => {
     if (currentUser) {
-      setFormData(
-        currentUser.medical || {
-          gender: '',
-          dateOfBirth: '',
-          height: '',
-          weight: '',
-          bloodType: '',
-          chronicConditions: [],
-          allergies: [],
-          lifestyleInfo: [],
-          pastMedicalConditions: [],
-          currentMedications: [],
-          additionalDetails: '',
-        }
-      );
+      setFormData((prev) => ({
+        ...prev,
+        gender: currentUser.medical?.gender || '',
+        dateOfBirth: currentUser.medical?.dateOfBirth
+          ? new Date(currentUser.medical.dateOfBirth).toISOString().split('T')[0]
+          : '',
+        height: currentUser.medical?.height || '',
+        weight: currentUser.medical?.weight || '',
+        bloodType: currentUser.medical?.bloodType || '',
+        chronicConditions: currentUser.medical?.chronicConditions || [],
+        allergies: currentUser.medical?.allergies || [],
+        lifestyleInfo: currentUser.medical?.lifestyleInfo || [],
+        pastMedicalConditions: currentUser.medical?.pastMedicalConditions || [],
+        currentMedications: currentUser.medical?.currentMedications || [],
+        additionalDetails: currentUser.medical?.additionalDetails || '',
+      }));
       setSelectedChronicConditions(
         currentUser.medical?.chronicConditions || []
       );
@@ -59,6 +60,7 @@ const Medical = () => {
       setSelectedLifestyle(currentUser.medical?.lifestyleInfo || []);
     }
   }, [currentUser]);
+  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -90,10 +92,10 @@ const Medical = () => {
       <div className=" space-y-12 w-full md:max-w-[60%] border p-4">
         <div className="space-y-6">
           <div>
-            <h3 className="text-xl font-medium text-gray-900">
+            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
               Medical Information
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-white">
               Please provide detailed medical history for better assistance.
             </p>
           </div>
@@ -102,7 +104,7 @@ const Medical = () => {
             <div>
               <label
                 htmlFor="gender"
-                className="block text-sm font-medium text-gray-900"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Gender
               </label>
@@ -123,7 +125,7 @@ const Medical = () => {
             <div>
               <label
                 htmlFor="dateOfBirth"
-                className="block text-sm font-medium text-gray-900"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Date of Birth
               </label>
@@ -140,7 +142,7 @@ const Medical = () => {
             <div className="sm:col-span-2">
               <label
                 htmlFor="height"
-                className="block text-sm font-medium text-gray-900"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Height (in cm)
               </label>
@@ -158,7 +160,7 @@ const Medical = () => {
             <div className="sm:col-span-2">
               <label
                 htmlFor="weight"
-                className="block text-sm font-medium text-gray-900"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Weight (in kg)
               </label>
@@ -176,7 +178,7 @@ const Medical = () => {
             <div className="sm:col-span-2">
               <label
                 htmlFor="bloodType"
-                className="block text-sm font-medium text-gray-900"
+                className="block text-sm font-medium text-gray-900 dark:text-white"
               >
                 Blood Type
               </label>
@@ -247,7 +249,7 @@ const Medical = () => {
           <div className="col-span-full">
             <label
               htmlFor="additionalDetails"
-              className="block text-sm font-medium leading-6 text-gray-900"
+              className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
             >
               Additional Details
             </label>

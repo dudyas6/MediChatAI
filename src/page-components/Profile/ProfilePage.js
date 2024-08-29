@@ -64,7 +64,7 @@ const ProfilePage = () => {
           <Sidebar className="flex-shrink-0" setSelectedComponent={setSelectedComponent} />
         )}
 
-        <div className="flex-grow flex flex-col dark:bg-gray-500 bg-white custom-shadow w-full min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto">
+        <div className="flex-grow flex flex-col dark:bg-gray-700 bg-white custom-shadow w-full min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto">
           {renderComponent()}
         </div>
       </div>
