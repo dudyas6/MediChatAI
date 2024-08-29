@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { generateRandomLoremIpsum } from '@/components/Shared/Utils';
 import { deleteUserFromDB } from '@/services/user.service';
+import { connectToDatabase } from '@/api-lib/mongodb';
 
 test.describe('Home Page', () => {
   // Navigate to the home page before each test in this describe block
@@ -207,6 +208,7 @@ test.describe('Authentication', () => {
   // Navigate to the home page before each test in this describe block
   test.beforeEach(async ({ page }) => {
     await page.goto('https://medichat-staging.vercel.app/login');
+    await connectToDatabase();
   });
 
   // Test for the Navbar section
@@ -271,20 +273,20 @@ test.describe('Authentication', () => {
   test('Invalid Register', async ({ page }) => {
     await page.getByRole('link', { name: 'Sign up' }).click();
     await page.getByPlaceholder('Enter username').click();
-    await page.getByPlaceholder('Enter username').fill('d');
-    await expect(page.getByPlaceholder('Enter username')).toHaveValue('d');
+    await page.getByPlaceholder('Enter username').fill('root');
+    await expect(page.getByPlaceholder('Enter username')).toHaveValue('root');
     await page.getByPlaceholder('Enter email address').click();
     await page.getByPlaceholder('Enter email address').fill('d@gmail.com');
     await expect(page.getByPlaceholder('Enter email address')).toHaveValue(
       'd@gmail.com'
     );
     await page.getByPlaceholder('Enter password').click();
-    await page.getByPlaceholder('Enter password').fill('d');
-    await expect(page.getByPlaceholder('Enter password')).toHaveValue('d');
+    await page.getByPlaceholder('Enter password').fill('root');
+    await expect(page.getByPlaceholder('Enter password')).toHaveValue('root');
     await page.getByPlaceholder('Enter confirm password').click();
-    await page.getByPlaceholder('Enter confirm password').fill('d');
+    await page.getByPlaceholder('Enter confirm password').fill('root');
     await expect(page.getByPlaceholder('Enter confirm password')).toHaveValue(
-      'd'
+      'root'
     );
     await page.getByRole('button', { name: 'Create an account' }).click();
     await page.getByText('Please accept terms and conditions!').waitFor();

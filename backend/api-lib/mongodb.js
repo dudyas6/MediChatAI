@@ -13,12 +13,13 @@ export async function connectToDatabase() {
     return cachedClient;
   }
 
-  const client = await mongoose.connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-
-  console.log('Connected to MongoDB');
-  cachedClient = client;
-  return client;
+  try {
+    const client = await mongoose.connect(MONGODB_URI);
+    console.log('Connected to MongoDB');
+    cachedClient = client;
+    return client;
+  } catch (error) {
+    console.error('Error connecting to MongoDB', error);
+    throw error;
+  }
 }
