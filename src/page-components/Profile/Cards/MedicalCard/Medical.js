@@ -33,21 +33,22 @@ const Medical = () => {
 
   useEffect(() => {
     if (currentUser) {
-      setFormData(
-        currentUser.medical || {
-          gender: '',
-          dateOfBirth: '',
-          height: '',
-          weight: '',
-          bloodType: '',
-          chronicConditions: [],
-          allergies: [],
-          lifestyleInfo: [],
-          pastMedicalConditions: [],
-          currentMedications: [],
-          additionalDetails: '',
-        }
-      );
+      setFormData((prev) => ({
+        ...prev,
+        gender: currentUser.medical?.gender || '',
+        dateOfBirth: currentUser.medical?.dateOfBirth
+          ? new Date(currentUser.medical.dateOfBirth).toISOString().split('T')[0]
+          : '',
+        height: currentUser.medical?.height || '',
+        weight: currentUser.medical?.weight || '',
+        bloodType: currentUser.medical?.bloodType || '',
+        chronicConditions: currentUser.medical?.chronicConditions || [],
+        allergies: currentUser.medical?.allergies || [],
+        lifestyleInfo: currentUser.medical?.lifestyleInfo || [],
+        pastMedicalConditions: currentUser.medical?.pastMedicalConditions || [],
+        currentMedications: currentUser.medical?.currentMedications || [],
+        additionalDetails: currentUser.medical?.additionalDetails || '',
+      }));
       setSelectedChronicConditions(
         currentUser.medical?.chronicConditions || []
       );
@@ -59,6 +60,7 @@ const Medical = () => {
       setSelectedLifestyle(currentUser.medical?.lifestyleInfo || []);
     }
   }, [currentUser]);
+  
 
   const handleChange = (event) => {
     const { name, value } = event.target;
