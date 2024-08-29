@@ -25,8 +25,9 @@ export default function ResetPasswordForm() {
       const parts = query.split("_");
       const token = parts[1];
       tokenVerification(token);
-
+      
     }
+    
 
    },[router.isReady, router.query]);
 

@@ -126,7 +126,7 @@ export const getUserImages = async (username) => {
 export const updateUserPassword = async (username, newPassword) => {
   try {
     const response = await fetch(
-      'http://localhost:3000/api/auth/change-password',
+      'https://medichat-staging.vercel.app/api/auth/change-password',
       {
         method: 'PATCH',
         headers: {
@@ -160,7 +160,7 @@ export const updateUserPassword = async (username, newPassword) => {
 export const checkResetToken = async (token) => {
   try {
     const response = await fetch(
-      'http://localhost:3000/api/auth/change-password',
+      'https://medichat-staging.vercel.app/api/auth/change-password',
       {
         method: 'POST',
         headers: {
