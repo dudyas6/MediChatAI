@@ -53,8 +53,8 @@ const ChatHistory = ({
   };
 
   return (
-    <div className="w-1/4 bg-white border-r border-gray-300">
-      <header className="flex items-center justify-between p-4 text-white bg-indigo-600 border-b border-gray-300">
+    <div className="w-1/4 bg-white border-r border-gray-300 dark:bg-gray-800">
+      <header className="flex items-center justify-between p-4 text-white bg-indigo-600 border-b border-gray-300 dark:bg-gray-700">
         <h1 className="text-2xl font-semibold">Chat History</h1>
         <div>
           <button onClick={handleNewChat}>New Chat</button>
@@ -62,7 +62,7 @@ const ChatHistory = ({
       </header>
       <div className="h-screen p-3 pb-20 overflow-y-auto mb-9">
         {guest ? (
-          <div className="text-center text-gray-500">
+          <div className="text-center text-gray-500 dark:text-white">
             To see history, please Login or Register
           </div>
         ) : (
@@ -70,7 +70,7 @@ const ChatHistory = ({
             [...chatHistory].reverse().map((history) => (
               <div
                 key={history.id}
-                className="flex items-center p-2 mb-4 rounded-md cursor-pointer hover:bg-gray-100"
+                className="flex items-center p-2 mb-4 rounded-md cursor-pointer dark:text-white hover:bg-gray-100"
                 onClick={() => handleChatClick(history.id)}
               >
                 <div className="w-12 h-12 mr-3 bg-gray-300 rounded-full">
@@ -81,8 +81,8 @@ const ChatHistory = ({
                   />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-lg font-semibold">{history.name}</h2>
-                  <p className="text-gray-600">
+                  <h2 className="text-lg font-semibold ">{history.name}</h2>
+                  <p className="text-gray-600 dark:text-gray-300">
                     {truncateToWords(history.messages[history.messages.length - 1]?.text, 12)}
                   </p>
                   {selectedChatId === history.id &&
@@ -100,7 +100,7 @@ const ChatHistory = ({
               </div>
             ))
           ) : (
-            <div className="text-center text-gray-500">
+            <div className="text-center text-gray-500 dark:text-white">
               No History. Start a new Chat
             </div>
           )

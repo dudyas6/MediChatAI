@@ -158,10 +158,10 @@ const Personal = () => {
       <form onSubmit={handleSubmit}>
         <div className="space-y-12  w-full md:max-w-[60%] border p-4">
           <div className="pb-12 border-b border-gray-900/10">
-            <h3 className="text-xl font-medium text-gray-900">
+            <h3 className="text-xl font-medium text-gray-900 dark:text-white">
               Personal Information
             </h3>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 dark:text-white">
               This information will be displayed publicly so be careful what you
               share.
             </p>
@@ -171,7 +171,7 @@ const Personal = () => {
               <div className="col-span-full">
                 <label
                   htmlFor="about"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   About
                 </label>
@@ -193,7 +193,7 @@ const Personal = () => {
               <div className="col-span-full">
                 <label
                   htmlFor="photo"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Profile Picture
                 </label>
@@ -224,60 +224,12 @@ const Personal = () => {
                   />
                 </div>
               </div>
-              <div className="col-span-full">
-                <label
-                  htmlFor="fileInputCover"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Cover Photo
-                </label>
-                <div className="flex flex-col items-center justify-center px-6 py-10 mt-2 border border-dashed rounded-lg border-gray-900/25">
-                  <div className="text-center">
-                    {selectedCover ? (
-                      <div
-                        className="relative bg-white border border-gray-300 rounded-md cursor-pointer"
-                        onClick={handleImageClick}
-                      >
-                        <Image
-                          src={selectedCover}
-                          alt="Cover Photo Preview"
-                          width={1980}
-                          height={1020}
-                          quality={100}
-                          className="border border-gray-300 rounded-md"
-                        />
-                      </div>
-                    ) : (
-                      <>
-                        <div className="flex mt-4 text-sm leading-6 text-gray-600">
-                          <label
-                            htmlFor="fileInputCover"
-                            className="relative font-semibold text-indigo-600 bg-white rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                          >
-                            <span>Upload a file</span>
-                          </label>
-                          <p className="pl-1 dark:text-white">
-                            or drag and drop
-                          </p>
-                        </div>
-                        <input
-                          id="fileInputCover"
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          onChange={handleCoverChange}
-                        />
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-
+              
               {/* Form Inputs */}
               <div className="sm:col-span-3">
                 <label
                   htmlFor="firstName"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   First name
                 </label>
@@ -295,7 +247,7 @@ const Personal = () => {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="lastName"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Last name
                 </label>
@@ -314,7 +266,7 @@ const Personal = () => {
               <div className="sm:col-span-4">
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Phone
                 </label>
@@ -332,7 +284,7 @@ const Personal = () => {
               <div className="sm:col-span-4">
                 <label
                   htmlFor="country"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Country
                 </label>
@@ -354,7 +306,7 @@ const Personal = () => {
               <div className="sm:col-span-4">
                 <label
                   htmlFor="streetAddress"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Street Address
                 </label>
@@ -371,7 +323,7 @@ const Personal = () => {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="city"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   City
                 </label>
@@ -388,7 +340,7 @@ const Personal = () => {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="region"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Region
                 </label>
@@ -405,7 +357,7 @@ const Personal = () => {
               <div className="sm:col-span-3">
                 <label
                   htmlFor="postalCode"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
                 >
                   Postal Code
                 </label>
@@ -431,7 +383,7 @@ const Personal = () => {
                   />
                   <label
                     htmlFor="notifications"
-                    className="text-sm font-medium leading-6 text-gray-900"
+                    className="text-sm font-medium leading-6 text-gray-900 dark:text-white"
                   >
                     Get notified when updates are available.
                   </label>

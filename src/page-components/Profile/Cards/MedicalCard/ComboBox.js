@@ -44,12 +44,12 @@ const ComboBox = ({ label, options, selectedOptions, setSelectedOptions }) => {
   };
 
   return (
-    <div className="relative font-[sans-serif] w-max" ref={comboBoxRef}>
-      <label className="block text-sm font-medium text-gray-900">{label}</label>
+    <div className="relative font-[sans-serif] w-max " ref={comboBoxRef}>
+      <label className="block text-sm font-medium text-gray-900 dark:text-white">{label}</label>
       <button
         type="button"
         id="dropdownToggle"
-        className="flex items-center justify-between px-5 py-1.5 xl:min-w-[300px] lg:min-w-[250px] mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm text-black font-semibold"
+        className="dark:text-white flex items-center justify-between px-5 py-1.5 xl:min-w-[300px] lg:min-w-[250px] mt-1 w-full rounded-md border border-gray-300 shadow-sm focus:border-black focus:ring-black sm:text-sm text-black font-semibold"
         onClick={() => setIsOpen(!isOpen)}
       >
         {renderSelectedOptions(selectedOptions) || 'Select options'}

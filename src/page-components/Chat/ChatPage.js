@@ -126,12 +126,12 @@ function ChatPage() {
           handleNewChat={handleNewChat}
           currentSession={currentSession}
         />
-        <div className="relative flex-col flex-1">
-          <div className="p-4 text-gray-700 bg-white">
+        <div className="relative flex-col flex-1 ">
+          <div className="p-4 text-gray-700 bg-white dark:bg-gray-700 dark:text-white">
             <h1 className="text-2xl font-semibold">{currentSession.name}</h1>
           </div>
           <ChatBox messages={messages} currentUserImage={currentUserImage} />
-          <div className="absolute bottom-0 w-full p-4 bg-white border-t border-gray-300">
+          <div className="absolute bottom-0 w-full p-4 bg-white border-t border-gray-300 dark:bg-gray-800">
             <div className="flex items-center">
               <input
                 type="text"

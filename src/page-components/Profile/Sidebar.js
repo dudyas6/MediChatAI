@@ -7,7 +7,7 @@ import SidebarListItem from './SidebarListItem';
 const Sidebar = ({ setSelectedComponent }) => {
   const { currentUser, logout } = useAuth();
   return (
-    <nav className="dark:bg-gray-500 bg-white custom-shadow min-h-[900px] top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto flex">
+    <nav className="dark:bg-gray-700 bg-white custom-shadow min-h-[900px] top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto flex">
       <div className="relative flex flex-col w-full min-h-full ">
         <div className="relative flex flex-wrap items-center justify-center mr-8 cursor-pointer ">
           <div className="pt-2">
@@ -21,19 +21,6 @@ const Sidebar = ({ setSelectedComponent }) => {
               {currentUser?.username}
             </p>
           </div>
-        </div>
-        <hr className="my-6" />
-        <div>
-          <h4 className="text-sm text-gray-400 dark:text-white dark:text-whitemb-4">
-            Personal
-          </h4>
-          <ul className="flex-1 px-2 space-y-4">
-            <SidebarListItem
-              name="Overview"
-              icon={icons.dashboard}
-              onClick={() => setSelectedComponent('Overview')}
-            />
-          </ul>
         </div>
         <hr className="my-6" />
         <div className="flex-1">
