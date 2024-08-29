@@ -7,7 +7,7 @@ import SidebarListItem from './SidebarListItem';
 const Sidebar = ({ setSelectedComponent }) => {
   const { currentUser, logout } = useAuth();
   return (
-    <nav className="dark:bg-gray-500 bg-white custom-shadow min-h-[900px] top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto flex">
+    <nav className="dark:bg-gray-700 bg-white custom-shadow min-h-[900px] top-0 left-0 min-w-[250px] py-6 px-4 font-[sans-serif] overflow-auto flex">
       <div className="relative flex flex-col w-full min-h-full ">
         <div className="relative flex flex-wrap items-center justify-center mr-8 cursor-pointer ">
           <div className="pt-2">
