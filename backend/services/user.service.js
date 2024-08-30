@@ -16,7 +16,7 @@ export const updateUserDetails = async (req, res) => {
 
       res.status(200).json(user);
     } else {
-      res.json('Internal error, please try again later.');
+      res.status(400).json('Internal error, please try again later.');
     }
   } catch (err) {
     res.status(500).json('Error: ' + err.message);
