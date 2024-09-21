@@ -1,39 +1,40 @@
-import React, { useState } from "react";
-import InputField from "@/components/UI/InputField";
-import Checkbox from "@/components/UI/CheckBox";
+import React, { useState } from 'react';
+import InputField from '@/components/UI/InputField';
+import Checkbox from '@/components/UI/CheckBox';
 import { useAuth } from '@/controllers/auth.controller';
-import medichatLogo from "@/assets/Logos/medichat.png";
+import medichatLogo from '@/assets/Logos/medichat.png';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
 
 function RegisterPage() {
   const { register } = useAuth();
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [termsValue, setTermsValue] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
+    useState(false);
   const router = useRouter();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (type === "checkbox") {
+    if (type === 'checkbox') {
       setTermsValue(checked);
     } else {
       switch (name) {
-        case "username":
+        case 'username':
           setUsername(value);
           break;
-        case "email":
+        case 'email':
           setEmail(value);
           break;
-        case "password":
+        case 'password':
           setPassword(value);
           break;
-        case "confirmPassword":
+        case 'confirmPassword':
           setConfirmPassword(value);
           break;
         default:
@@ -54,18 +55,23 @@ function RegisterPage() {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      toast.error("Passwords do not match!");
+      toast.error('Passwords do not match!');
       return;
     }
 
     if (!termsValue) {
-      toast.error("Please accept terms and conditions!");
+      toast.error('Please accept terms and conditions!');
       return;
     }
 
-    const { success, message: error_msg } = await register(username, email, password);
+    const { success, message: error_msg } = await register(
+      username,
+      email,
+      password
+    );
 
     if (success) {
+      console.log(error_msg);
       toast.success(error_msg);
       setTimeout(() => {
         router.push('/login');
@@ -76,7 +82,7 @@ function RegisterPage() {
   };
 
   return (
-    <section className='min-h-screen dark:bg-gray-800'>
+    <section className="min-h-screen dark:bg-gray-800">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-24">
         <div className="w-full bg-white rounded-lg shadow dark:border sm:max-w-md">
           <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -131,7 +137,7 @@ function RegisterPage() {
                 <Checkbox
                   label={
                     <>
-                      I accept the{" "}
+                      I accept the{' '}
                       <a
                         href="/"
                         className="ml-1 font-semibold text-blue-600 hover:underline"
@@ -154,7 +160,7 @@ function RegisterPage() {
               </div>
             </form>
             <p className="mt-6 text-sm text-center">
-              Already have an account?{" "}
+              Already have an account?{' '}
               <a
                 href="/login"
                 className="ml-1 font-semibold text-blue-600 hover:underline"

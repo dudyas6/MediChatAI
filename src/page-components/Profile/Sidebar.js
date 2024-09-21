@@ -25,7 +25,6 @@ const Sidebar = ({ setSelectedComponent }) => {
         <hr className="my-6" />
         <div className="flex-1">
           <h4 className="mb-4 text-sm text-gray-400 dark:text-white">
-            Settings
           </h4>
           <ul className="flex-1 px-2 space-y-4">
             <SidebarListItem

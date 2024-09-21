@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { generateRandomLoremIpsum } from '@/components/Shared/Utils';
+import { deleteUserFromDB } from '@/services/user.service';
+import { connectToDatabase } from '@/api-lib/mongodb';
 
 test.describe('Home Page', () => {
   // Navigate to the home page before each test in this describe block
@@ -206,11 +208,11 @@ test.describe('Authentication', () => {
   // Navigate to the home page before each test in this describe block
   test.beforeEach(async ({ page }) => {
     await page.goto('https://medichat-staging.vercel.app/login');
+    await connectToDatabase();
   });
 
   // Test for the Navbar section
-  test('Login', async ({ page }) => {
-    //Invalid
+  test('Invalid Login', async ({ page }) => {
     await page.getByPlaceholder('Enter username').click();
     await page.getByPlaceholder('Enter username').fill('root');
     await page.getByPlaceholder('Enter password').click();
@@ -218,13 +220,16 @@ test.describe('Authentication', () => {
     await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
     await expect(page.locator('form')).toContainText('Login');
     await page.getByRole('button', { name: 'Login' }).click();
-    await expect(page.locator('form')).toContainText('Loading');
-    await expect(page.locator('form')).not.toContainText('Loading', { timeout: 10000 });
+    await expect(page.locator('form')).toContainText('Loading', {
+      timeout: 10000,
+    });
+    await page.getByRole('button', { name: 'Login' }).waitFor();
     await expect(page.locator('form')).toContainText(
       'Invalid username or password, please try again.'
     );
+  });
 
-    //Valid
+  test('Valid Login', async ({ page }) => {
     await page.getByPlaceholder('Enter username').click();
     await page.getByPlaceholder('Enter username').fill('d');
     await page.getByPlaceholder('Enter password').click();
@@ -234,9 +239,62 @@ test.describe('Authentication', () => {
     await expect(page.locator('form')).toContainText('Loading');
     await expect(page.locator('form')).not.toContainText('Loading');
     await page.getByText('Login successful, moving to homepage').waitFor();
-    await expect(page.locator('form')).toContainText(
-      'Login successful, moving to homepage'
-    );
+    await expect(page.getByText('Login successful, moving to')).toBeVisible();
     await expect(page).toHaveURL('https://medichat-staging.vercel.app/');
+  });
+
+  test('Valid Register', async ({ page }) => {
+    await deleteUserFromDB('rand');
+    await page.getByRole('link', { name: 'Sign up' }).click();
+    await page.getByPlaceholder('Enter username').click();
+    await page.getByPlaceholder('Enter username').fill('rand');
+    await expect(page.getByPlaceholder('Enter username')).toHaveValue('rand');
+    await page.getByPlaceholder('Enter email address').click();
+    await page.getByPlaceholder('Enter email address').fill('rand@gmail.com');
+    await expect(page.getByPlaceholder('Enter email address')).toHaveValue(
+      'rand@gmail.com'
+    );
+    await page.getByPlaceholder('Enter password').click();
+    await page.getByPlaceholder('Enter password').fill('rand');
+    await expect(page.getByPlaceholder('Enter password')).toHaveValue('rand');
+    await page.getByPlaceholder('Enter confirm password').click();
+    await page.getByPlaceholder('Enter confirm password').fill('rand');
+    await expect(page.getByPlaceholder('Enter confirm password')).toHaveValue(
+      'rand'
+    );
+    await page.getByRole('checkbox').check();
+    await expect(page.getByRole('checkbox')).toBeChecked();
+    await page.getByRole('button', { name: 'Create an account' }).click();
+    await page.getByText('Account created successfully!').waitFor();
+    await expect(page.getByText('Account created successfully!')).toBeVisible();
+    await deleteUserFromDB('rand');
+  });
+
+  test('Invalid Register', async ({ page }) => {
+    await page.getByRole('link', { name: 'Sign up' }).click();
+    await page.getByPlaceholder('Enter username').click();
+    await page.getByPlaceholder('Enter username').fill('root');
+    await expect(page.getByPlaceholder('Enter username')).toHaveValue('root');
+    await page.getByPlaceholder('Enter email address').click();
+    await page.getByPlaceholder('Enter email address').fill('d@gmail.com');
+    await expect(page.getByPlaceholder('Enter email address')).toHaveValue(
+      'd@gmail.com'
+    );
+    await page.getByPlaceholder('Enter password').click();
+    await page.getByPlaceholder('Enter password').fill('root');
+    await expect(page.getByPlaceholder('Enter password')).toHaveValue('root');
+    await page.getByPlaceholder('Enter confirm password').click();
+    await page.getByPlaceholder('Enter confirm password').fill('root');
+    await expect(page.getByPlaceholder('Enter confirm password')).toHaveValue(
+      'root'
+    );
+    await page.getByRole('button', { name: 'Create an account' }).click();
+    await page.getByText('Please accept terms and conditions!').waitFor();
+    await expect(page.getByText('Please accept terms and conditions!')).toBeVisible();
+    await page.getByRole('checkbox').check();
+    await expect(page.getByRole('checkbox')).toBeChecked();
+    await page.getByRole('button', { name: 'Create an account' }).click();
+    await page.getByText('Username already exists').waitFor();
+    await expect(page.getByText('Username already exists')).toBeVisible();
   });
 });

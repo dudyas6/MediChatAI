@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/controllers/auth.controller';
 import { useRouter } from 'next/router';
 import Sidebar from './Sidebar';
-import Overview from './Cards/Overview';
 import Personal from './Cards/PersonalCard/Personal';
 import Medical from './Cards/MedicalCard/Medical';
 import Loading from '@/components/UI/Loading';

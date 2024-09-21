@@ -28,7 +28,7 @@ export const sendResetPasswordEmail = async (req, res) => {
   const token = jwt.sign({ username: username }, jwtSecret, {
     expiresIn: '1h',
   });
-  const resetURL = `http://localhost:3000/reset-password/${username}_${token}`;
+  const resetURL = `https://medichat-staging.vercel.app/reset-password/${username}_${token}`;
 
   let text = `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
   Please click on the following link, or paste this into your browser to complete the process:\n\n

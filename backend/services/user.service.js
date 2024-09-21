@@ -16,7 +16,7 @@ export const updateUserDetails = async (req, res) => {
 
       res.status(200).json(user);
     } else {
-      res.json('Internal error, please try again later.');
+      res.status(400).json('Internal error, please try again later.');
     }
   } catch (err) {
     res.status(500).json('Error: ' + err.message);
@@ -45,8 +45,7 @@ export const findUserInDB = async (req, res) => {
   try {
     await connectToDatabase();
     const user = await User.findOne({ username: username });
-    if(user==null)
-      res.status(400).json({ error: err.message });
+    if (user == null) res.status(400).json({ error: err.message });
     res.status(200).json(user);
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -66,20 +65,32 @@ export const updateUserPassword = async (req, res) => {
     user.password = newPassword;
     await user.save();
     res.status(200).json({ message: 'Password updated successfully' });
-
   } catch (err) {
     res.status(500).json({ error: 'Error: ' + err.message });
   }
 };
 
-export const verifyResetToken = (req,res) =>{
+export const verifyResetToken = (req, res) => {
   const token = req.body.token;
-  try{
+  try {
     jwt.verify(token, jwtSecret);
+  } catch (error) {
+    //invalid sign
+    res.status(500).json(error);
   }
-  catch(error){//invalid sign
-   res.status(500).json(error);
+};
+
+export const deleteUserFromDB = async (username) => {
+  try {
+    await connectToDatabase();
+    const user = await User.findOne({ username: username });
+    if (user) {
+      await user.deleteOne();
+      return "User deleted successfully";
+    } else {
+      return "Error: User not found";
+    }
+  } catch (err) {
+    return err
   }
-}
-
-
+};
