@@ -61,3 +61,15 @@ export const sendResetPasswordEmail = async (req, res) => {
       .json({ error: 'Error sending email', details: error.message });
   }
 };
+
+export const deleteContactFromDB = async (req, res) => {
+  try {
+    await connectToDatabase();
+    const existingContact = await ContactReport.findOne("randommessage");
+    if (existingContact) {
+      await existingContact.deleteOne();
+    }
+  } catch (err) {
+    return err;
+  }
+};
