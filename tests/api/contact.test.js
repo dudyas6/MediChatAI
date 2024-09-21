@@ -41,18 +41,18 @@ test.describe('Add contact to DB', () => {
         }),
       });
       // //send again
-      // response = await request.post(`${BASEURL}/contact/`, {
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   data: JSON.stringify({
-      //     name: 'randomuser',
-      //     email: 'randomemail',
-      //     message: 'randommessage',
-      //   }),
-      // });
+      const response2 = await request.post(`${BASEURL}/contact/`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: JSON.stringify({
+          name: 'randomuser',
+          email: 'randomemail',
+          message: 'randommessage',
+        }),
+      });
       // Check if the response status is 400
-      expect(response.status()).toBe(400);
+      expect(response2.status()).toBe(400);
   
       // Parse the response body as JSON
       const responseBody = await response.json();

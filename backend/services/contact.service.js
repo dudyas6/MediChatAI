@@ -63,9 +63,11 @@ export const sendResetPasswordEmail = async (req, res) => {
 };
 
 export const deleteContactFromDB = async (req, res) => {
+  const message = "randommessage";
   try {
     await connectToDatabase();
-    const existingContact = await ContactReport.findOne("randommessage");
+    const existingContact = await ContactReport.findOne({message});
+    console.log(existingContact)
     if (existingContact) {
       await existingContact.deleteOne();
     }
